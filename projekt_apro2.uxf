@@ -5,8 +5,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
-      <y>190</y>
+      <x>1060</x>
+      <y>0</y>
       <w>110</w>
       <h>30</h>
     </coordinates>
@@ -16,8 +16,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
-      <y>120</y>
+      <x>940</x>
+      <y>0</y>
       <w>110</w>
       <h>30</h>
     </coordinates>
@@ -28,8 +28,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
-      <y>250</y>
+      <x>780</x>
+      <y>0</y>
       <w>140</w>
       <h>30</h>
     </coordinates>
@@ -39,8 +39,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
-      <y>60</y>
+      <x>500</x>
+      <y>0</y>
       <w>120</w>
       <h>30</h>
     </coordinates>
@@ -51,7 +51,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
+      <x>640</x>
       <y>0</y>
       <w>120</w>
       <h>30</h>
@@ -63,8 +63,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>70</x>
-      <y>80</y>
+      <x>110</x>
+      <y>220</y>
       <w>210</w>
       <h>240</h>
     </coordinates>
@@ -88,8 +88,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>810</y>
+      <x>560</x>
+      <y>740</y>
       <w>240</w>
       <h>290</h>
     </coordinates>
@@ -119,8 +119,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>530</y>
+      <x>970</x>
+      <y>440</y>
       <w>210</w>
       <h>250</h>
     </coordinates>
@@ -146,67 +146,78 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>370</y>
+      <x>530</x>
+      <y>90</y>
       <w>300</w>
-      <h>370</h>
+      <h>560</h>
     </coordinates>
     <panel_attributes>Group
 --
 - id: String
 - personLimit: int
-- numOfPeople: int
+- numOfPerson: int
 - groupType: String
 - name: String
 - description: String
 - password: String
-- personList: Person
-- expenseList: Expense
+- personList: List[Person]
+- expenseList: Listy[Expense]
 - simplify: boolean
 - split: Split
 --
-+getNumOfPeople(): int
-+getGroupType(): String
-+setGroupType(String)
-+addPerson(Person)
-+addExpense(Expense)
-+getPerson(): Person
-+personExists(int): boolean
-+setPersonLimit(int)
-+getPersonLimit(): int
++ getID(): int
++ setPersonLimit(int)
++ getPersonLimit(): int
++ getNumOfPeople(): int
++ getGroupType(): String
++ setGroupType(String)
++ getName(): String
++ setName(String)
++ getDescription(): String
++ setDescriptiont(String)
++ getPassword(): String
++ setPassword(String)
++ getPersonList(): List[Person]
++ addPerson(Person)
++ addExpense(Expense)
++ getExpenseList(): List[Expense]
++ personExists(int): boolean
++ setSimplify(boolean)
++ isSimplifyOn(): boolean
 +removePerson(int)
--removeExpense(int)</panel_attributes>
++removeExpense(int)
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>640</y>
-      <w>180</w>
+      <x>820</x>
+      <y>550</y>
+      <w>170</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m2=0..n</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>680</x>
-      <y>730</y>
+      <x>670</x>
+      <y>640</y>
       <w>50</w>
-      <h>100</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m2=0..n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>240</y>
+      <x>970</x>
+      <y>90</y>
       <w>210</w>
       <h>190</h>
     </coordinates>
@@ -228,20 +239,20 @@ m2=0..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>420</y>
+      <x>1050</x>
+      <y>270</y>
       <w>50</w>
-      <h>130</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m2=0..n</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>970</x>
-      <y>820</y>
+      <x>940</x>
+      <y>750</y>
       <w>260</w>
       <h>170</h>
     </coordinates>
