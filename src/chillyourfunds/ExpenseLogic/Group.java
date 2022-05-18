@@ -37,7 +37,7 @@ public class Group {
         return true;
     }
 
-    public Object getPerson(){
-        return people.get(0);
+    public Object getPerson(int index){
+        return people.get(index);
     }
 }
