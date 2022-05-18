@@ -1,4 +1,4 @@
-package ExpenseLogic;
+package chillyourfunds.ExpenseLogic;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ExpenseLogic;
+package chillyourfunds.ExpenseLogic;
 
 public class UserAccount {
     String id,name,email,phone;
