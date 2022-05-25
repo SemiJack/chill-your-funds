@@ -93,7 +93,7 @@
       <w>240</w>
       <h>290</h>
     </coordinates>
-    <panel_attributes>Person
+    <panel_attributes>ExpenseLogic.Person
 --
 - id: int
 - name: String
@@ -127,15 +127,15 @@
     <panel_attributes>Expense
 --
 - currency: String
-- theOneWhoPays: Person
+- theOneWhoPays: ExpenseLogic.Person
 - amount: double
 - noOfPeople: int
-- personsInExpense: List&lt;Person&gt;
+- personsInExpense: List&lt;ExpenseLogic.Person&gt;
 - debtList: List[Debt]
 --
 + getCurrency;
 + setCurrency(String)
-+ setPaidByPerson(Person)
++ setPaidByPerson(ExpenseLogic.Person)
 + getAmount:double
 + setAmount(double)
 + getNoOfPeople()
@@ -159,7 +159,7 @@
 - name: String
 - description: String
 - password: String
-- personList: List[Person]
+- personList: List[ExpenseLogic.Person]
 - expenseList: Listy[Expense]
 - simplify: boolean
 - split: Split
@@ -176,8 +176,8 @@
 + setDescriptiont(String)
 + getPassword(): String
 + setPassword(String)
-+ getPersonList(): List[Person]
-+ addPerson(Person)
++ getPersonList(): List[ExpenseLogic.Person]
++ addPerson(ExpenseLogic.Person)
 + addExpense(Expense)
 + getExpenseList(): List[Expense]
 + personExists(int): boolean
@@ -222,8 +222,8 @@ m2=0..n</panel_attributes>
     </coordinates>
     <panel_attributes>Debt
 --
--borrower: Person
--lender: Person
+-borrower: ExpenseLogic.Person
+-lender: ExpenseLogic.Person
 -double: amount
 --
 +setBorrower
@@ -258,12 +258,12 @@ m2=0..n</panel_attributes>
     <panel_attributes>static Split
 --
 - amounts: List[double]
-- personList: List[Person]
+- personList: List[ExpenseLogic.Person]
 - splitType: String
 --
-+ percentSplit(List[double],List[Person])
-+ sharesSplit(List[int],List[Person])
-+ exactSplit(List[double],List[Person])
++ percentSplit(List[double],List[ExpenseLogic.Person])
++ sharesSplit(List[int],List[ExpenseLogic.Person])
++ exactSplit(List[double],List[ExpenseLogic.Person])
 + equalsSplit()</panel_attributes>
     <additional_attributes/>
   </element>

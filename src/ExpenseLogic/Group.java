@@ -18,7 +18,7 @@ public class Group{
 //    }
 
 //    void realizeExpense(){
-//        Person p1,p2,p3;
+//        ExpenseLogic.Person p1,p2,p3;
 //    }
 
 

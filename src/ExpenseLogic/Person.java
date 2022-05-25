@@ -1,6 +1,5 @@
-package chillyourfunds.ExpenseLogic;
+package ExpenseLogic;
 
-import java.awt.*;
 
 public class Person{
     int id;
