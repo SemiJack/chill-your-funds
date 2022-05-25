@@ -3,41 +3,23 @@ package ExpenseLogic;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
-    String id,groupType,name,description,password;
-    int numberOfPeople;
-    boolean simplify;
-
-    List expenses=new ArrayList<Expense>();
-    List people=new ArrayList<Person>();
-
-    public int getNumberOfPeople() {
-        return numberOfPeople;
+public class Group{
+    List<Person> people=new ArrayList<>();
+    List<Expense> expenses=new ArrayList<>();
+    void addPerson(Person person){
+        people.add(person);
+    }
+    void removePerson(Person person){
+        people.remove(person);
     }
 
-    public String getGroupType() {
-        return groupType;
-    }
+//    void addExpense(Expense expense){
+//        expenses.add(expense);
+//    }
 
-    public void setGroupType(String groupType) {
-        this.groupType = groupType;
-    }
+//    void realizeExpense(){
+//        Person p1,p2,p3;
+//    }
 
-    public void addPerson(){
 
-    }
-    public void removePerson(Person person){
-
-    }
-    public void addExpense(Expense expense){
-
-    }
-
-    boolean personExists(Person person){
-        return true;
-    }
-
-    public Object getPerson(){
-        return people.get(0);
-    }
 }

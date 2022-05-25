@@ -1,29 +1,26 @@
 package ExpenseLogic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Expense {
-    String currency;
-    Split splitType;
-    double amount;
-    int numberOfPeople;
-    List<String> peopleInExpense;
-    List<Debt> debtList;
-    Person theOneWhoPays;
+    int amount;
+    Group group;
+    Person payer;
+    boolean isPaid=false;
+    boolean isPayerADebtor;
+    List<Person> debtors=new ArrayList<>();
 
-    public Person getPaidBy(){
-        return theOneWhoPays;
+    public Expense(int amount, Group group, Person payer,List<Person> debtors) {
+        this.amount = amount;
+        this.group = group;
+        this.payer = payer;
+        this.debtors=debtors;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
+    void addExpense(Expense expense){
 
-    public double getAmount() {
-        return amount;
     }
-
-    public int getNumberOfPeople() {
-        return numberOfPeople;
-    }
+    //    boolean ifSimplify;
+//    String typeOfSplit;
 }

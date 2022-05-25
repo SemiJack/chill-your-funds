@@ -1,49 +1,23 @@
 package ExpenseLogic;
 
-import java.util.List;
+import java.awt.*;
 
-public class Person {
+public class Person{
     int id;
-    String name, user,type;
-    List<Debt> balance;
+    public String email;
+    int balance;
+    String name;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Person(int id, String email, String name) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+        this.email = email;
         this.name = name;
     }
-
-    public String getUser() {
-        return user;
+    void addToBalance(int x){
+        balance+=x;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public List<Debt> getBalance() {
-        return balance;
-    }
-
-    public void setBalance(List<Debt> balance) {
-        this.balance = balance;
+    void subtractFromBalance(int x){
+        balance-=x;
     }
 }
