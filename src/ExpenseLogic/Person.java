@@ -19,4 +19,14 @@ public class Person{
     void subtractFromBalance(int x){
         balance-=x;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", balance=" + balance +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
