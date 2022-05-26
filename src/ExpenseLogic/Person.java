@@ -21,6 +21,37 @@ public class Person{
         balance+=x;
     }
 
+    void payADebt(Person payer, int amount) {
+        int debt = 0;
+        for(int i = 0; i < mapOfExpenses.size(); i++) {
+            if(mapOfExpenses.containsKey(payer)) {
+                debt = mapOfExpenses.get(payer);
+                if(debt - amount > 0) {
+                    mapOfExpenses.put(payer,debt - amount);
+                    removeFromAList(payer);
+                } else {
+                    System.out.println("Nie można zapłacić więcej niż wynosi twój dług");
+                }
+            } else {
+                System.out.println("Nie ma takiego dłużnika");
+                break;
+            }
+        }
+    }
+
+    void removeFromAList(Person payer) {
+        if(mapOfExpenses.containsValue(0))
+        mapOfExpenses.remove(payer, 0);
+    }
+
+    void showMyPayers() {
+        if(mapOfExpenses.isEmpty()){
+            System.out.println("Pusta lista, brak długów");
+        } else {
+            System.out.println(mapOfExpenses);
+        }
+    }
+
     void subtractFromBalance(int x){
         balance-=x;
     }
