@@ -24,6 +24,12 @@ public class PercentExpense extends Expense{
                     counter += percent;
                 } else{
                     debtors.get(i).addToBalance(mapOfPercents.get(debtors.get(i))*amount/100);
+                    if(debtors.get(i).mapOfExpenses.containsKey(payer)){
+                        debtors.get(i).mapOfExpenses.put(payer,debtors.get(i).mapOfExpenses.get(payer)+mapOfPercents.get(debtors.get(i))*amount/100);
+                    }else{
+                        debtors.get(i).mapOfExpenses.putIfAbsent(payer,mapOfPercents.get(debtors.get(i))*amount/100);
+                    }
+
                     counter += percent;
                 }
             }
@@ -33,6 +39,12 @@ public class PercentExpense extends Expense{
                 percent = scanner.nextInt();
                 mapOfPercents.put(debtors.get(i), percent);
                 debtors.get(i).addToBalance(mapOfPercents.get(debtors.get(i))*amount/100);
+                if(debtors.get(i).mapOfExpenses.containsKey(payer)){
+                    debtors.get(i).mapOfExpenses.put(payer,debtors.get(i).mapOfExpenses.get(payer)+mapOfPercents.get(debtors.get(i))*amount/100);
+                }else{
+                    debtors.get(i).mapOfExpenses.putIfAbsent(payer,mapOfPercents.get(debtors.get(i))*amount/100);
+                }
+
                 counter += percent;
             }
         }

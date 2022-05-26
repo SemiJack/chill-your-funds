@@ -1,7 +1,7 @@
 package ExpenseLogic;
 
 import java.util.List;
-
+//póki co niepotrzebna klasa
 public class Service {
     void split(Expense expense){
         int amountPerPerson= expense.amount/(expense.debtors.size());

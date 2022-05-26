@@ -24,6 +24,12 @@ public class ExactExpense extends Expense{
                     counter += part;
                 } else{
                     debtors.get(i).addToBalance(mapOfAmounts.get(debtors.get(i)));
+                    if(debtors.get(i).mapOfExpenses.containsKey(payer)){
+                        debtors.get(i).mapOfExpenses.put(payer,debtors.get(i).mapOfExpenses.get(payer)+part);
+                    }else{
+                        debtors.get(i).mapOfExpenses.putIfAbsent(payer,part);
+                    }
+
                     counter += part;
                 }
             }
@@ -33,6 +39,11 @@ public class ExactExpense extends Expense{
                 part = scanner.nextInt();
                 mapOfAmounts.put(debtors.get(i), part);
                 debtors.get(i).addToBalance(mapOfAmounts.get(debtors.get(i)));
+                if(debtors.get(i).mapOfExpenses.containsKey(payer)){
+                    debtors.get(i).mapOfExpenses.put(payer,debtors.get(i).mapOfExpenses.get(payer)+part);
+                }else{
+                    debtors.get(i).mapOfExpenses.putIfAbsent(payer,part);
+                }
                 counter += part;
             }
         }

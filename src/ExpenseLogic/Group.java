@@ -38,17 +38,4 @@ public class Group{
         }
         return p;
     }
-
-
-
-
-    //    void addExpense(Expense expense){
-//        expenses.add(expense);
-//    }
-
-//    void realizeExpense(){
-//        ExpenseLogic.Person p1,p2,p3;
-//    }
-
-
 }

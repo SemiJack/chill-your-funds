@@ -35,19 +35,24 @@ public class Main {
         e3.equalSplit();
 
 
-        ExactExpense e5 = new ExactExpense(100, group,person1);
+        ExactExpense e5 = new ExactExpense(100, group,person4);
         e5.addDebtor(2);
         e5.addDebtor(3);
         e5.exactSplit();
         e5.createExpense(e5);
 
-        PercentExpense e6 = new PercentExpense(200,group,person1);
-        e6.addDebtor(3);
+        PercentExpense e6 = new PercentExpense(200,group,person4);
+        e6.addDebtor(1);
         e6.addDebtor(2);
+        e6.addDebtor(3);
         e6.percentSplit();
         e6.createExpense(e6);
-        System.out.println(person1.balance);
-        System.out.println(person2.balance);
-        System.out.println(person3.balance);
+        System.out.println("Stan konta "+person1.name+" wynosi "+person1.balance+"$");
+        System.out.println("Stan konta "+person2.name+" wynosi "+person2.balance+"$");
+        System.out.println("Stan konta "+person3.name+" wynosi "+person3.balance+"$");
+        System.out.println("Stan konta "+person4.name+" wynosi "+person4.balance+"$");
+        System.out.println();
+        System.out.println(person2.name+" jest winien "+person1.name+" "+person2.mapOfExpenses.get(person1)+"$");
+        System.out.println(person2.name+" jest winien "+person4.name+" "+person2.mapOfExpenses.get(person4)+"$");
     }
 }

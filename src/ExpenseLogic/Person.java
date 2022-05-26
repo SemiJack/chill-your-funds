@@ -1,11 +1,16 @@
 package ExpenseLogic;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Person{
     int id;
     public String email;
     int balance;
     String name;
+
+    Map<Person,Integer> mapOfExpenses=new HashMap<>();
 
     public Person(int id, String email, String name) {
         this.id = id;
