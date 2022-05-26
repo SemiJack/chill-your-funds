@@ -48,14 +48,17 @@ public class Person{
         if(mapOfExpenses.isEmpty()){
             System.out.println("Pusta lista, brak długów");
         } else {
-            System.out.println(mapOfExpenses);
+            System.out.println("Lista długów osoby: "+name);
+            for (Person person : mapOfExpenses.keySet()) {
+                System.out.println(person.name + ": " + mapOfExpenses.get(person)+"$");
+            }
+//            System.out.println(mapOfExpenses);
         }
     }
 
     void subtractFromBalance(int x){
         balance-=x;
     }
-
     @Override
     public String toString() {
         return "Person{" +
