@@ -1,4 +1,4 @@
-package ExpenseLogic;
+package chillyourfunds.logic;
 
 public class EqualExpense extends Expense{
     public EqualExpense(int amount, Group group, Person payer) {

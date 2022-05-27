@@ -1,4 +1,4 @@
-package ExpenseLogic;
+package chillyourfunds.logic;
 
 import java.util.List;
 //póki co niepotrzebna klasa
