@@ -20,7 +20,7 @@ public class Expense {
         debtors.add(group.getPersonById(id));
     }
 
-    void createExpense(Expense e) {
+    public void createExpense(Expense e) {
         group.expenses.add(e);
     }
 

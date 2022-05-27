@@ -1,6 +1,8 @@
 package chillyourfunds.server;
 
+import chillyourfunds.logic.*;
 import com.sun.javafx.font.coretext.CTFactory;
+import javafx.scene.Scene;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,15 +15,23 @@ public class CYFService implements Runnable {
 
     private int id;
 
+    private int color;
     private final CYFServer server;
     private Socket clientSocket;
+
+    private User user;
+
+    private Group currGroup;
 
     private BufferedReader input;
     private PrintWriter output;
 
+    private CYFData database;
+
     public CYFService(Socket clientSocket, CYFServer server) {
         this.server = server;
         this.clientSocket = clientSocket;
+        //this.database =
     }
 
     void init() throws IOException {
@@ -47,33 +57,62 @@ public class CYFService implements Runnable {
     // określić kiedy je będzie przesyłał
     // określić syntax protokołu
     //
+    //user odbiera:
+    // historię rozliczeń dla danej osoby
+    // kto ma jaki balance
+    // kto mu ile wisi
+    // kto komu ile wisi??
 
     public void run() {
         while (true) {
             String protocolSentence = receive();
             StringTokenizer st = new StringTokenizer(protocolSentence);
-            CYFProtocol command = CYFProtocol.DRAW.valueOf(st.nextToken());
+            CYFProtocol command = CYFProtocol.valueOf(st.nextToken()); // w srodku bylo jeszcze .Draw.
             switch (command) {
                 case LOGIN:
-                    send(IBProtocol.LOGGEDIN + " " + (id = server.nextID()) + " "
+                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " "
                             + (color = server.currentColor()) + " "
                             + server.boardWidth() + " " + server.boardHeight());
                     break;
-                case MOUSEPRESSED:
-                    lastMouseX = Integer.parseInt(st.nextToken());
-                    lastMouseY = Integer.parseInt(st.nextToken());
+                case CHOOSEGROUP:
+                    currGroup = server.database.database.get(Integer.parseInt(st.nextToken()));
                     break;
-                case MOUSEDRAGGED:
-                case MOUSERELEASED:
-                    int currentMouseX = Integer.parseInt(st.nextToken());
-                    int currentMouseY = Integer.parseInt(st.nextToken());
-                    server.send(IBProtocol.DRAW + " " + color + " " + lastMouseX + " " + lastMouseY
-                            + " " + currentMouseX + " " + currentMouseY, this);
-                    lastMouseX = currentMouseX;
-                    lastMouseY = currentMouseY;
+                case HISTORY:
+                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
                     break;
+                case ADDEXPENSE:
+                    Expense expense;
+                    String expenseType = st.nextToken();
+                    Integer amount = Integer.parseInt(st.nextToken());
+                    switch (expenseType){
+                        case "percent":
+                            expense = new PercentExpense(amount,currGroup,currGroup.getPersonById(user.getUUID()));
+                            break;
+                        case "exact":
+                            expense = new ExactExpense(amount,currGroup,currGroup.getPersonById(user.getUUID()));
+                            break;
+                        default:
+                            expense = new EqualExpense(amount,currGroup,currGroup.getPersonById(user.getUUID()));
+                            break;
+                    }
+                    expense.createExpense(expense);
+                    // wybieramy rodzaj
+                    // tworzymy obiekt
+                    // dodajemy osoby
+                    // createExpense -> zapisuje w Grupie
+                    break;
+
+
+//                case MOUSERELEASED:
+//                    int currentMouseX = Integer.parseInt(st.nextToken());
+//                    int currentMouseY = Integer.parseInt(st.nextToken());
+//                    server.send(CYFProtocol.DRAW + " " + color + " " + lastMouseX + " " + lastMouseY
+//                            + " " + currentMouseX + " " + currentMouseY, this);
+//                    lastMouseX = currentMouseX;
+//                    lastMouseY = currentMouseY;
+//                    break;
                 case LOGOUT:
-                    send(IBProtocol.LOGGEDOUT.name()); // no break!
+                    send(CYFProtocol.LOGGEDOUT.name()); // no break!
                 case STOPPED:
                     server.removeClientService(this); // no break!
                 case NULLCOMMAND:
@@ -91,7 +130,7 @@ public class CYFService implements Runnable {
             return input.readLine();
         } catch (IOException ioe) {
             System.err.println("Error reading client (" + id + "), " + ioe);
-            return IBProtocol.NULLCOMMAND.name();
+            return CYFProtocol.NULLCOMMAND.name();
         }
     }
 }

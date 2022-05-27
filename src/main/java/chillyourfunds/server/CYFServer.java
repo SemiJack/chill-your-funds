@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class CYFServer extends Frame implements Runnable {
     private ServerSocket serverSocket;
 
+    protected CYFData database;
+
     private final List<CYFService> clients = new ArrayList<>();
 
     private final Properties props;
@@ -70,32 +72,33 @@ public class CYFServer extends Frame implements Runnable {
     }
 
     synchronized void createAndStartClientService(Socket clientSocket) throws IOException {
-        IBService clientService = new IBService(clientSocket, this);
+        CYFService clientService = new CYFService(clientSocket, this);
         clientService.init();
         new Thread(clientService).start();
         clients.add(clientService);
         System.out.println("Client added. Number of clients: " + clients.size());
     }
 
-    synchronized void removeClientService(IBService clientService) {
+    synchronized void removeClientService(CYFService clientService) {
         clients.remove(clientService);
         clientService.close();
         System.out.println("Client removed. Number of clients: " + clients.size());
     }
 
     synchronized void send(String msg) {
-        for (IBService s : clients) { // roześlij do wszystkich klientów
+        for (CYFService s : clients) { // roześlij do wszystkich klientów
             s.send(msg);
         }
     }
 
-    synchronized void send(String msg, IBService skip) {
-        for (IBService s : clients) { // roześlij do wszystkich klientów
+    synchronized void send(String msg, CYFService skip) {
+        for (CYFService s : clients) { // roześlij do wszystkich klientów
             if (s != skip) { // oprócz jednego, którego trzeba pominąć...
                 s.send(msg);
             }
         }
     }
+
 
     private int $lastID = -1;
 
@@ -104,7 +107,7 @@ public class CYFServer extends Frame implements Runnable {
     }
 
     int currentColor() {
-        return $lastID % IBProtocol.colors.length;
+        return $lastID % CYFProtocol.colors.length;
     }
 
     int boardWidth() {
@@ -129,6 +132,6 @@ public class CYFServer extends Frame implements Runnable {
             props.store(new FileOutputStream(pName), null);
         } catch (Exception ignore) {
         }
-        new IBServer(props, "Internet Board Server");
+        new CYFServer(props, "Internet Board Server");
     }
 }

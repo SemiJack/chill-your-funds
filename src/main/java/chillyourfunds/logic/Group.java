@@ -3,19 +3,20 @@ package chillyourfunds.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group{
+public class Group {
     String groupName;
+    List<Person> people = new ArrayList<>();
+    List<Expense> expenses = new ArrayList<>();
 
     public Group(String groupName) {
         this.groupName = groupName;
     }
 
-    List<Person> people=new ArrayList<>();
-    List<Expense> expenses=new ArrayList<>();
-    void addPerson(Person person){
+    void addPerson(Person person) {
         people.add(person);
     }
-    void removePerson(Person person){
+
+    void removePerson(Person person) {
         people.remove(person);
     }
 

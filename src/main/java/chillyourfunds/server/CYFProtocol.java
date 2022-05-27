@@ -6,10 +6,11 @@ public enum CYFProtocol {
 
     LOGIN,
     LOGGEDIN,
-    MOUSEPRESSED,
-    MOUSEDRAGGED,
-    MOUSERELEASED,
-    DRAW,
+    CHOOSEGROUP,
+    ADDEXPENSE,
+    HISTORY,
+
+    CYF,
     LOGOUT,
     LOGGEDOUT,
     STOP,
