@@ -14,11 +14,11 @@ public class CYFClientController implements Runnable {
     private final BufferedReader input;
     private final PrintWriter output;
 
-    private final IBClientView view;
+   // private final CYFClientView view;
 
     public CYFClientController(String host, String port) throws Exception {
-        IBClientModel model = new IBClientModel(this);
-        view = new IBClientView(this, model, host + ":" + port);
+        CYFClientModel model = new CYFClientModel(this);
+        //view = new CYFClientView(this, model, host + ":" + port);
         try {
             socket = new Socket(host, Integer.parseInt(port));
         } catch (UnknownHostException e) {
@@ -57,7 +57,6 @@ public class CYFClientController implements Runnable {
             } catch (IOException ignore) {
             }
         }
-        view.dispose();
     }
 
     private boolean handleCommand(String protocolSentence) {
@@ -65,19 +64,10 @@ public class CYFClientController implements Runnable {
         CYFProtocol command = CYFProtocol.valueOf(st.nextToken());
         switch (command) {
             case LOGGEDIN:
-                int id = Integer.parseInt(st.nextToken());
-                int colorIndex = Integer.parseInt(st.nextToken());
-                int width = Integer.parseInt(st.nextToken());
-                int height = Integer.parseInt(st.nextToken());
-                view.createView(colorIndex, width, height);
-                view.updateTitle(id + "");
+                System.out.println("Logowanie pomyślne");
                 break;
-            case DRAW:
-                view.drawLine(Integer.parseInt(st.nextToken()),
-                        Integer.parseInt(st.nextToken()),
-                        Integer.parseInt(st.nextToken()),
-                        Integer.parseInt(st.nextToken()),
-                        Integer.parseInt(st.nextToken()));
+            case HISTORY:
+                // a co jak się nie zmieści do jednego pakietu?
                 break;
             case STOP:
                 send(CYFProtocol.STOPPED.name()); // no break! - false must be returned
@@ -86,18 +76,18 @@ public class CYFClientController implements Runnable {
         }
         return true;
     }
-
-    void mousePressed(int x, int y) {
-        send(CYFProtocol.MOUSEPRESSED + " " + x + " " + y);
-    }
-
-    void mouseDragged(int x, int y) {
-        send(CYFProtocol.MOUSEDRAGGED + " " + x + " " + y);
-    }
-
-    void mouseReleased(int x, int y) {
-        send(CYFProtocol.MOUSERELEASED + " " + x + " " + y);
-    }
+//
+//    void mousePressed(int x, int y) {
+//        send(CYFProtocol.MOUSEPRESSED + " " + x + " " + y);
+//    }
+//
+//    void mouseDragged(int x, int y) {
+//        send(CYFProtocol.MOUSEDRAGGED + " " + x + " " + y);
+//    }
+//
+//    void mouseReleased(int x, int y) {
+//        send(CYFProtocol.MOUSERELEASED + " " + x + " " + y);
+//    }
 
     void send(String command) {
         if (output != null)

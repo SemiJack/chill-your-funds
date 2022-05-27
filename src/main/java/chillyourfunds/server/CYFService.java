@@ -77,9 +77,10 @@ public class CYFService implements Runnable {
                 case CHOOSEGROUP:
                     currGroup = server.database.database.get(Integer.parseInt(st.nextToken()));
                     break;
-                case HISTORY:
-                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
-                    break;
+//                case HISTORY:
+//                    server.send(CYFProtocol.HISTORY + );
+//                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
+//                    break;
                 case ADDEXPENSE:
                     Expense expense;
                     String expenseType = st.nextToken();
