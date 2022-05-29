@@ -1,9 +1,8 @@
 package chillyourfunds.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import chillyourfunds.logic.Person;
+
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
@@ -14,7 +13,7 @@ public class CYFClientController implements Runnable {
     private final BufferedReader input;
     private final PrintWriter output;
 
-   // private final CYFClientView view;
+    // private final CYFClientView view;
 
     public CYFClientController(String host, String port) throws Exception {
         CYFClientModel model = new CYFClientModel(this);
@@ -69,6 +68,9 @@ public class CYFClientController implements Runnable {
             case HISTORY:
                 // a co jak się nie zmieści do jednego pakietu?
                 break;
+            case COMMENT:
+                System.out.println(st.nextToken());
+                break;
             case STOP:
                 send(CYFProtocol.STOPPED.name()); // no break! - false must be returned
             case LOGGEDOUT:
@@ -76,6 +78,27 @@ public class CYFClientController implements Runnable {
         }
         return true;
     }
+
+    void createExpense(Integer[] personsId, Integer groudId, String expensetype, Integer amount) {
+        try {
+            send(CYFProtocol.ADDEXPENSE + expensetype + " " + amount);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(personsId);
+            oos.flush();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    void createGroup(String groupName) {
+        send(CYFProtocol.CREATEGROUP + " " + groupName);
+    }
+
+    void getGroup(Integer groupId) {
+
+    }
+
 //
 //    void mousePressed(int x, int y) {
 //        send(CYFProtocol.MOUSEPRESSED + " " + x + " " + y);

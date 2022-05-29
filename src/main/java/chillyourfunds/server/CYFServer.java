@@ -69,6 +69,7 @@ public class CYFServer extends Frame implements Runnable {
 
     public void stopRunning() {
         serverThread = null;
+        database.saveJSON("database.json");
     }
 
     synchronized void createAndStartClientService(Socket clientSocket) throws IOException {
@@ -120,7 +121,7 @@ public class CYFServer extends Frame implements Runnable {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        String pName = "IBServer.properties";
+        String pName = "CYFServer.properties";
         try {
             props.load(new FileInputStream(pName));
         } catch (Exception e) {

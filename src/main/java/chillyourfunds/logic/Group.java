@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Group {
     String groupName;
+
+    Integer groupId;
     List<Person> people = new ArrayList<>();
     List<Expense> expenses = new ArrayList<>();
 

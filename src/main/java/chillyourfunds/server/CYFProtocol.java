@@ -6,11 +6,17 @@ public enum CYFProtocol {
 
     LOGIN,
     LOGGEDIN,
+
+    CREATEGROUP,
     CHOOSEGROUP,
     ADDEXPENSE,
     HISTORY,
 
+
+
     CYF,
+
+    COMMENT,
     LOGOUT,
     LOGGEDOUT,
     STOP,

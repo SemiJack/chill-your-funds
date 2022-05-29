@@ -1,5 +1,6 @@
 package chillyourfunds.server;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class CYFApplication {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        clients.get(0).createGroup("Akolici_Cyberbezpieczenstwa");
+        System.out.println("jkj");
+      //  clients.get(0).createExpense(new Integer[]{1,2,3},12,"exact",200);
 
     }
 

@@ -1,21 +1,34 @@
 package chillyourfunds.server;
 
 import chillyourfunds.logic.Group;
+import chillyourfunds.logic.Main;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.Random;
 
 
 public class CYFData {
-    protected HashMap<Integer, Group> database; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
+    private HashMap<Integer, Group> database; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
 
 
     public CYFData(String filename) {
-        readJSON(filename);
+        try {
+            readJSON(filename);
+            if(database==null){
+                database = new HashMap<Integer, Group>();
+            }
+        }catch (FileNotFoundException fnfe){
+            fnfe.printStackTrace();
+            database = new HashMap<Integer,Group>();
+            saveJSON(filename);
+        }
     }
 
 
@@ -33,15 +46,23 @@ public class CYFData {
         }
     }
 
-    public void readJSON(String filepath) {
-        try {
+    public void readJSON(String filepath) throws FileNotFoundException{
             Gson gson = new Gson();
             HashMap<Integer,Group> newdata = gson.fromJson(new FileReader(filepath), new HashMap<Integer, Group>() {
             }.getClass().getGenericSuperclass());
-           // this.data = newdata;
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+            this.database = newdata;
+    }
+
+    public void addGroup( String name){
+        Integer id = new Random().nextInt();
+        if(database.containsKey(id)){
+            id = new Random().nextInt();
         }
+        database.put(id,new Group(name));
+    }
+
+    public Group getGroup(Integer id){
+        return  database.get(id);
     }
 //
 //    public static void main(String[] args) {
@@ -59,5 +80,10 @@ public class CYFData {
 //
 //        System.out.println(database.get(12));
 //    }
+
+    public static void main(String[] args) {
+        CYFData dat =  new CYFData("dabdatase.json");
+
+    }
 
 }

@@ -4,10 +4,7 @@ import chillyourfunds.logic.*;
 import com.sun.javafx.font.coretext.CTFactory;
 import javafx.scene.Scene;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
@@ -26,12 +23,11 @@ public class CYFService implements Runnable {
     private BufferedReader input;
     private PrintWriter output;
 
-    private CYFData database;
 
     public CYFService(Socket clientSocket, CYFServer server) {
         this.server = server;
         this.clientSocket = clientSocket;
-        //this.database =
+        server.database = new CYFData("database.json");
     }
 
     void init() throws IOException {
@@ -74,29 +70,46 @@ public class CYFService implements Runnable {
                             + (color = server.currentColor()) + " "
                             + server.boardWidth() + " " + server.boardHeight());
                     break;
+                case CREATEGROUP:
+                    String groupName = st.nextToken();
+                    server.database.addGroup(groupName);
+                    System.out.println("SuCCESS");
+                    break;
                 case CHOOSEGROUP:
-                    currGroup = server.database.database.get(Integer.parseInt(st.nextToken()));
+                    currGroup = server.database.getGroup(Integer.parseInt(st.nextToken()));
+                    send(CYFProtocol.COMMENT + " " + "Grupa pomyślnie utworzona");
                     break;
 //                case HISTORY:
 //                    server.send(CYFProtocol.HISTORY + );
 //                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
 //                    break;
                 case ADDEXPENSE:
+                    try {
                     Expense expense;
                     String expenseType = st.nextToken();
                     Integer amount = Integer.parseInt(st.nextToken());
-                    switch (expenseType){
+                    switch (expenseType) {
                         case "percent":
-                            expense = new PercentExpense(amount,currGroup,currGroup.getPersonById(user.getUUID()));
+                            expense = new PercentExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
                             break;
                         case "exact":
-                            expense = new ExactExpense(amount,currGroup,currGroup.getPersonById(user.getUUID()));
+                            expense = new ExactExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
                             break;
                         default:
-                            expense = new EqualExpense(amount,currGroup,currGroup.getPersonById(user.getUUID()));
+                            expense = new EqualExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
                             break;
                     }
+                    ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+                    Integer[] debtors = (Integer[]) objectInputStream.readObject();
+                    for(Integer pId : debtors){
+                       expense.addDebtor(pId);
+                    }
                     expense.createExpense(expense);
+
+                    } catch (IOException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     // wybieramy rodzaj
                     // tworzymy obiekt
                     // dodajemy osoby
