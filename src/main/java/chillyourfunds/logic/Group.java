@@ -10,8 +10,9 @@ public class Group {
     List<Person> people = new ArrayList<>();
     List<Expense> expenses = new ArrayList<>();
 
-    public Group(String groupName) {
+    public Group(String groupName, Integer groupId) {
         this.groupName = groupName;
+        this.groupId = groupId;
     }
 
     public void addPerson(Person person) {
@@ -41,4 +42,5 @@ public class Group {
         }
         return p;
     }
+
 }

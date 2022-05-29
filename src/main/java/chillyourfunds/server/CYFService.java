@@ -88,11 +88,11 @@ public class CYFService implements Runnable {
                 case CREATEGROUP:
                     String groupName = st.nextToken();
                     server.database.addGroup(groupName,user);
-                    System.out.println("SuCCESS");
+                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_utworzona");
                     break;
                 case CHOOSEGROUP:
                     currGroup = server.database.getGroup(Integer.parseInt(st.nextToken()));
-                    send(CYFProtocol.COMMENT + " " + "Grupa pomyślnie utworzona");
+                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_wybrana");
                     break;
 //                case HISTORY:
 //                    server.send(CYFProtocol.HISTORY + );

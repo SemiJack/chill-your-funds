@@ -7,7 +7,7 @@ public class Main {
         Person person3=new Person(3,"Krzychu");
         Person person4=new Person(4,"Jacek");
 //        Service service=new Service();
-        Group group=new Group("szefy");
+        Group group=new Group("szefy",997);
         group.addPerson(person1);
         group.addPerson(person2);
         group.addPerson(person3);

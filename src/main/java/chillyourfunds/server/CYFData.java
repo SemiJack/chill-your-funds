@@ -26,8 +26,9 @@ public class CYFData {
         if(groupData.containsKey(id)){
             id = new Random().nextInt();
         }
-        groupData.put(id,new Group(groupName));
+        groupData.put(id,new Group(groupName, id));
         groupData.get(id).addPerson(new Person(creator.getUUID(), creator.getFirstName(),true));
+
     }
 
     public Group getGroup(Integer id){
