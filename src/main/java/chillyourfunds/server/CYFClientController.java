@@ -43,7 +43,6 @@ public class CYFClientController implements Runnable {
 
     @Override
     public void run() {
-        send(CYFProtocol.LOGIN.name());
         while (true) {
             try {
                 String protocolSentence = receive();
@@ -64,6 +63,9 @@ public class CYFClientController implements Runnable {
         switch (command) {
             case LOGGEDIN:
                 System.out.println("Logowanie pomyślne");
+                break;
+            case SINGEDIN:
+                System.out.println("Rejestracja pomyślna");
                 break;
             case HISTORY:
                 // a co jak się nie zmieści do jednego pakietu?
@@ -91,26 +93,25 @@ public class CYFClientController implements Runnable {
         }
     }
 
-    void createGroup(String groupName) {
-        send(CYFProtocol.CREATEGROUP + " " + groupName);
+    void login(String login, String password) {
+        send(CYFProtocol.LOGIN + " " +login+ " " + password);
+    }
+
+    void singin(String login, String password, String firstname, String lastname) {
+        send(CYFProtocol.SINGIN + " " +login+ " " + password + " " + firstname + " " + lastname);
+    }
+
+    void createGroup(String groupName, Integer personId) {
+        send(CYFProtocol.CREATEGROUP + " " + groupName + " " + personId.toString());
     }
 
     void getGroup(Integer groupId) {
-
+        send(CYFProtocol.CHOOSEGROUP + " " + groupId);
     }
 
-//
-//    void mousePressed(int x, int y) {
-//        send(CYFProtocol.MOUSEPRESSED + " " + x + " " + y);
-//    }
-//
-//    void mouseDragged(int x, int y) {
-//        send(CYFProtocol.MOUSEDRAGGED + " " + x + " " + y);
-//    }
-//
-//    void mouseReleased(int x, int y) {
-//        send(CYFProtocol.MOUSERELEASED + " " + x + " " + y);
-//    }
+    void createAccount(String login, String password, String firstname, String lastname){
+        send(CYFProtocol.SINGIN + " " + login + " " + password + " " + firstname + " " + lastname);
+    }
 
     void send(String command) {
         if (output != null)

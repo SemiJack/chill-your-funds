@@ -1,13 +1,16 @@
 package chillyourfunds.server;
 
+import chillyourfunds.logic.Group;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -47,6 +50,7 @@ public class CYFServer extends Frame implements Runnable {
                         break;
                     }
                 }
+                saveDatabase("database.json");
                 System.exit(0);
             }).start();
         });
@@ -54,6 +58,7 @@ public class CYFServer extends Frame implements Runnable {
         pack();
         (serverThread = new Thread(this)).start();
         EventQueue.invokeLater(() -> setVisible(true));
+        database = loadDatabase("database.json");
     }
 
     public void run() {
@@ -69,7 +74,35 @@ public class CYFServer extends Frame implements Runnable {
 
     public void stopRunning() {
         serverThread = null;
-        database.saveJSON("database.json");
+        saveDatabase("database.json");
+    }
+
+    public void saveDatabase(String filename) {
+
+        GsonBuilder gbuilder = new GsonBuilder();
+        gbuilder.setPrettyPrinting();
+        gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters
+        Gson gson = gbuilder.create();
+        try (FileWriter pw = new FileWriter(filename)) {
+            gson.toJson(database, pw);
+            System.out.println("Database saved");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public CYFData loadDatabase(String filepath){
+        try {
+            Gson gson = new Gson();
+            FileReader fr = new  FileReader(filepath);
+            CYFData newdata = gson.fromJson(fr, new CYFData() {
+            }.getClass().getGenericSuperclass());
+            return newdata;
+        }catch (FileNotFoundException e){
+            System.out.println("Database file doesnt exist. Create new one ");
+            return new CYFData();
+        }
+
     }
 
     synchronized void createAndStartClientService(Socket clientSocket) throws IOException {

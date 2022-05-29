@@ -14,7 +14,7 @@ public class Group {
         this.groupName = groupName;
     }
 
-    void addPerson(Person person) {
+    public void addPerson(Person person) {
         people.add(person);
     }
 

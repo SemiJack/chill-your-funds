@@ -6,16 +6,21 @@ import java.util.Map;
 
 public class Person{
     int id;
-    public String email;
     int balance;
     String name;
 
+    boolean isAdmin;
+
     Map<Person,Integer> mapOfExpenses=new HashMap<>();
 
-    public Person(int id, String email, String name) {
+    public Person(int id, String name) {
         this.id = id;
-        this.email = email;
         this.name = name;
+    }
+    public Person(int id, String name, boolean isAdmin) {
+        this.id = id;
+        this.name = name;
+        this.isAdmin = isAdmin;
     }
     void addToBalance(int x){
         balance+=x;
@@ -63,7 +68,6 @@ public class Person{
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", email='" + email + '\'' +
                 ", balance=" + balance +
                 ", name='" + name + '\'' +
                 '}';

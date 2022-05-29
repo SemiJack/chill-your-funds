@@ -1,69 +1,50 @@
 package chillyourfunds.server;
 
 import chillyourfunds.logic.Group;
-import chillyourfunds.logic.Main;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import chillyourfunds.logic.Person;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.security.SecureRandom;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 
 public class CYFData {
-    private HashMap<Integer, Group> database; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
+    private HashMap<Integer, Group> groupData; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
+
+    private HashMap<Integer,User> userData;
 
 
-    public CYFData(String filename) {
-        try {
-            readJSON(filename);
-            if(database==null){
-                database = new HashMap<Integer, Group>();
-            }
-        }catch (FileNotFoundException fnfe){
-            fnfe.printStackTrace();
-            database = new HashMap<Integer,Group>();
-            saveJSON(filename);
-        }
+    public CYFData() {
+        groupData = new HashMap<>();
+        userData = new HashMap<>();
+
     }
-
-
-
-    public void saveJSON(String filename) {
-
-        GsonBuilder gbuilder = new GsonBuilder();
-        gbuilder.setPrettyPrinting();
-        gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters
-        Gson gson = gbuilder.create();
-        try (FileWriter pw = new FileWriter(filename)) {
-            gson.toJson(database, pw);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-    public void readJSON(String filepath) throws FileNotFoundException{
-            Gson gson = new Gson();
-            HashMap<Integer,Group> newdata = gson.fromJson(new FileReader(filepath), new HashMap<Integer, Group>() {
-            }.getClass().getGenericSuperclass());
-            this.database = newdata;
-    }
-
-    public void addGroup( String name){
+    public void addGroup( String groupName, User creator){
         Integer id = new Random().nextInt();
-        if(database.containsKey(id)){
+        if(groupData.containsKey(id)){
             id = new Random().nextInt();
         }
-        database.put(id,new Group(name));
+        groupData.put(id,new Group(groupName));
+        groupData.get(id).addPerson(new Person(creator.getUUID(), creator.getFirstName(),true));
     }
 
     public Group getGroup(Integer id){
-        return  database.get(id);
+        return  groupData.get(id);
     }
+
+    public void addUser(String login, String password, String firstname, String lastname){
+        int credentials = Objects.hash(login,password);
+        userData.put(credentials,new User(credentials, login, password, firstname, lastname));
+        System.out.println("fw");
+    }
+
+    public User getUserByCredentials(String login, String password){
+        return userData.get(Objects.hash(login,password));
+    }
+
+
 //
 //    public static void main(String[] args) {
 //        Group gr = new Group("dddsd");
@@ -80,10 +61,5 @@ public class CYFData {
 //
 //        System.out.println(database.get(12));
 //    }
-
-    public static void main(String[] args) {
-        CYFData dat =  new CYFData("dabdatase.json");
-
-    }
 
 }

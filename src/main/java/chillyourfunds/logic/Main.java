@@ -2,10 +2,10 @@ package chillyourfunds.logic;
 
 public class Main {
     public static void main(String[] args) {
-        Person person1=new Person(1,"a","Eryk");
-        Person person2=new Person(2,"b","Grzechu");
-        Person person3=new Person(3,"c","Krzychu");
-        Person person4=new Person(4,"d","Jacek");
+        Person person1=new Person(1,"Eryk");
+        Person person2=new Person(2,"Grzechu");
+        Person person3=new Person(3,"Krzychu");
+        Person person4=new Person(4,"Jacek");
 //        Service service=new Service();
         Group group=new Group("szefy");
         group.addPerson(person1);

@@ -1,6 +1,8 @@
 package chillyourfunds.server;
 
 import chillyourfunds.logic.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.javafx.font.coretext.CTFactory;
 import javafx.scene.Scene;
 
@@ -27,7 +29,6 @@ public class CYFService implements Runnable {
     public CYFService(Socket clientSocket, CYFServer server) {
         this.server = server;
         this.clientSocket = clientSocket;
-        server.database = new CYFData("database.json");
     }
 
     void init() throws IOException {
@@ -60,19 +61,33 @@ public class CYFService implements Runnable {
     // kto komu ile wisi??
 
     public void run() {
+
         while (true) {
             String protocolSentence = receive();
             StringTokenizer st = new StringTokenizer(protocolSentence);
             CYFProtocol command = CYFProtocol.valueOf(st.nextToken()); // w srodku bylo jeszcze .Draw.
             switch (command) {
                 case LOGIN:
+                    String login = st.nextToken();
+                    String password = st.nextToken();
+                    user = server.database.getUserByCredentials(login, password);
+                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " "
+                            + (color = server.currentColor()) + " "
+                            + server.boardWidth() + " " + server.boardHeight());
+                    break;
+                case SINGIN:
+                    String newLogin = st.nextToken();
+                    String newPassword = st.nextToken();
+                    server.database.addUser( newLogin, newPassword, st.nextToken(),st.nextToken());
+                    user = server.database.getUserByCredentials(newLogin,newPassword);
+                    send(CYFProtocol.SINGEDIN+" ");
                     send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " "
                             + (color = server.currentColor()) + " "
                             + server.boardWidth() + " " + server.boardHeight());
                     break;
                 case CREATEGROUP:
                     String groupName = st.nextToken();
-                    server.database.addGroup(groupName);
+                    server.database.addGroup(groupName,user);
                     System.out.println("SuCCESS");
                     break;
                 case CHOOSEGROUP:
@@ -109,7 +124,6 @@ public class CYFService implements Runnable {
                     } catch (IOException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
-
                     // wybieramy rodzaj
                     // tworzymy obiekt
                     // dodajemy osoby
@@ -134,6 +148,9 @@ public class CYFService implements Runnable {
             }
         }
     }
+
+
+
 
     void send(String command) {
         output.println(command);
