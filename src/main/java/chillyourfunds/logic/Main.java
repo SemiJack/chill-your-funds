@@ -14,27 +14,27 @@ public class Main {
         group.addPerson(person4);
 
         EqualExpense e1 = new EqualExpense(100, group, person1);
-//        EqualExpense e2 = new EqualExpense(150, group, person1);
-//        EqualExpense e3 = new EqualExpense(200, group, person1);
+        EqualExpense e2 = new EqualExpense(150, group, person2);
+        EqualExpense e3 = new EqualExpense(200, group, person3);
         e1.addDebtor(1);
         e1.addDebtor(2);
         e1.addDebtor(3);
         e1.addDebtor(4);
         e1.createExpense(e1);
         System.out.println("asas");
-//        e2.addDebtor(3);
-//        e2.addDebtor(4);
-//        e2.addDebtor(2);
-//        e2.createExpense(e2);
-//        e3.addDebtor(1);
-//        e3.addDebtor(2);
-//        e3.addDebtor(3);
-//        e3.addDebtor(4);
-//        e3.createExpense(e3);
-//        e1.equalSplit();
-//        e2.equalSplit();
-//        e3.equalSplit();
-
+        e2.addDebtor(3);
+        e2.addDebtor(4);
+        e2.addDebtor(2);
+        e2.createExpense(e2);
+        e3.addDebtor(1);
+        e3.addDebtor(2);
+        e3.addDebtor(3);
+        e3.addDebtor(4);
+        e3.createExpense(e3);
+        e1.equalSplit();
+        e2.equalSplit();
+        e3.equalSplit();
+//
 //
 //        ExactExpense e5 = new ExactExpense(100, group,person4);
 //        e5.addDebtor(2);
@@ -48,17 +48,22 @@ public class Main {
 //        e6.addDebtor(3);
 //        e6.percentSplit();
 //        e6.createExpense(e6);
-//        System.out.println("Stan konta "+person1.name+" wynosi "+person1.balance+"$");
-//        System.out.println("Stan konta "+person2.name+" wynosi "+person2.balance+"$");
-//        System.out.println("Stan konta "+person3.name+" wynosi "+person3.balance+"$");
-//        System.out.println("Stan konta "+person4.name+" wynosi "+person4.balance+"$");
-//        System.out.println();
+        System.out.println("Stan konta "+person1.name+" wynosi "+person1.balance+"$");
+        System.out.println("Stan konta "+person2.name+" wynosi "+person2.balance+"$");
+        System.out.println("Stan konta "+person3.name+" wynosi "+person3.balance+"$");
+        System.out.println("Stan konta "+person4.name+" wynosi "+person4.balance+"$");
+        System.out.println();
 //        System.out.println(person2.name+" jest winien "+person1.name+" "+person2.mapOfExpenses.get(person1)+"$");
 //        System.out.println(person2.name+" jest winien "+person4.name+" "+person2.mapOfExpenses.get(person4)+"$");
 //
-//        person1.showMyPayers();
-//        person2.showMyPayers();
-//        person3.showMyPayers();
-//        person4.showMyPayers();
+        person1.showMyPayers();
+        person2.showMyPayers();
+        person3.showMyPayers();
+        person4.showMyPayers();
+
+        SimplifyGroupPayments simplify = new SimplifyGroupPayments();
+        System.out.println((simplify.groupToSimplify(group)));
+        simplify.findPath((simplify.groupToSimplify(group)));
+
     }
 }
