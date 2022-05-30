@@ -13,6 +13,8 @@ public class Person{
 
     Map<Person,Integer> mapOfExpenses=new HashMap<>();
 
+
+
     public Person(int id, String name) {
         this.id = id;
         this.name = name;
@@ -31,9 +33,12 @@ public class Person{
         for(int i = 0; i < mapOfExpenses.size(); i++) {
             if(mapOfExpenses.containsKey(payer)) {
                 debt = mapOfExpenses.get(payer);
-                if(debt - amount > 0) {
+                if(debt - amount >= 0) {
                     mapOfExpenses.put(payer,debt - amount);
                     removeFromAList(payer);
+                    subtractFromBalance(amount);
+                    payer.addToBalance(amount);
+                    break;
                 } else {
                     System.out.println("Nie można zapłacić więcej niż wynosi twój dług");
                 }
@@ -43,6 +48,7 @@ public class Person{
             }
         }
     }
+
 
     void removeFromAList(Person payer) {
         if(mapOfExpenses.containsValue(0))

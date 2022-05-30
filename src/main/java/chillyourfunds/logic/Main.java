@@ -61,9 +61,24 @@ public class Main {
         person3.showMyPayers();
         person4.showMyPayers();
 
-        SimplifyGroupPayments simplify = new SimplifyGroupPayments();
-        System.out.println((simplify.groupToSimplify(group)));
-        simplify.findPath((simplify.groupToSimplify(group)));
+//       person4.payADebt(person1,25);
+//
+//        person4.showMyPayers();
+
+//        System.out.println(person4.balance);
+
+
+        System.out.println("-----------------------------------------");
+        group.simplifyGroupExpenses();
+        person4.showMyPayers();
+        person1.showMyPayers();
+        person2.showMyPayers();
+        person3.showMyPayers();
+        person4.payADebt(person3,75);
+        person4.showMyPayers();
+        person3.showMyPayers();
+        System.out.println(person3.balance);
+
 
     }
 }
