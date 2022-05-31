@@ -2,6 +2,7 @@ package chillyourfunds.client;
 
 import chillyourfunds.server.CYFProtocol;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -19,10 +20,13 @@ public class CYFClientController implements Runnable {
         try {
             socket = new Socket(host, Integer.parseInt(port));
         } catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null, "Unknown host.");
             throw new Exception("Unknown host.");
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "IO exception while connecting to the server.");
             throw new Exception("IO exception while connecting to the server.");
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Port value must be a number.");
             throw new Exception("Port value must be a number.");
         }
         try {

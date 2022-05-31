@@ -1,35 +1,42 @@
 package chillyourfunds.client;
 
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 
-public class CYFApplication {
+public class CYFApplication extends javafx.application.Application{
     private final List<CYFClientController> clients = new ArrayList<>();
 
-    CYFApplication() {
+    void initialize() {
         String host = "localhost";
         String port = "40000";
         try {
             clients.add(new CYFClientController(host, port));
         } catch (Exception e) {
+            Platform.exit();
             e.printStackTrace();
         }
-        clients.get(0).singin("jacko","1234", "Jacek","Pelczar");
-        clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
-        //clients.get(0).createExpense();
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("enter an integer");
-        int myint = keyboard.nextInt();
-        switch (myint){
-            case 0:
-                clients.get(0).forceLogout();
-                break;
-            case 1 :
-               // clients.get(0).createExpense();
-                break;
-        }
+//        clients.get(0).singin("jacko","1234", "Jacek","Pelczar");
+//        clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
+//        //clients.get(0).createExpense();
+//        Scanner keyboard = new Scanner(System.in);
+//        System.out.println("enter an integer");
+//        int myint = keyboard.nextInt();
+//        switch (myint){
+//            case 0:
+//                clients.get(0).forceLogout();
+//                break;
+//            case 1 :
+//               // clients.get(0).createExpense();
+//                break;
+ //       }
 
 
         //clients.get(0).getGroup();
@@ -45,7 +52,15 @@ public class CYFApplication {
         clients.removeIf(CYFClientController::isDisconnected);
     }
 
-    public static void main(String[] args) {
-        new CYFApplication();
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        initialize();
+        Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    public static void main(String args[]){
+        launch(args);
     }
 }
