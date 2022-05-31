@@ -24,8 +24,6 @@ public class CYFServer extends Frame implements Runnable {
 
     private final Properties props;
 
-// To-Do
-//  Pozmieniać wszystko żeby działało xd to jest tak naprawdę obsługa pakietów, więc ważniejszy jest CYFService
 
     private Thread serverThread;
 

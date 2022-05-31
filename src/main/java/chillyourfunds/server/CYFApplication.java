@@ -19,12 +19,16 @@ public class CYFApplication {
         }
         clients.get(0).singin("jacko","1234", "Jacek","Pelczar");
         clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
+        clients.get(0).createExpense();
         Scanner keyboard = new Scanner(System.in);
         System.out.println("enter an integer");
         int myint = keyboard.nextInt();
         switch (myint){
             case 0:
                 clients.get(0).forceLogout();
+                break;
+            case 1 :
+               // clients.get(0).createExpense();
                 break;
         }
 

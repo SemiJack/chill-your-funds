@@ -1,0 +1,39 @@
+{
+  "groupData": {
+    "-1267834710": {
+      "groupName": "Akolici_Cyerbezpieczenstwa",
+      "people": [
+        {
+          "id": -1166129773,
+          "balance": 0,
+          "name": "Jacek",
+          "isAdmin": true,
+          "mapOfExpenses": {}
+        }
+      ],
+      "expenses": []
+    },
+    "882345120": {
+      "groupName": "Akolici_Cyerbezpieczenstwa",
+      "people": [
+        {
+          "id": -1166129773,
+          "balance": 0,
+          "name": "Jacek",
+          "isAdmin": true,
+          "mapOfExpenses": {}
+        }
+      ],
+      "expenses": []
+    }
+  },
+  "userData": {
+    "-1166129773": {
+      "UUID": -1166129773,
+      "login": "jacko",
+      "password": "1234",
+      "firstName": "Jacek",
+      "lastName": "Pelczar"
+    }
+  }
+}
