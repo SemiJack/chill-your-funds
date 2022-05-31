@@ -1,6 +1,5 @@
 package chillyourfunds.server;
 
-import chillyourfunds.logic.Group;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -138,9 +136,6 @@ public class CYFServer extends Frame implements Runnable {
         return ++$lastID;
     }
 
-    int currentColor() {
-        return $lastID % CYFProtocol.colors.length;
-    }
 
     int boardWidth() {
         return Integer.parseInt(props.getProperty("width"));

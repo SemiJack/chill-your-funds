@@ -1,6 +1,6 @@
 package chillyourfunds.logic;
 
-public class Main {
+public class LogicTest {
     public static void main(String[] args) {
         Person person1=new Person(1,"Eryk");
         Person person2=new Person(2,"Grzechu");

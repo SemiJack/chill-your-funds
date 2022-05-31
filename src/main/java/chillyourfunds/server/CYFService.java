@@ -1,10 +1,6 @@
 package chillyourfunds.server;
 
 import chillyourfunds.logic.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.sun.javafx.font.coretext.CTFactory;
-import javafx.scene.Scene;
 
 import java.io.*;
 import java.net.Socket;
@@ -71,9 +67,7 @@ public class CYFService implements Runnable {
                     String login = st.nextToken();
                     String password = st.nextToken();
                     user = server.database.getUserByCredentials(login, password);
-                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " "
-                            + (color = server.currentColor()) + " "
-                            + server.boardWidth() + " " + server.boardHeight());
+                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " " + server.boardWidth() + " " + server.boardHeight());
                     break;
                 case SINGIN:
                     String newLogin = st.nextToken();
@@ -81,9 +75,7 @@ public class CYFService implements Runnable {
                     server.database.addUser( newLogin, newPassword, st.nextToken(),st.nextToken());
                     user = server.database.getUserByCredentials(newLogin,newPassword);
                     send(CYFProtocol.SINGEDIN+" ");
-                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " "
-                            + (color = server.currentColor()) + " "
-                            + server.boardWidth() + " " + server.boardHeight());
+                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " " + server.boardWidth() + " " + server.boardHeight());
                     break;
                 case CREATEGROUP:
                     String groupName = st.nextToken();
@@ -129,16 +121,6 @@ public class CYFService implements Runnable {
                     // dodajemy osoby
                     // createExpense -> zapisuje w Grupie
                     break;
-
-
-//                case MOUSERELEASED:
-//                    int currentMouseX = Integer.parseInt(st.nextToken());
-//                    int currentMouseY = Integer.parseInt(st.nextToken());
-//                    server.send(CYFProtocol.DRAW + " " + color + " " + lastMouseX + " " + lastMouseY
-//                            + " " + currentMouseX + " " + currentMouseY, this);
-//                    lastMouseX = currentMouseX;
-//                    lastMouseY = currentMouseY;
-//                    break;
                 case LOGOUT:
                     send(CYFProtocol.LOGGEDOUT.name()); // no break!
                 case STOPPED:

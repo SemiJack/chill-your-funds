@@ -1,29 +1,16 @@
 {
   "groupData": {
+    "-1797094653": {
+      "groupName": "Akolici_Cyerbezpieczenstwa",
+      "groupId": -1797094653,
+      "expenses": []
+    },
     "-1267834710": {
       "groupName": "Akolici_Cyerbezpieczenstwa",
-      "people": [
-        {
-          "id": -1166129773,
-          "balance": 0,
-          "name": "Jacek",
-          "isAdmin": true,
-          "mapOfExpenses": {}
-        }
-      ],
       "expenses": []
     },
     "882345120": {
       "groupName": "Akolici_Cyerbezpieczenstwa",
-      "people": [
-        {
-          "id": -1166129773,
-          "balance": 0,
-          "name": "Jacek",
-          "isAdmin": true,
-          "mapOfExpenses": {}
-        }
-      ],
       "expenses": []
     }
   },

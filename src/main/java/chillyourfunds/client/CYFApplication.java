@@ -1,6 +1,5 @@
-package chillyourfunds.server;
+package chillyourfunds.client;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

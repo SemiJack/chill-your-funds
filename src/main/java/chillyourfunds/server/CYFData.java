@@ -3,8 +3,7 @@ package chillyourfunds.server;
 import chillyourfunds.logic.Group;
 import chillyourfunds.logic.Person;
 
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;

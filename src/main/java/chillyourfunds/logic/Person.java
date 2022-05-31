@@ -78,4 +78,12 @@ public class Person{
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

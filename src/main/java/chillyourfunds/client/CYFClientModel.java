@@ -1,9 +1,8 @@
-package chillyourfunds.server;
+package chillyourfunds.client;
+
+import chillyourfunds.client.CYFClientController;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 public class CYFClientModel extends Canvas  {
         private final CYFClientController controller;

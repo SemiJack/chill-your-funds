@@ -1,6 +1,6 @@
-package chillyourfunds.server;
+package chillyourfunds.client;
 
-import chillyourfunds.logic.Person;
+import chillyourfunds.server.CYFProtocol;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,10 +13,8 @@ public class CYFClientController implements Runnable {
     private final BufferedReader input;
     private final PrintWriter output;
 
-    // private final CYFClientView view;
 
     public CYFClientController(String host, String port) throws Exception {
-        CYFClientModel model = new CYFClientModel(this);
         //view = new CYFClientView(this, model, host + ":" + port);
         try {
             socket = new Socket(host, Integer.parseInt(port));
