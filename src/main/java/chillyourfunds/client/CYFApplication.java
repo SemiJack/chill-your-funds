@@ -1,6 +1,8 @@
 package chillyourfunds.client;
 
+import com.sun.tools.javac.Main;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,19 +10,18 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 
 public class CYFApplication extends javafx.application.Application{
-    private final List<CYFClientController> clients = new ArrayList<>();
-
+    protected final List<CYFClientController> clients = new ArrayList<>();
     void initialize() {
         String host = "localhost";
         String port = "40000";
         try {
             clients.add(new CYFClientController(host, port));
         } catch (Exception e) {
-            Platform.exit();
+            //Platform.exit();
             e.printStackTrace();
         }
 //        clients.get(0).singin("jacko","1234", "Jacek","Pelczar");
@@ -55,7 +56,11 @@ public class CYFApplication extends javafx.application.Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         initialize();
-        Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
+        Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.initData(clients.get(0));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

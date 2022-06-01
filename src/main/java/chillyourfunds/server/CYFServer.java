@@ -91,9 +91,8 @@ public class CYFServer extends Frame implements Runnable {
         try {
             Gson gson = new Gson();
             FileReader fr = new  FileReader(filepath);
-            CYFData newdata = gson.fromJson(fr, new CYFData() {
+            return gson.fromJson(fr, new CYFData() {
             }.getClass().getGenericSuperclass());
-            return newdata;
         }catch (FileNotFoundException e){
             System.out.println("Database file doesnt exist. Create new one ");
             return new CYFData();
@@ -121,13 +120,13 @@ public class CYFServer extends Frame implements Runnable {
         }
     }
 
-    synchronized void send(String msg, CYFService skip) {
-        for (CYFService s : clients) { // roześlij do wszystkich klientów
-            if (s != skip) { // oprócz jednego, którego trzeba pominąć...
-                s.send(msg);
-            }
-        }
-    }
+//    synchronized void send(String msg, CYFService skip) {
+//        for (CYFService s : clients) { // roześlij do wszystkich klientów
+//            if (s != skip) { // oprócz jednego, którego trzeba pominąć...
+//                s.send(msg);
+//            }
+//        }
+//    }
 
 
     private int $lastID = -1;

@@ -10,7 +10,6 @@ import java.util.StringTokenizer;
 
 public class CYFClientController implements Runnable {
     private final Socket socket;
-
     private final BufferedReader input;
     private final PrintWriter output;
 
@@ -103,7 +102,7 @@ public class CYFClientController implements Runnable {
         send(CYFProtocol.SINGIN + " " +login+ " " + password + " " + firstname + " " + lastname);
     }
 
-    void createGroup(String groupName, Integer personId) {
+     void createGroup(String groupName, Integer personId) {
         send(CYFProtocol.CREATEGROUP + " " + groupName + " " + personId.toString());
     }
 

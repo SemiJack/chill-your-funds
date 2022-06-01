@@ -18,6 +18,8 @@ public class MainController {
     private Scene scene;
     private Parent root;
 
+    private CYFClientController client;
+
     @FXML
     public TabPane tabpane;
     @FXML
@@ -27,6 +29,11 @@ public class MainController {
     private GroupViewController groupViewController;
     @FXML
     private HistoryViewController historyViewController;
+    @FXML
+    private HomeViewController homeViewController;
+
+    @FXML
+    private Tab home;
     @FXML
     public void switchToHistory(ActionEvent event) throws IOException {
         //Parent root = FXMLLoader.load(getClass().getResource("view/HistoryView.fxml"));
@@ -39,12 +46,28 @@ public class MainController {
 
     }
 
+    public void initData(CYFClientController clientcontroller){
+        this.client = clientcontroller;
+    }
+
     public void switchToGroup(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("view/GroupView.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
 
+    public void switchToHome(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("view/HomeView.fxml"));
+        root = loader.load();
+        homeViewController = loader.getController();
+        homeViewController.initData(client);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }
