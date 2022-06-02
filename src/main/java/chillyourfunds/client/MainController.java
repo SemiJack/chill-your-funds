@@ -33,8 +33,6 @@ public class MainController {
     private HomeViewController homeViewController;
 
     @FXML
-    private Tab home;
-    @FXML
     public void switchToHistory(ActionEvent event) throws IOException {
         //Parent root = FXMLLoader.load(getClass().getResource("view/HistoryView.fxml"));
         tabpane.getSelectionModel().selectNext();

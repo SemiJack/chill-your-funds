@@ -36,7 +36,7 @@ public class AppOld extends javafx.application.Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         initialize();
-        Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

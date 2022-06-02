@@ -10,7 +10,6 @@ public class CYFService implements Runnable {
 
     private int id;
 
-    private int color;
     private final CYFServer server;
     private Socket clientSocket;
 
