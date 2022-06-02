@@ -21,7 +21,7 @@ public class LogicTest {
         e1.addDebtor(3);
         e1.addDebtor(4);
         e1.createExpense(e1);
-        System.out.println("asas");
+        System.out.println("------------------");
         e2.addDebtor(3);
         e2.addDebtor(4);
         e2.addDebtor(2);

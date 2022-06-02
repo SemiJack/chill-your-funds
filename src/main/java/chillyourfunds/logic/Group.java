@@ -6,11 +6,12 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class Group {
+
     String groupName;
 
     Integer groupId;
-    static List<Person> people = new ArrayList<>();
-    List<Expense> expenses = new ArrayList<>();
+    public static List<Person> people = new ArrayList<>();
+    public List<Expense> expenses = new ArrayList<>();
 
     public Group(String groupName, Integer groupId) {
         this.groupName = groupName;
@@ -21,7 +22,7 @@ public class Group {
         people.add(person);
     }
 
-    void removePerson(Person person) {
+    public void removePerson(Person person) {
         people.remove(person);
     }
 
@@ -76,9 +77,7 @@ public class Group {
                 if ((result >= 0.0)) {
 
                     System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Min_Value), 2));
-                    System.out.println("e");
                     getPersonByName(Min_Key).mapOfExpenses.put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
-
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, result);
@@ -86,9 +85,7 @@ public class Group {
                 } else {
 
                     System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Max_Value), 2));
-                    System.out.println("e");
                     getPersonByName(Min_Key).mapOfExpenses.put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
-
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, 0.0);
