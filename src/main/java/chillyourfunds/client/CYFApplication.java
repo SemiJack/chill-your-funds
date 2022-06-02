@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class CYFApplication extends javafx.application.Application {
     protected final List<CYFClientController> clients = new ArrayList<>();
 
-    void initialize() throws Exception {
+    void initialize() {
         String host = "localhost";
         String port = "40000";
         try {
@@ -25,10 +25,10 @@ public class CYFApplication extends javafx.application.Application {
         talkWithServer();
     }
 
-    private void talkWithServer() throws Exception {
-        clients.get(0).register("jacko","1234", "Jacek","Pelczar");
+    private void talkWithServer() {
+        clients.get(0).register("jacko", "1234", "Jacek", "Pelczar");
         clients.get(0).login("jacko", "1234");
-        //clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
+        clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa");
         //clients.get(0).createExpense();
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Choose an option: ");

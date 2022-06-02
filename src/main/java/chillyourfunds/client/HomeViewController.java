@@ -38,7 +38,7 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private void addgroupButtonClick(ActionEvent event){
-        client.createGroup("Koty",1);
+        client.createGroup("Koty");
   }
 
   @FXML

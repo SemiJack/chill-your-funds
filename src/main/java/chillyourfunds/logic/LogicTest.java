@@ -6,7 +6,6 @@ public class LogicTest {
         Person person2=new Person("gregor","Grzechu");
         Person person3=new Person("kris","Krzychu");
         Person person4=new Person("json","Jacek");
-//        Service service=new Service();
         Group group=new Group("szefy",997);
         group.addPerson(person1);
         group.addPerson(person2);

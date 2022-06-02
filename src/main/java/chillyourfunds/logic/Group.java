@@ -1,6 +1,5 @@
 package chillyourfunds.logic;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -10,7 +9,7 @@ public class Group {
     String groupName;
 
     Integer groupId;
-    public static List<Person> people = new ArrayList<>();
+    public static List<Person> people = new ArrayList<>(); // to nie może być static
     public List<Expense> expenses = new ArrayList<>();
 
     public Group(String groupName, Integer groupId) {

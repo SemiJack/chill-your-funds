@@ -72,6 +72,11 @@ public class CYFService implements Runnable {
                         send(CYFProtocol.REGISTERED);
                     } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
                     break;
+                case CREATEGROUP:
+                    if(server.database.addGroup((String) message.data,user)){
+                        send(CYFProtocol.GROUPCREATED);
+                    }
+                    break;
                 case CHOOSEGROUP:
                     //objectOut.writeObject(server.database.getGroup(1));
                     break;

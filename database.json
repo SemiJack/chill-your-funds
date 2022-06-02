@@ -1,20 +1,22 @@
 {
   "groupData": {
-    "-1797094653": {
+    "1531553131": {
       "groupName": "Akolici_Cyerbezpieczenstwa",
-      "groupId": -1797094653,
+      "groupId": 1531553131,
       "expenses": []
     },
-    "-1267834710": {
+    "2079175493": {
       "groupName": "Akolici_Cyerbezpieczenstwa",
-      "expenses": []
-    },
-    "882345120": {
-      "groupName": "Akolici_Cyerbezpieczenstwa",
+      "groupId": 2079175493,
       "expenses": []
     }
   },
   "userData": {
-
+    "jacko": {
+      "username": "jacko",
+      "credentials": -1166129773,
+      "firstName": "Jacek",
+      "lastName": "Pelczar"
+    }
   }
 }

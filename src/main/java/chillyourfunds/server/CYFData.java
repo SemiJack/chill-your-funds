@@ -20,14 +20,15 @@ public class CYFData {
         userData = new HashMap<>();
 
     }
-    public void addGroup( String groupName, User creator){
+    public boolean addGroup(String groupName, User creator){
         Integer id = new Random().nextInt();
-        if(groupData.containsKey(id)){
+        if(groupData.containsKey(id)) {
             id = new Random().nextInt();
         }
-        groupData.put(id,new Group(groupName, id));
-        groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(),true));
-
+            groupData.put(id, new Group(groupName, id));
+            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));
+            System.out.println("pl");
+            return groupData.get(id)!=null;
     }
 
     public Group getGroup(Integer id){

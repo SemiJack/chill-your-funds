@@ -5,6 +5,7 @@ public enum CYFProtocol {
     LOGIN,
     LOGGEDIN,
     CREATEGROUP,
+    GROUPCREATED,
     CHOOSEGROUP,
     ADDEXPENSE,
     HISTORY,

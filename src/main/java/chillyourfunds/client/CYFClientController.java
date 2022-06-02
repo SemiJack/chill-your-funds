@@ -105,17 +105,14 @@ public class CYFClientController implements Runnable {
         send(CYFProtocol.REGISTER, new String[]{login, password, firstname, lastname});
     }
 
-     void createGroup(String groupName, Integer personId) {
-       // send(CYFProtocol.CREATEGROUP + " " + groupName + " " + personId.toString());
+     void createGroup(String groupName) {
+       send(CYFProtocol.CREATEGROUP, groupName);
     }
 
     void getGroup(Integer groupId) {
        // send(CYFProtocol.CHOOSEGROUP + " " + groupId);
     }
 
-    void createAccount(String login, String password, String firstname, String lastname){
-       // send(CYFProtocol.SINGIN + " " + login + " " + password + " " + firstname + " " + lastname);
-    }
 
     void send(CYFProtocol command, Object data) {
         try {
