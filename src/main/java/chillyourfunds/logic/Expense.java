@@ -16,8 +16,8 @@ public class Expense {
         this.payer = payer;
     }
 
-    public void addDebtor(int id) {
-        debtors.add(group.getPersonById(id));
+    public void addDebtor(String username) {
+        debtors.add(group.getPersonByName(username));
     }
 
     public void createExpense(Expense e) {

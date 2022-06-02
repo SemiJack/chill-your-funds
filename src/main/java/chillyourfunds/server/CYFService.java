@@ -4,7 +4,6 @@ import chillyourfunds.logic.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.StringTokenizer;
 
 public class CYFService implements Runnable {
 
@@ -12,6 +11,7 @@ public class CYFService implements Runnable {
     private final CYFServer server;
     private Socket clientSocket;
     private User user;
+
     private Group currGroup;
     private BufferedReader messageIn;
     private PrintWriter messageOut;
@@ -56,28 +56,33 @@ public class CYFService implements Runnable {
     public void run() {
 
         while (true) {
-            try {
-                Messenger message = (Messenger) objectIn.readObject();
-                CYFProtocol command = message.command;
-                switch (command) {
-                    case LOGIN:
-                        String[] credentials = (String[]) message.data;
-                        user = server.database.getUserByCredentials(credentials[0],credentials[1]);
-                        if(user==null){
-                            send(CYFProtocol.COMMENT, "Wrong login or password!");
-                        }else send(CYFProtocol.LOGGEDIN);
-                        break;
-                    case CHOOSEGROUP:
-                        objectOut.writeObject(server.database.getGroup(1));
-                        break;
-                    case LOGOUT:
-                        send(CYFProtocol.LOGGEDOUT); // no break!
-                    case STOPPED:
-                        server.removeClientService(this); // no break!
-                    case NULLCOMMAND:
-                        return;
-                    default:
-                        System.out.println("Error");
+            Messenger message = receive();
+            CYFProtocol command = message.command;
+            switch (command) {
+                case LOGIN:
+                    String[] credentials = (String[]) message.data;
+                    user = server.database.getUserByCredentials(credentials[0], credentials[1]);
+                    if (user == null) {
+                        send(CYFProtocol.COMMENT, "Wrong login or password!");
+                    } else send(CYFProtocol.LOGGEDIN);
+                    break;
+                case REGISTER:
+                    String[] newcredentials = (String[]) message.data;
+                    if (server.database.addUser(newcredentials[0], newcredentials[1], newcredentials[2], newcredentials[3])) {
+                        send(CYFProtocol.REGISTERED);
+                    } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
+                    break;
+                case CHOOSEGROUP:
+                    //objectOut.writeObject(server.database.getGroup(1));
+                    break;
+                case LOGOUT:
+                    send(CYFProtocol.LOGGEDOUT); // no break!
+                case STOPPED:
+                    server.removeClientService(this); // no break!
+                case NULLCOMMAND:
+                    return;
+                default:
+                    System.out.println("Error");
 //                case SINGIN:
 //                    String newLogin = st.nextToken();
 //                    String newPassword = st.nextToken();
@@ -131,11 +136,7 @@ public class CYFService implements Runnable {
 //                    // createExpense -> zapisuje w Grupie
 //                    break;
 
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
             }
-
         }
     }
 
@@ -158,21 +159,12 @@ public class CYFService implements Runnable {
         }
     }
 
-    private String receive() {
+    private Messenger receive() {
         try {
-            return messageIn.readLine();
-        } catch (IOException ioe) {
+            return (Messenger) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException ioe) {
             System.err.println("Error reading client (" + id + "), " + ioe);
-            return CYFProtocol.NULLCOMMAND.name();
-        }
-    }
-
-    private byte requestRecieve() {
-        try {
-            return objectIn.readByte();
-        } catch (IOException ioe) {
-            System.err.println("Error reading client (" + id + "), " + ioe);
-            return 0;       // 0 means error
+            return new Messenger(CYFProtocol.NULLCOMMAND);
         }
     }
 

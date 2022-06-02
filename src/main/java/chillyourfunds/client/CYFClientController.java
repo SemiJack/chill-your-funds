@@ -5,10 +5,9 @@ import chillyourfunds.server.Messenger;
 
 import javax.swing.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.security.MessageDigest;
+
 
 public class CYFClientController implements Runnable {
     private final Socket socket;
@@ -60,7 +59,6 @@ public class CYFClientController implements Runnable {
     }
 
     private boolean handleCommand() throws IOException, ClassNotFoundException {
-        //StringTokenizer st = new StringTokenizer(protocolSentence);
         Messenger message = (Messenger) objectIn.readObject();
         CYFProtocol  command = message.command;
         switch (command) {
@@ -99,14 +97,12 @@ public class CYFClientController implements Runnable {
         }
     }
 
-    void login(String login, String password) {
-        send(CYFProtocol.LOGIN, new String[]{login,password});
+    void login(String username, String password) {
+        send(CYFProtocol.LOGIN, new String[]{username,password});
     }
 
-    void register(String login, String password, String firstname, String lastname) throws IOException {
-        objectOut.writeByte(1);
-        objectOut.flush();
-        //send(CYFProtocol.SINGIN + " " +login+ " " + password + " " + firstname + " " + lastname); TODO
+    void register(String login, String password, String firstname, String lastname){
+        send(CYFProtocol.REGISTER, new String[]{login, password, firstname, lastname});
     }
 
      void createGroup(String groupName, Integer personId) {

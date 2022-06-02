@@ -5,8 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,8 +26,8 @@ public class CYFApplication extends javafx.application.Application {
     }
 
     private void talkWithServer() throws Exception {
-        //clients.get(0).register("jacko","1234", "Jacek","Pelczar");
-        clients.get(0).login("jako", "1234");
+        clients.get(0).register("jacko","1234", "Jacek","Pelczar");
+        clients.get(0).login("jacko", "1234");
         //clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
         //clients.get(0).createExpense();
         Scanner keyboard = new Scanner(System.in);

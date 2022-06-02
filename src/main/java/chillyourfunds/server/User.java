@@ -1,29 +1,28 @@
 package chillyourfunds.server;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private List<Integer> groupsID; // lista ID grup w których jest
 
-    private final int UUID;// unikalne ID do rozpoznawania w dodawania do grupy
-    private final String login;
-    private final String password;
+    private final String username;
+
+    private final int credentials;
 
     private String firstName;
 
     private String lastName;
 
-    public User(int uuid, String login, String password,String firstName, String lastName) {
-        UUID = uuid;
-
-        this.login = login;
-        this.password = password;
+    public User(int credentials, String username,String firstName, String lastName) {
+        this.credentials = credentials;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public int getUUID() {
-        return UUID;
+    public String getUsername() {
+        return username;
     }
 
     public String getFirstName() {
@@ -35,6 +34,13 @@ public class User {
     }
     public String getLastName() {
         return lastName;
+    }
+
+    public boolean checkCredentials(int credentials){
+        return this.credentials == credentials;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
 

@@ -12,7 +12,7 @@ import java.util.Random;
 public class CYFData {
     private HashMap<Integer, Group> groupData; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
 
-    private HashMap<Integer,User> userData;
+    private HashMap<String,User> userData;
 
 
     public CYFData() {
@@ -26,7 +26,7 @@ public class CYFData {
             id = new Random().nextInt();
         }
         groupData.put(id,new Group(groupName, id));
-        groupData.get(id).addPerson(new Person(creator.getUUID(), creator.getFirstName(),true));
+        groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(),true));
 
     }
 
@@ -34,14 +34,21 @@ public class CYFData {
         return  groupData.get(id);
     }
 
-    public void addUser(String login, String password, String firstname, String lastname){
-        int credentials = Objects.hash(login,password);
-        userData.put(credentials,new User(credentials, login, password, firstname, lastname));
-        System.out.println("fw");
+    public boolean addUser(String username, String password, String firstname, String lastname){
+        int credentialsHash = Objects.hash(username,password);
+        if(!userData.containsKey(username)){
+            userData.put(username,new User(credentialsHash, username, firstname, lastname));
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public User getUserByCredentials(String login, String password){
-        return userData.get(Objects.hash(login,password));
+    public User getUserByCredentials(String username, String password){
+        User temp = userData.get(username);
+        if(temp != null && temp.checkCredentials(Objects.hash(username,password))){
+            return temp;
+        }else return null;
     }
 
 
