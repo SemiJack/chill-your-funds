@@ -9,16 +9,14 @@ import java.util.StringTokenizer;
 public class CYFService implements Runnable {
 
     private int id;
-
     private final CYFServer server;
     private Socket clientSocket;
-
     private User user;
-
     private Group currGroup;
-
-    private BufferedReader input;
-    private PrintWriter output;
+    private BufferedReader messageIn;
+    private PrintWriter messageOut;
+    private ObjectOutputStream objectOut;
+    private ObjectInputStream objectIn;
 
 
     public CYFService(Socket clientSocket, CYFServer server) {
@@ -27,20 +25,20 @@ public class CYFService implements Runnable {
     }
 
     void init() throws IOException {
-        input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        output = new PrintWriter(clientSocket.getOutputStream(), true);
+        objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
+        objectIn = new ObjectInputStream(clientSocket.getInputStream());
     }
 
     void close() {
         try {
-            input.close();
-            output.close();
+            objectIn.close();
+            objectOut.close();
             clientSocket.close();
         } catch (IOException e) {
             System.err.println("Error closing client (" + id + "), " + e);
         } finally {
-            output = null;
-            input = null;
+            messageOut = null;
+            messageIn = null;
             clientSocket = null;
         }
     }
@@ -58,91 +56,124 @@ public class CYFService implements Runnable {
     public void run() {
 
         while (true) {
-            String protocolSentence = receive();
-            StringTokenizer st = new StringTokenizer(protocolSentence);
-            CYFProtocol command = CYFProtocol.valueOf(st.nextToken()); // w srodku bylo jeszcze .Draw.
-            switch (command) {
-                case LOGIN:
-                    String login = st.nextToken();
-                    String password = st.nextToken();
-                    user = server.database.getUserByCredentials(login, password);
-                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " " + server.boardWidth() + " " + server.boardHeight());
-                    break;
-                case SINGIN:
-                    String newLogin = st.nextToken();
-                    String newPassword = st.nextToken();
-                    server.database.addUser( newLogin, newPassword, st.nextToken(),st.nextToken());
-                    user = server.database.getUserByCredentials(newLogin,newPassword);
-                    send(CYFProtocol.SINGEDIN+" ");
-                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " " + server.boardWidth() + " " + server.boardHeight());
-                    break;
-                case CREATEGROUP:
-                    String groupName = st.nextToken();
-                    server.database.addGroup(groupName,user);
-                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_utworzona");
-                    break;
-                case CHOOSEGROUP:
-                    currGroup = server.database.getGroup(Integer.parseInt(st.nextToken()));
-                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_wybrana");
-                    break;
-//                case HISTORY:
-//                    server.send(CYFProtocol.HISTORY + );
-//                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
+            try {
+                Messenger message = (Messenger) objectIn.readObject();
+                CYFProtocol command = message.command;
+                switch (command) {
+                    case LOGIN:
+                        String[] credentials = (String[]) message.data;
+                        user = server.database.getUserByCredentials(credentials[0],credentials[1]);
+                        if(user==null){
+                            send(CYFProtocol.COMMENT, "Wrong login or password!");
+                        }else send(CYFProtocol.LOGGEDIN);
+                        break;
+                    case CHOOSEGROUP:
+                        objectOut.writeObject(server.database.getGroup(1));
+                        break;
+                    case LOGOUT:
+                        send(CYFProtocol.LOGGEDOUT); // no break!
+                    case STOPPED:
+                        server.removeClientService(this); // no break!
+                    case NULLCOMMAND:
+                        return;
+                    default:
+                        System.out.println("Error");
+//                case SINGIN:
+//                    String newLogin = st.nextToken();
+//                    String newPassword = st.nextToken();
+//                    server.database.addUser( newLogin, newPassword, st.nextToken(),st.nextToken());
+//                    user = server.database.getUserByCredentials(newLogin,newPassword);
+//                    send(CYFProtocol.SINGEDIN+" ");
+//                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " " + server.boardWidth() + " " + server.boardHeight());
 //                    break;
-                case ADDEXPENSE:
-                    try {
-                    Expense expense;
-                    String expenseType = st.nextToken();
-                    Integer amount = Integer.parseInt(st.nextToken());
-                    switch (expenseType) {
-                        case "percent":
-                            expense = new PercentExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
-                            break;
-                        case "exact":
-                            expense = new ExactExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
-                            break;
-                        default:
-                            expense = new EqualExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
-                            break;
-                    }
-                    ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-                    Integer[] debtors = (Integer[]) objectInputStream.readObject();
-                    for(Integer pId : debtors){
-                       expense.addDebtor(pId);
-                    }
-                    expense.createExpense(expense);
+//                case CREATEGROUP:
+//                    String groupName = st.nextToken();
+//                    server.database.addGroup(groupName,user);
+//                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_utworzona");
+//                    break;
+//                case CHOOSEGROUP:
+//                    currGroup = server.database.getGroup(Integer.parseInt(st.nextToken()));
+//                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_wybrana");
+//                    break;
+////                case HISTORY:
+////                    server.send(CYFProtocol.HISTORY + );
+////                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
+////                    break;
+//                case ADDEXPENSE:
+//                    try {
+//                    Expense expense;
+//                    String expenseType = st.nextToken();
+//                    Integer amount = Integer.parseInt(st.nextToken());
+//                    switch (expenseType) {
+//                        case "percent":
+//                            expense = new PercentExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
+//                            break;
+//                        case "exact":
+//                            expense = new ExactExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
+//                            break;
+//                        default:
+//                            expense = new EqualExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
+//                            break;
+//                    }
+//                    ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+//                    Integer[] debtors = (Integer[]) objectInputStream.readObject();
+//                    for(Integer pId : debtors){
+//                       expense.addDebtor(pId);
+//                    }
+//                    expense.createExpense(expense);
+//
+//                    } catch (IOException | ClassNotFoundException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    // wybieramy rodzaj
+//                    // tworzymy obiekt
+//                    // dodajemy osoby
+//                    // createExpense -> zapisuje w Grupie
+//                    break;
 
-                    } catch (IOException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    // wybieramy rodzaj
-                    // tworzymy obiekt
-                    // dodajemy osoby
-                    // createExpense -> zapisuje w Grupie
-                    break;
-                case LOGOUT:
-                    send(CYFProtocol.LOGGEDOUT.name()); // no break!
-                case STOPPED:
-                    server.removeClientService(this); // no break!
-                case NULLCOMMAND:
-                    return;
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
+
         }
     }
 
 
+    void send(CYFProtocol command, Object data) {
+        try {
+            if (objectOut != null)
+                objectOut.writeObject(new Messenger(command, data));
+        } catch (IOException e) {
+            System.err.println("Cannot send data to server!");
+        }
+    }
 
-
-    void send(String command) {
-        output.println(command);
+    void send(CYFProtocol command) {
+        try {
+            if (objectOut != null)
+                objectOut.writeObject(new Messenger(command));
+        } catch (IOException e) {
+            System.err.println("Cannot send data to server!");
+        }
     }
 
     private String receive() {
         try {
-            return input.readLine();
+            return messageIn.readLine();
         } catch (IOException ioe) {
             System.err.println("Error reading client (" + id + "), " + ioe);
             return CYFProtocol.NULLCOMMAND.name();
         }
     }
+
+    private byte requestRecieve() {
+        try {
+            return objectIn.readByte();
+        } catch (IOException ioe) {
+            System.err.println("Error reading client (" + id + "), " + ioe);
+            return 0;       // 0 means error
+        }
+    }
+
 }

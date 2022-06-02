@@ -37,7 +37,7 @@ public class CYFServer extends Frame implements Runnable {
         }
         Button b = new Button("stop and exit");
         b.addActionListener((actionEvent) -> {
-            send(CYFProtocol.STOP.name());
+            send(CYFProtocol.STOP);
             new Thread(() -> {
                 while (clients.size() != 0) {
                     try {
@@ -114,11 +114,12 @@ public class CYFServer extends Frame implements Runnable {
         System.out.println("Client removed. Number of clients: " + clients.size());
     }
 
-    synchronized void send(String msg) {
+    synchronized void send(CYFProtocol proto) {
         for (CYFService s : clients) { // roześlij do wszystkich klientów
-            s.send(msg);
+            s.send(proto);
         }
     }
+
 
 //    synchronized void send(String msg, CYFService skip) {
 //        for (CYFService s : clients) { // roześlij do wszystkich klientów
