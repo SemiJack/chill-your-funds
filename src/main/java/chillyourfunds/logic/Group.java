@@ -9,7 +9,7 @@ public class Group {
     String groupName;
 
     Integer groupId;
-    public static List<Person> people = new ArrayList<>(); // to nie może być static
+    public List<Person> people = new ArrayList<>(); // to nie może być static
     public List<Expense> expenses = new ArrayList<>();
 
     public Group(String groupName, Integer groupId) {
@@ -35,7 +35,7 @@ public class Group {
 //        return p;
 //    }
 
-    public static Person getPersonByName(String name) {
+    public  Person getPersonByName(String name) {
         Person p = null;
         for (int i = 0; i < people.size(); i++) {
             if (people.get(i).username.equals(name)) {
@@ -64,7 +64,7 @@ public class Group {
     static List printBill;
 
 
-        private static void findPath(Map details) {
+        private void findPath(Map details) {
 
             Double Max_Value = (Double) Collections.max(details.values());
             Double Min_Value = (Double) Collections.min(details.values());
