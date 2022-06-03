@@ -2,10 +2,10 @@ package chillyourfunds.logic;
 
 public class LogicTest {
     public static void main(String[] args) {
-        Person person1=new Person("eric","Eryk");
-        Person person2=new Person("gregor","Grzechu");
-        Person person3=new Person("kris","Krzychu");
-        Person person4=new Person("json","Jacek");
+        Person person1=new Person(1,"Eryk");
+        Person person2=new Person(2,"Grzechu");
+        Person person3=new Person(3,"Krzychu");
+        Person person4=new Person(4,"Jacek");
         Group group=new Group("szefy",997);
         group.addPerson(person1);
         group.addPerson(person2);
@@ -15,20 +15,20 @@ public class LogicTest {
         EqualExpense e1 = new EqualExpense(100, group, person1);
         EqualExpense e2 = new EqualExpense(150, group, person2);
         EqualExpense e3 = new EqualExpense(200, group, person3);
-        e1.addDebtor("eric");
-        e1.addDebtor("gregor");
-        e1.addDebtor("kris");
-        e1.addDebtor("json");
+        e1.addDebtor(1);
+        e1.addDebtor(2);
+        e1.addDebtor(3);
+        e1.addDebtor(4);
         e1.createExpense(e1);
         System.out.println("------------------");
-        e2.addDebtor("gregor");
-        e2.addDebtor("kris");
-        e2.addDebtor("json");
+        e2.addDebtor(1);
+        e2.addDebtor(2);
+        e2.addDebtor(3);
         e2.createExpense(e2);
-        e3.addDebtor("eric");
-        e3.addDebtor("gregor");
-        e3.addDebtor("kris");
-        e3.addDebtor("json");
+        e3.addDebtor(1);
+        e3.addDebtor(2);
+        e3.addDebtor(3);
+        e3.addDebtor(4);
         e3.createExpense(e3);
         e1.equalSplit();
         e2.equalSplit();
@@ -47,13 +47,13 @@ public class LogicTest {
 //        e6.addDebtor(3);
 //        e6.percentSplit();
 //        e6.createExpense(e6);
-        System.out.println("Stan konta "+person1.username+" wynosi "+person1.balance+"$");
-        System.out.println("Stan konta "+person2.username+" wynosi "+person2.balance+"$");
-        System.out.println("Stan konta "+person3.username+" wynosi "+person3.balance+"$");
-        System.out.println("Stan konta "+person4.username+" wynosi "+person4.balance+"$");
+        System.out.println("Stan konta "+person1.name+" wynosi "+person1.balance+"$");
+        System.out.println("Stan konta "+person2.name+" wynosi "+person2.balance+"$");
+        System.out.println("Stan konta "+person3.name+" wynosi "+person3.balance+"$");
+        System.out.println("Stan konta "+person4.name+" wynosi "+person4.balance+"$");
         System.out.println();
-//        System.out.println(person2.name+" jest winien "+person1.name+" "+person2.mapOfExpenses.get(person1)+"$");
-//        System.out.println(person2.name+" jest winien "+person4.name+" "+person2.mapOfExpenses.get(person4)+"$");
+        System.out.println(person2.name+" jest winien "+person1.name+" "+person2.mapOfExpenses.get(person1)+"$");
+        System.out.println(person2.name+" jest winien "+person4.name+" "+person2.mapOfExpenses.get(person4)+"$");
 //
         person1.showMyPayers();
         person2.showMyPayers();

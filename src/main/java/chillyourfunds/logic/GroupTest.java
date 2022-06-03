@@ -20,23 +20,23 @@ class GroupTest {
     @BeforeEach
     void setUp() {
         group=new Group("Szefy",2115);
-        Person person1=new Person("eric","Eryk");
-        Person person2=new Person("gregor","Grzechu");
-        Person person3=new Person("kris","Krzychu");
-        Person person4=new Person("json","Jacek");
+        Person person1=new Person(1,"Eryk");
+        Person person2=new Person(2,"Grzechu");
+        Person person3=new Person(3,"Krzychu");
+        Person person4=new Person(4,"Jacek");
         group.addPerson(person1);
         group.addPerson(person2);
         group.addPerson(person3);
         group.addPerson(person4);
         eq1=new EqualExpense(100,group,person1);
-        eq1.addDebtor("eric");
-        eq1.addDebtor("gregor");
-        eq1.addDebtor("kris");
-        eq1.addDebtor("json");
+        eq1.addDebtor(1);
+        eq1.addDebtor(2);
+        eq1.addDebtor(3);
+        eq1.addDebtor(4);
         eq2=new EqualExpense(300,group,person3);
-        eq2.addDebtor("eric");
-        eq2.addDebtor("gregor");
-        eq2.addDebtor("json");
+        eq2.addDebtor(1);
+        eq2.addDebtor(2);
+        eq2.addDebtor(4);
     }
     @AfterEach
     void tearDown() {
@@ -46,7 +46,7 @@ class GroupTest {
     @org.junit.jupiter.api.Test
     void addPersonTest() {
         assertEquals(4,group.people.size());
-        assertEquals(group.getPersonByName("eric"),person1);
+        assertEquals(group.getPersonById(1),person1);
     }
 
     @org.junit.jupiter.api.Test
@@ -55,13 +55,13 @@ class GroupTest {
         assertEquals(3,group.people.size());
     }
 
-//    @org.junit.jupiter.api.Test
-//    void getPersonById() {
-//        assertEquals(group.getPersonById(1),person1);
-//        assertEquals(group.getPersonById(2),person2);
-//        assertEquals(group.getPersonById(3),person3);
-//        assertEquals(group.getPersonById(4),person4);
-//    }
+    @org.junit.jupiter.api.Test
+    void getPersonById() {
+        assertEquals(group.getPersonById(1),person1);
+        assertEquals(group.getPersonById(2),person2);
+        assertEquals(group.getPersonById(3),person3);
+        assertEquals(group.getPersonById(4),person4);
+    }
 
     @org.junit.jupiter.api.Test
     void getPersonByName() {

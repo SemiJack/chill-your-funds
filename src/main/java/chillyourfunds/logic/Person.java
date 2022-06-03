@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Person{
-    String username;
+    int id;
     int balance;
-    String firstname;
+    String name;
 
     boolean isAdmin;
 
@@ -15,13 +15,13 @@ public class Person{
 
 
 
-    public Person(String username, String firstname) {
-        this.username = username;
-        this.firstname = firstname;
+    public Person(int id, String name) {
+        this.id=id;
+        this.name = name;
     }
-    public Person(String username, String name, boolean isAdmin) {
-        this.username = username;
-        this.firstname = name;
+    public Person(int id, String name, boolean isAdmin) {
+        this.id=id;
+        this.name = name;
         this.isAdmin = isAdmin;
     }
     void addToBalance(int x){
@@ -59,9 +59,9 @@ public class Person{
         if(mapOfExpenses.isEmpty()){
             System.out.println("Pusta lista, brak długów");
         } else {
-            System.out.println("Lista długów osoby: "+firstname);
+            System.out.println("Lista długów osoby: "+ name);
             for (Person person : mapOfExpenses.keySet()) {
-                System.out.println(person.firstname + ": " + mapOfExpenses.get(person)+"$");
+                System.out.println(person.name + ": " + mapOfExpenses.get(person)+"$");
             }
 //            System.out.println(mapOfExpenses);
         }
@@ -73,9 +73,9 @@ public class Person{
     @Override
     public String toString() {
         return "Person{" +
-                "username=" + username +
+                "username=" + id +
                 ", balance=" + balance +
-                ", firstname='" + firstname + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -83,7 +83,7 @@ public class Person{
         return balance;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 }
