@@ -19,30 +19,36 @@ public class ExactExpense extends Expense{
                 part = scanner.nextInt();
                 mapOfAmounts.put(debtors.get(i), part);
                 if(debtors.get(i) == payer) {
-                    debtors.get(i).subtractFromBalance(amount);
-                    debtors.get(i).addToBalance(part);
+                    debtors.get(i).subtractFromBalance(group,amount);
+                    debtors.get(i).addToBalance(group,part);
                     counter += part;
                 } else{
-                    debtors.get(i).addToBalance(mapOfAmounts.get(debtors.get(i)));
-                    if(debtors.get(i).mapOfExpenses.containsKey(payer)){
-                        debtors.get(i).mapOfExpenses.put(payer,debtors.get(i).mapOfExpenses.get(payer)+part);
+                    debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
+                    if(debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer) && debtors.get(i).mapOfExpensesFromGroup.get(group) != null ){
+                        debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer,debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer)+part);
                     }else{
-                        debtors.get(i).mapOfExpenses.putIfAbsent(payer,part);
+                        debtors.get(i).mapOfExpensesFromGroup.get(group).putIfAbsent(payer,part);
                     }
 
                     counter += part;
                 }
             }
         } else {
-            payer.subtractFromBalance(amount);
+            payer.subtractFromBalance(group,amount);
             for(int i = 0; i < debtors.size(); i++) {
                 part = scanner.nextInt();
                 mapOfAmounts.put(debtors.get(i), part);
-                debtors.get(i).addToBalance(mapOfAmounts.get(debtors.get(i)));
-                if(debtors.get(i).mapOfExpenses.containsKey(payer)){
-                    debtors.get(i).mapOfExpenses.put(payer,debtors.get(i).mapOfExpenses.get(payer)+part);
-                }else{
-                    debtors.get(i).mapOfExpenses.putIfAbsent(payer,part);
+                debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
+                if(debtors.get(i).mapOfExpensesFromGroup.get(group) != null) {
+                    if(debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer)){
+                        debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer,debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer)+part);
+                    }else{
+                        debtors.get(i).mapOfExpensesFromGroup.get(group).putIfAbsent(payer,part);
+                    }
+                } else {
+                    Map<Person, Integer> map = new HashMap<>();
+                    map.put(payer,part);
+                    debtors.get(i).mapOfExpensesFromGroup.put(group,map);
                 }
                 counter += part;
             }

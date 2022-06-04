@@ -9,7 +9,7 @@ public class Group {
     String groupName;
 
     Integer groupId;
-    public List<Person> people = new ArrayList<>(); // to nie może być static
+    public List<Person> people = new ArrayList<>();
     public List<Expense> expenses = new ArrayList<>();
 
     public Group(String groupName, Integer groupId) {
@@ -45,17 +45,21 @@ public class Group {
         return p;
     }
 
-    public void simplifyGroupExpenses() {
+    public void simplifyGroupExpenses(Group group) {
         for(int i = 0; i < people.size(); i++) {
-            people.get(i).mapOfExpenses.clear();
+            if(people.get(i).mapOfExpensesFromGroup.get(group)!=null) {
+                people.get(i).mapOfExpensesFromGroup.get(group).clear();
+            }
         }
-        findPath(groupToSimplify());
+        findPath(groupToSimplify(group),group);
     }
 
-    private Map groupToSimplify() {
+    private Map groupToSimplify(Group group) {
         Map<String,Double> mapOfBalancesInGroup = new HashMap<>();
         for(int i = 0; i < people.size(); i++) {
-            mapOfBalancesInGroup.put(people.get(i).name, (double) -(people.get(i).balance));
+            if(people.get(i).mapOfBalances.get(group) != null) {
+                mapOfBalancesInGroup.put(people.get(i).name, (double) -(people.get(i).mapOfBalances.get(group)));
+            }
         }
 
         return mapOfBalancesInGroup;
@@ -64,7 +68,7 @@ public class Group {
     static List printBill;
 
 
-        private void findPath(Map details) {
+        private void findPath(Map details, Group group) {
 
             Double Max_Value = (Double) Collections.max(details.values());
             Double Min_Value = (Double) Collections.min(details.values());
@@ -76,7 +80,7 @@ public class Group {
                 if ((result >= 0.0)) {
 
                     System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Min_Value), 2));
-                    getPersonByName(Min_Key).mapOfExpenses.put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
+                    getPersonByName(Min_Key).mapOfExpensesFromGroup.get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, result);
@@ -84,13 +88,13 @@ public class Group {
                 } else {
 
                     System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Max_Value), 2));
-                    getPersonByName(Min_Key).mapOfExpenses.put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
+                    getPersonByName(Min_Key).mapOfExpensesFromGroup.get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, 0.0);
                     details.put(Min_Key, result);
                 }
-                findPath(details);
+                findPath(details,group);
             }
         }
 

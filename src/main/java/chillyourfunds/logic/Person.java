@@ -2,16 +2,18 @@ package chillyourfunds.logic;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Person{
     int id;
-    int balance;
     String name;
 
     boolean isAdmin;
 
-    Map<Person,Integer> mapOfExpenses=new HashMap<>();
+    Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
+//    Map<Person,Integer> mapOfExpenses = new HashMap<>();
+   Map<Group,Integer> mapOfBalances = new HashMap<>();
 
 
 
@@ -24,24 +26,35 @@ public class Person{
         this.name = name;
         this.isAdmin = isAdmin;
     }
-    void addToBalance(int x){
-        balance+=x;
+    void addToBalance(Group g,int x){
+        if(mapOfBalances.containsKey(g)) {
+            int output = 0;
+            output = mapOfBalances.get(g) + x;
+            mapOfBalances.put(g,output);
+        } else {
+            mapOfBalances.putIfAbsent(g,x);
+        }
     }
 
-    void payADebt(Person payer, int amount) {
+    void payADebt(Person payer, Group g, int amount) {
         int debt = 0;
-        for(int i = 0; i < mapOfExpenses.size(); i++) {
-            if(mapOfExpenses.containsKey(payer)) {
-                debt = mapOfExpenses.get(payer);
-                if(debt - amount >= 0) {
-                    mapOfExpenses.put(payer,debt - amount);
-                    removeFromAList(payer);
-                    subtractFromBalance(amount);
-                    payer.addToBalance(amount);
-                    break;
-                } else {
-                    System.out.println("Nie można zapłacić więcej niż wynosi twój dług");
+        for(int i = 0; i < mapOfExpensesFromGroup.size(); i++) {
+            if(mapOfExpensesFromGroup.containsKey(g)) {
+                for(int j = 0; j < mapOfExpensesFromGroup.get(g).size(); j++) {
+                    if(mapOfExpensesFromGroup.get(g).containsKey(payer)) {
+                        debt = mapOfExpensesFromGroup.get(g).get(payer);
+                        if(debt - amount >= 0) {
+                            mapOfExpensesFromGroup.get(g).put(payer,debt - amount);
+                            removeFromAList(payer,g);
+                            subtractFromBalance(g,amount);
+                            payer.addToBalance(g,amount);
+                            break;
+                        } else {
+                            System.out.println("Nie można zapłacić więcej niż wynosi twój dług");
+                        }
+                    }
                 }
+
             } else {
                 System.out.println("Nie ma takiego dłużnika");
                 break;
@@ -50,37 +63,55 @@ public class Person{
     }
 
 
-    void removeFromAList(Person payer) {
-        if(mapOfExpenses.containsValue(0))
-        mapOfExpenses.remove(payer, 0);
+    void removeFromAList(Person payer, Group group) {
+        if(mapOfExpensesFromGroup.get(group).containsValue(0))
+            mapOfExpensesFromGroup.get(group).remove(payer, 0);
     }
 
     void showMyPayers() {
-        if(mapOfExpenses.isEmpty()){
-            System.out.println("Pusta lista, brak długów");
+        if(mapOfExpensesFromGroup.isEmpty()){
+            System.out.println("Pusta lista, brak długów osoby: " + name);
         } else {
             System.out.println("Lista długów osoby: "+ name);
-            for (Person person : mapOfExpenses.keySet()) {
-                System.out.println(person.name + ": " + mapOfExpenses.get(person)+"$");
+            for (Group group : mapOfExpensesFromGroup.keySet()) {
+                System.out.println("Grupa: " + group.groupName);
+                for(Person person : mapOfExpensesFromGroup.get(group).keySet()) {
+                    System.out.println(person.name + ": " + mapOfExpensesFromGroup.get(group).get(person)+"$");
+                }
             }
 //            System.out.println(mapOfExpenses);
         }
     }
 
-    void subtractFromBalance(int x){
-        balance-=x;
+    void subtractFromBalance(Group g,int x){
+        if(mapOfBalances.containsKey(g)) {
+            int output = 0;
+            output = mapOfBalances.get(g) - x;
+            mapOfBalances.put(g,output);
+        } else {
+            mapOfBalances.putIfAbsent(g,-x);
+        }
     }
     @Override
     public String toString() {
         return "Person{" +
                 "username=" + id +
-                ", balance=" + balance +
                 ", name='" + name + '\'' +
                 '}';
     }
+    public void showMyBalances() {
+        if(!mapOfBalances.isEmpty()) {
+            for(Group group : mapOfBalances.keySet()) {
+                System.out.println("Balans " + name + " w grupie " + group.groupName + " wynosi: " + mapOfBalances.get(group));
+            }
+        }
+    }
 
-    public int getBalance() {
-        return balance;
+    public int getBalance(Group group) {
+        if(mapOfBalances.containsKey(group)) {
+            return mapOfBalances.get(group);
+        }
+        return 0;
     }
 
     public String getName() {

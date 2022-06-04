@@ -17,7 +17,12 @@ public class Expense {
     }
 
     public void addDebtor(int id) {
-        debtors.add(group.getPersonById(id));
+        if(group.getPersonById(id) != null) {
+            debtors.add(group.getPersonById(id));
+        } else {
+            System.out.println("Nie można dodac osoby z poza grupy jako dłużnika!");
+        }
+
     }
 
     public void createExpense(Expense e) {
