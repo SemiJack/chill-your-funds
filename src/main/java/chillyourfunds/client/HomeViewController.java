@@ -46,4 +46,8 @@ public class HomeViewController implements Initializable {
         client.login("jacko","1234");
   }
 
+    public void addExpense(ActionEvent e) {
+        System.out.println("Expense added");
+    }
+
 }
