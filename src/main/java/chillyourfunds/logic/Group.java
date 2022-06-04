@@ -25,20 +25,20 @@ public class Group {
         people.remove(person);
     }
 
-//    public Person getPersonById(int id) {
-//        Person p = null;
-//        for (int i = 0; i < people.size(); i++) {
-//            if (people.get(i).id == id) {
-//                p = people.get(i);
-//            }
-//        }
-//        return p;
-//    }
+    public Person getPersonById(int id) {
+        Person p = null;
+        for (int i = 0; i < people.size(); i++) {
+            if (people.get(i).id == id) {
+                p = people.get(i);
+            }
+        }
+        return p;
+    }
 
     public  Person getPersonByName(String name) {
         Person p = null;
         for (int i = 0; i < people.size(); i++) {
-            if (people.get(i).username.equals(name)) {
+            if (people.get(i).name.equals(name)) {
                 p = people.get(i);
             }
         }
@@ -55,7 +55,7 @@ public class Group {
     private Map groupToSimplify() {
         Map<String,Double> mapOfBalancesInGroup = new HashMap<>();
         for(int i = 0; i < people.size(); i++) {
-            mapOfBalancesInGroup.put(people.get(i).username, (double) -(people.get(i).balance));
+            mapOfBalancesInGroup.put(people.get(i).name, (double) -(people.get(i).balance));
         }
 
         return mapOfBalancesInGroup;
