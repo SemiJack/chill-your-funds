@@ -65,7 +65,7 @@ public class Group {
         return mapOfBalancesInGroup;
     }
 
-    static List printBill;
+
 
 
         private void findPath(Map details, Group group) {
@@ -78,15 +78,13 @@ public class Group {
                 Double result = Max_Value + Min_Value;
                 result = round(result, 1);
                 if ((result >= 0.0)) {
-
-                    System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Min_Value), 2));
+                    System.out.println((Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Min_Value), 2)));
                     getPersonByName(Min_Key).mapOfExpensesFromGroup.get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, result);
                     details.put(Min_Key, 0.0);
                 } else {
-
                     System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Max_Value), 2));
                     getPersonByName(Min_Key).mapOfExpensesFromGroup.get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
                     details.remove(Max_Key);

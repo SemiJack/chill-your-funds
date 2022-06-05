@@ -21,42 +21,42 @@ public class LogicTest {
 
 //        EqualExpense e1 = new EqualExpense(12, group, person1);
 //        EqualExpense e2 = new EqualExpense(12, group, person2);
-//        EqualExpense e3 = new EqualExpense(20, group, person3);
-        ExactExpense e4 = new ExactExpense(100,group1,person5);
-        PercentExpense e5 = new PercentExpense(100,group1,person5);
+        EqualExpense e3 = new EqualExpense(30, group, person2);
+//        ExactExpense e4 = new ExactExpense(100,group1,person5);
+//        PercentExpense e5 = new PercentExpense(100,group1,person5);
 //        e1.addDebtor(3);
 //        e1.createExpense(e1);
 //        System.out.println("------------------");
 //        e2.addDebtor(1);
 //        e2.createExpense(e2);
-//        e3.addDebtor(1);
-//        e3.addDebtor(3);
-//        e3.addDebtor(4);
-//        e3.createExpense(e3);
+        e3.addDebtor(1);
+        e3.addDebtor(3);
+        e3.addDebtor(4);
+        e3.createExpense(e3);
 //        e1.equalSplit();
 //        e2.equalSplit();
-//        e3.equalSplit();
-        e4.addDebtor(5);
-        e4.addDebtor(3);
-        e4.createExpense(e4);
-        try{
-            e4.exactSplit();
-        } catch (Exception e) {
-            System.out.println("Nastąpił problem: " + e);
-            System.out.println("Spróbuj ponownie: ");
-            e4.exactSplit();
-        }
-
-        e5.addDebtor(1);
-        e5.addDebtor(3);
-        e5.createExpense(e5);
-        try{
-            e5.percentSplit();
-        } catch (Exception e) {
-            System.out.println("Nastąpił problem: " + e);
-            System.out.println("Spróbuj ponownie: ");
-            e5.percentSplit();
-        }
+        e3.equalSplit();
+//        e4.addDebtor(5);
+//        e4.addDebtor(3);
+//        e4.createExpense(e4);
+//        try{
+//            e4.exactSplit();
+//        } catch (Exception e) {
+//            System.out.println("Nastąpił problem: " + e);
+//            System.out.println("Spróbuj ponownie: ");
+//            e4.exactSplit();
+//        }
+//
+//        e5.addDebtor(1);
+//        e5.addDebtor(3);
+//        e5.createExpense(e5);
+//        try{
+//            e5.percentSplit();
+//        } catch (Exception e) {
+//            System.out.println("Nastąpił problem: " + e);
+//            System.out.println("Spróbuj ponownie: ");
+//            e5.percentSplit();
+//        }
 
 //
 //
@@ -120,7 +120,7 @@ public class LogicTest {
         System.out.println();
         System.out.println();
         System.out.println();
-//        group.simplifyGroupExpenses(group);
+        //group.simplifyGroupExpenses(group);
         System.out.println();
         System.out.println();
         System.out.println();
@@ -129,11 +129,12 @@ public class LogicTest {
         person3.showMyPayers();
         person4.showMyPayers();
         person5.showMyPayers();
-        person3.payADebt(person2,group,12);
-        person3.showMyPayers();
+        System.out.println(person1.getBalance(group));
+        //person3.payADebt(person2,group,12);
+        //person3.showMyPayers();
         //person3.showMyBalances();
-        person5.showMyBalances();
-        person5.showMyPayers();
+        //person5.showMyBalances();
+        //person5.showMyPayers();
 
 
     }

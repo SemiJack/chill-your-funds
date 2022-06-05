@@ -12,8 +12,7 @@ public class Person{
     boolean isAdmin;
 
     Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
-//    Map<Person,Integer> mapOfExpenses = new HashMap<>();
-   Map<Group,Integer> mapOfBalances = new HashMap<>();
+    Map<Group,Integer> mapOfBalances = new HashMap<>();
 
 
 

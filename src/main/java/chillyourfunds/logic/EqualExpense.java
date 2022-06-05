@@ -8,9 +8,23 @@ public class EqualExpense extends Expense{
         super(amount, group, payer);
     }
     public void equalSplit() {
-        int amountPerPerson = amount / (debtors.size());
+        int amountPerPerson = 0;
+        if(amount % debtors.size() == 0) {
+           amountPerPerson = amount / (debtors.size());
+        } else {
+            amountPerPerson = amount / (debtors.size());
+            for (int i = 0; i < (amount % debtors.size()); i++) {
+                if(debtors.get(i).mapOfExpensesFromGroup.get(group) != null) {
+                    debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer, debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer) + 1);
+                } else {
+                    Map<Person, Integer> map = new HashMap<>();
+                    map.put(payer, 1);
+                    debtors.get(i).mapOfExpensesFromGroup.put(group, map);
+                }
+            }
+        }
+
         for (int i = 0; i < debtors.size(); i++) {
-            //debtors.get(i).addToBalance(amountPerPerson);
             debtors.get(i).addToBalance(group, amountPerPerson);
             if (debtors.get(i).mapOfExpensesFromGroup.get(group) != null) {
                 if (debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer)) {
