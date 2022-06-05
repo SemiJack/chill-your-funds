@@ -1,16 +1,16 @@
 package chillyourfunds.logic;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Person{
+public class Person implements Serializable {
     int id;
     String name;
 
     boolean isAdmin;
-
     Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
     Map<Group,Integer> mapOfBalances = new HashMap<>();
 
@@ -112,6 +112,7 @@ public class Person{
         }
         return 0;
     }
+
 
     public String getName() {
         return name;

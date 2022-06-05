@@ -1,22 +1,37 @@
 {
   "groupData": {
-    "1531553131": {
-      "groupName": "Akolici_Cyerbezpieczenstwa",
-      "groupId": 1531553131,
-      "expenses": []
-    },
-    "2079175493": {
-      "groupName": "Akolici_Cyerbezpieczenstwa",
-      "groupId": 2079175493,
+    "324689147": {
+      "groupName": "kokokok",
+      "groupId": 324689147,
+      "people": [
+        {
+          "id": 100881541,
+          "name": "jacke",
+          "isAdmin": false,
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
       "expenses": []
     }
   },
   "userData": {
-    "jacko": {
-      "username": "jacko",
-      "credentials": -1166129773,
+    "jacke": {
+      "groupsId": [
+        324689147
+      ],
+      "uuid": 100881541,
+      "username": "jacke",
+      "credentials": -1166130083,
       "firstName": "Jacek",
-      "lastName": "Pelczar"
+      "lastName": "Pelczar",
+      "InGroups": {
+        "id": 100881541,
+        "name": "jacke",
+        "isAdmin": false,
+        "mapOfExpensesFromGroup": {},
+        "mapOfBalances": {}
+      }
     }
   }
 }

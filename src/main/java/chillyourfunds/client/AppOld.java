@@ -26,10 +26,10 @@ public class AppOld extends javafx.application.Application{
         e1.createExpense(e1);
         e1.equalSplit();
 
-        System.out.println("Stan konta "+person1.getName()+" wynosi "+person1.getBalance()+"$");
-        System.out.println("Stan konta "+person2.getName()+" wynosi "+person2.getBalance()+"$");
-        System.out.println("Stan konta "+person3.getName()+" wynosi "+person3.getBalance()+"$");
-        System.out.println("Stan konta "+person4.getName()+" wynosi "+person4.getBalance()+"$");
+//        System.out.println("Stan konta "+person1.getName()+" wynosi "+person1.getBalance()+"$");
+//        System.out.println("Stan konta "+person2.getName()+" wynosi "+person2.getBalance()+"$");
+//        System.out.println("Stan konta "+person3.getName()+" wynosi "+person3.getBalance()+"$");
+//        System.out.println("Stan konta "+person4.getName()+" wynosi "+person4.getBalance()+"$");
     }
 
     @Override

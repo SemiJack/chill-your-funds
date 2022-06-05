@@ -1,10 +1,11 @@
 package chillyourfunds.logic;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class Group {
+public class Group implements Serializable{
 
     String groupName;
 
@@ -115,4 +116,11 @@ public class Group {
             return bd.doubleValue();
         }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
 }

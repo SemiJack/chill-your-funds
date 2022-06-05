@@ -64,7 +64,7 @@ public class CYFService implements Runnable {
                     user = server.database.getUserByCredentials(credentials[0], credentials[1]);
                     if (user == null) {
                         send(CYFProtocol.COMMENT, "Wrong login or password!");
-                    } else send(CYFProtocol.LOGGEDIN);
+                    } else send(CYFProtocol.LOGGEDIN, user);
                     break;
                 case REGISTER:
                     String[] newcredentials = (String[]) message.data;
@@ -73,13 +73,27 @@ public class CYFService implements Runnable {
                     } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
                     break;
                 case CREATEGROUP:
-                    if(server.database.addGroup((String) message.data,user)){
+                    if (server.database.addGroup((String) message.data, user)) {
                         send(CYFProtocol.GROUPCREATED);
-                    }
+                    } else send(CYFProtocol.COMMENT, "Error while creating group!");
+
                     break;
                 case CHOOSEGROUP:
-                    //objectOut.writeObject(server.database.getGroup(1));
+                    currGroup = server.database.getGroup((Integer) message.data);
+                    if (currGroup != null) {
+                        send(CYFProtocol.GROUPCHOOSED, currGroup);
+                    } else send(CYFProtocol.COMMENT, "This group doesn't exist!");
                     break;
+                case ADDEXPENSE:
+
+                    break;
+                case ADDPERSON:
+                    break;
+                case REMOVEPERSON:
+                    break;
+                case SIMPlify:
+                    break;
+
                 case LOGOUT:
                     send(CYFProtocol.LOGGEDOUT); // no break!
                 case STOPPED:
@@ -151,7 +165,8 @@ public class CYFService implements Runnable {
             if (objectOut != null)
                 objectOut.writeObject(new Messenger(command, data));
         } catch (IOException e) {
-            System.err.println("Cannot send data to server!");
+            e.printStackTrace();
+            System.err.println("Cannot send data to client!");
         }
     }
 
@@ -160,7 +175,16 @@ public class CYFService implements Runnable {
             if (objectOut != null)
                 objectOut.writeObject(new Messenger(command));
         } catch (IOException e) {
-            System.err.println("Cannot send data to server!");
+            e.printStackTrace();
+            System.err.println("Cannot send data to client!");
+        }
+    }
+
+    void broadcast(CYFProtocol command) {
+        try {
+            if (objectOut != null)
+                objectOut.writeObject(new Messenger(command));
+        } catch (IOException e) {
         }
     }
 

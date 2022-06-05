@@ -1,8 +1,6 @@
 package chillyourfunds.server;
 
 import chillyourfunds.logic.Group;
-import chillyourfunds.logic.Person;
-
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -10,9 +8,9 @@ import java.util.Random;
 
 
 public class CYFData {
-    private HashMap<Integer, Group> groupData; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
+    private final HashMap<Integer, Group> groupData;
 
-    private HashMap<String,User> userData;
+    private final HashMap<String, User> userData;
 
 
     public CYFData() {
@@ -20,36 +18,38 @@ public class CYFData {
         userData = new HashMap<>();
 
     }
-    public boolean addGroup(String groupName, User creator){
+
+    public boolean addGroup(String groupName, User creator) {
         Integer id = new Random().nextInt();
-        if(groupData.containsKey(id)) {
+        if (groupData.containsKey(id)) {
             id = new Random().nextInt();
         }
-            groupData.put(id, new Group(groupName, id));
-            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));
-            System.out.println("pl");
-            return groupData.get(id)!=null;
+        groupData.put(id, new Group(groupName, id));
+        groupData.get(id).addPerson(creator.InGroup);
+        creator.addToGroup(id);
+        System.out.println("pl");
+        return groupData.get(id) != null;
     }
 
-    public Group getGroup(Integer id){
-        return  groupData.get(id);
+    public Group getGroup(Integer id) {
+        return groupData.get(id);
     }
 
-    public boolean addUser(String username, String password, String firstname, String lastname){
-        int credentialsHash = Objects.hash(username,password);
-        if(!userData.containsKey(username)){
-            userData.put(username,new User(credentialsHash, username, firstname, lastname));
+    public boolean addUser(String username, String password, String firstname, String lastname) {
+        int credentialsHash = Objects.hash(username, password);
+        if (!userData.containsKey(username)) {
+            userData.put(username, new User(Objects.hash(username), credentialsHash, username, firstname, lastname));
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public User getUserByCredentials(String username, String password){
+    public User getUserByCredentials(String username, String password) {
         User temp = userData.get(username);
-        if(temp != null && temp.checkCredentials(Objects.hash(username,password))){
+        if (temp != null && temp.checkCredentials(Objects.hash(username, password))) {
             return temp;
-        }else return null;
+        } else return null;
     }
 
 

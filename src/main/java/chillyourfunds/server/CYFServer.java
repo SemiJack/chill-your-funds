@@ -116,7 +116,7 @@ public class CYFServer extends Frame implements Runnable {
 
     synchronized void send(CYFProtocol proto) {
         for (CYFService s : clients) { // roześlij do wszystkich klientów
-            s.send(proto);
+            s.broadcast(proto);
         }
     }
 

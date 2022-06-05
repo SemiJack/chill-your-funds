@@ -7,7 +7,12 @@ public enum CYFProtocol {
     CREATEGROUP,
     GROUPCREATED,
     CHOOSEGROUP,
+    GROUPCHOOSED,
     ADDEXPENSE,
+    ADDPERSON,
+    REMOVEPERSON,
+    SIMPlify,
+
     HISTORY,
     REGISTER,
     REGISTERED,

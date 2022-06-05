@@ -1,16 +1,24 @@
 package chillyourfunds.client;
 
+import chillyourfunds.logic.ExactExpense;
+import chillyourfunds.logic.Group;
+import chillyourfunds.logic.PercentExpense;
+import chillyourfunds.logic.Person;
 import chillyourfunds.server.CYFProtocol;
 import chillyourfunds.server.Messenger;
+import chillyourfunds.server.User;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 
 public class CYFClientController implements Runnable {
     private final Socket socket;
+    public User me;
+    private  Group currGroup;
     private final ObjectInputStream objectIn;
     private final ObjectOutputStream objectOut;
 
@@ -63,10 +71,15 @@ public class CYFClientController implements Runnable {
         CYFProtocol  command = message.command;
         switch (command) {
             case LOGGEDIN:
+                me = (User) message.data;
                 System.out.println("Log in successful");
                 break;
             case REGISTERED:
                 System.out.println("Register successful");
+                break;
+            case GROUPCHOOSED:
+                currGroup = (Group) message.data;
+                System.out.println("Choosed group: " + currGroup.getGroupName());
                 break;
 //            case 3:
 //                // a co jak się nie zmieści do jednego pakietu?
@@ -85,16 +98,20 @@ public class CYFClientController implements Runnable {
         return true;
     }
 
-    void createExpense(Integer[] personsId, Integer groudId, String expensetype, Integer amount) {
-        try {
-           // send(CYFProtocol.ADDEXPENSE + expensetype + " " + amount);
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject(personsId);
-            oos.flush();
+//    void createExpense(Integer groudId, Integer expensetype, Integer amount) {
+//        if(expensetype==0){
+//            PercentExpense percent = new PercentExpense(amount,currGroup,me.getMeInGroup());
+//            send(CYFProtocol.ADDEXPENSE,percent);
+//        }else if(expensetype ==1){
+//            ExactExpense exact = new ExactExpense(amount,currGroup,me.getMeInGroup());
+//        }else {
+//
+//        }
+//        send(CYFProtocol.ADDEXPENSE,expensetype,new Integer[]{amount,groudId});
+//    }
 
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+    ArrayList<Integer> getGroups(){
+        return me.getGroupsId();
     }
 
     void login(String username, String password) {
@@ -109,8 +126,8 @@ public class CYFClientController implements Runnable {
        send(CYFProtocol.CREATEGROUP, groupName);
     }
 
-    void getGroup(Integer groupId) {
-       // send(CYFProtocol.CHOOSEGROUP + " " + groupId);
+    void chooseGroup(int groupId) {
+        send(CYFProtocol.CHOOSEGROUP, groupId);
     }
 
 
@@ -132,7 +149,6 @@ public class CYFClientController implements Runnable {
             System.err.println("Cannot send data to server!");
         }
     }
-
 
     void forceLogout() {
         if (socket != null) {
