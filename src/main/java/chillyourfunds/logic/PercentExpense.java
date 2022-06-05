@@ -9,7 +9,7 @@ public class PercentExpense extends Expense {
         super(amount, group, payer);
     }
 
-    Map<Person, Integer> mapOfPercents = new HashMap<Person, Integer>();
+    private Map<Person, Integer> mapOfPercents = new HashMap<Person, Integer>();
 
     void percentSplit() throws WrongPercentException {
         Scanner scanner = new Scanner(System.in);
@@ -28,16 +28,16 @@ public class PercentExpense extends Expense {
                         debtors.get(i).addToBalance(group, percent * amount / 100);
                     } else {
                         debtors.get(i).addToBalance(group, mapOfPercents.get(debtors.get(i)) * amount / 100);
-                        if (debtors.get(i).mapOfExpensesFromGroup.get(group) != null) {
-                            if (debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer)) {
-                                debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer, debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer) + mapOfPercents.get(debtors.get(i)) * amount / 100);
+                        if (debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {
+                            if (debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)) {
+                                debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer) + mapOfPercents.get(debtors.get(i)) * amount / 100);
                             } else {
-                                debtors.get(i).mapOfExpensesFromGroup.get(group).putIfAbsent(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
+                                debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
                             }
                         } else {
                             Map<Person, Integer> map = new HashMap<>();
                             map.put(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
-                            debtors.get(i).mapOfExpensesFromGroup.put(group, map);
+                            debtors.get(i).getMapOfExpensesFromGroup().put(group, map);
                         }
                     }
                 }
@@ -54,16 +54,16 @@ public class PercentExpense extends Expense {
                 payer.subtractFromBalance(group, amount);
                 for (int i = 0; i < debtors.size(); i++) {
                     debtors.get(i).addToBalance(group, mapOfPercents.get(debtors.get(i)) * amount / 100);
-                    if (debtors.get(i).mapOfExpensesFromGroup.get(group) != null) {
-                        if (debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer)) {
-                            debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer, debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer) + mapOfPercents.get(debtors.get(i)) * amount / 100);
+                    if (debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {
+                        if (debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)) {
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer) + mapOfPercents.get(debtors.get(i)) * amount / 100);
                         } else {
-                            debtors.get(i).mapOfExpensesFromGroup.get(group).putIfAbsent(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
                         }
                     } else {
                         Map<Person, Integer> map = new HashMap<>();
                         map.put(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
-                        debtors.get(i).mapOfExpensesFromGroup.put(group, map);
+                        debtors.get(i).getMapOfExpensesFromGroup().put(group, map);
                     }
                 }
             } else {

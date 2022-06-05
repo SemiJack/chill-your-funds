@@ -7,11 +7,30 @@ import java.util.*;
 
 public class Group implements Serializable{
 
-    String groupName;
+    private String groupName;
 
-    Integer groupId;
-    public List<Person> people = new ArrayList<>();
-    public List<Expense> expenses = new ArrayList<>();
+    private Integer groupId;
+    private List<Person> people = new ArrayList<>();
+    private List<Expense> expenses = new ArrayList<>();
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
 
     public Group(String groupName, Integer groupId) {
         this.groupName = groupName;
@@ -29,7 +48,7 @@ public class Group implements Serializable{
     public Person getPersonById(int id) {
         Person p = null;
         for (int i = 0; i < people.size(); i++) {
-            if (people.get(i).id == id) {
+            if (people.get(i).getId() == id) {
                 p = people.get(i);
             }
         }
@@ -39,7 +58,7 @@ public class Group implements Serializable{
     public  Person getPersonByName(String name) {
         Person p = null;
         for (int i = 0; i < people.size(); i++) {
-            if (people.get(i).name.equals(name)) {
+            if (people.get(i).getName().equals(name)) {
                 p = people.get(i);
             }
         }
@@ -48,8 +67,8 @@ public class Group implements Serializable{
 
     public void simplifyGroupExpenses(Group group) {
         for(int i = 0; i < people.size(); i++) {
-            if(people.get(i).mapOfExpensesFromGroup.get(group)!=null) {
-                people.get(i).mapOfExpensesFromGroup.get(group).clear();
+            if(people.get(i).getMapOfExpensesFromGroup().get(group)!=null) {
+                people.get(i).getMapOfExpensesFromGroup().get(group).clear();
             }
         }
         findPath(groupToSimplify(group),group);
@@ -58,8 +77,8 @@ public class Group implements Serializable{
     private Map groupToSimplify(Group group) {
         Map<String,Double> mapOfBalancesInGroup = new HashMap<>();
         for(int i = 0; i < people.size(); i++) {
-            if(people.get(i).mapOfBalances.get(group) != null) {
-                mapOfBalancesInGroup.put(people.get(i).name, (double) -(people.get(i).mapOfBalances.get(group)));
+            if(people.get(i).getMapOfBalances().get(group) != null) {
+                mapOfBalancesInGroup.put(people.get(i).getName(), (double) -(people.get(i).getMapOfBalances().get(group)));
             }
         }
 
@@ -80,14 +99,14 @@ public class Group implements Serializable{
                 result = round(result, 1);
                 if ((result >= 0.0)) {
                     System.out.println((Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Min_Value), 2)));
-                    getPersonByName(Min_Key).mapOfExpensesFromGroup.get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
+                    getPersonByName(Min_Key).getMapOfExpensesFromGroup().get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, result);
                     details.put(Min_Key, 0.0);
                 } else {
                     System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Max_Value), 2));
-                    getPersonByName(Min_Key).mapOfExpensesFromGroup.get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
+                    getPersonByName(Min_Key).getMapOfExpensesFromGroup().get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, 0.0);

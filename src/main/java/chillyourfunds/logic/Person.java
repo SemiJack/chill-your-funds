@@ -7,14 +7,40 @@ import java.util.List;
 import java.util.Map;
 
 public class Person implements Serializable {
-    int id;
-    String name;
+    private int id;
+    private String name;
 
-    boolean isAdmin;
-    Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
-    Map<Group,Integer> mapOfBalances = new HashMap<>();
+    private boolean isAdmin;
 
 
+    private Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
+    private Map<Group,Integer> mapOfBalances = new HashMap<>();
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public Map<Group, Map<Person, Integer>> getMapOfExpensesFromGroup() {
+        return mapOfExpensesFromGroup;
+    }
+
+    public void setMapOfExpensesFromGroup(Map<Group, Map<Person, Integer>> mapOfExpensesFromGroup) {
+        this.mapOfExpensesFromGroup = mapOfExpensesFromGroup;
+    }
+
+    public Map<Group, Integer> getMapOfBalances() {
+        return mapOfBalances;
+    }
+
+    public void setMapOfBalances(Map<Group, Integer> mapOfBalances) {
+        this.mapOfBalances = mapOfBalances;
+    }
 
     public Person(int id, String name) {
         this.id=id;
@@ -112,7 +138,6 @@ public class Person implements Serializable {
         }
         return 0;
     }
-
 
     public String getName() {
         return name;
