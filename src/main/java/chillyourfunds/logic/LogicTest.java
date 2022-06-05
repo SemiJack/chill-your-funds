@@ -1,7 +1,9 @@
 package chillyourfunds.logic;
 
+import java.sql.SQLOutput;
+
 public class LogicTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WrongPercentException, WrongAmountException {
         Person person1=new Person(1,"Eryk");
         Person person2=new Person(2,"Grzechu");
         Person person3=new Person(3,"Krzychu");
@@ -17,31 +19,45 @@ public class LogicTest {
         group1.addPerson(person3);
         group1.addPerson(person5);
 
-        EqualExpense e1 = new EqualExpense(12, group, person1);
-        EqualExpense e2 = new EqualExpense(12, group, person2);
-        EqualExpense e3 = new EqualExpense(20, group, person3);
+//        EqualExpense e1 = new EqualExpense(12, group, person1);
+//        EqualExpense e2 = new EqualExpense(12, group, person2);
+//        EqualExpense e3 = new EqualExpense(20, group, person3);
         ExactExpense e4 = new ExactExpense(100,group1,person5);
         PercentExpense e5 = new PercentExpense(100,group1,person5);
-        e1.addDebtor(3);
-        e1.createExpense(e1);
-        System.out.println("------------------");
-        e2.addDebtor(1);
-        e2.createExpense(e2);
+//        e1.addDebtor(3);
+//        e1.createExpense(e1);
+//        System.out.println("------------------");
+//        e2.addDebtor(1);
+//        e2.createExpense(e2);
 //        e3.addDebtor(1);
 //        e3.addDebtor(3);
 //        e3.addDebtor(4);
 //        e3.createExpense(e3);
-        e1.equalSplit();
-        e2.equalSplit();
+//        e1.equalSplit();
+//        e2.equalSplit();
 //        e3.equalSplit();
-        e4.addDebtor(1);
+        e4.addDebtor(5);
         e4.addDebtor(3);
         e4.createExpense(e4);
-        e4.exactSplit();
+        try{
+            e4.exactSplit();
+        } catch (Exception e) {
+            System.out.println("Nastąpił problem: " + e);
+            System.out.println("Spróbuj ponownie: ");
+            e4.exactSplit();
+        }
+
         e5.addDebtor(1);
         e5.addDebtor(3);
         e5.createExpense(e5);
-        e5.percentSplit();
+        try{
+            e5.percentSplit();
+        } catch (Exception e) {
+            System.out.println("Nastąpił problem: " + e);
+            System.out.println("Spróbuj ponownie: ");
+            e5.percentSplit();
+        }
+
 //
 //
 //        ExactExpense e5 = new ExactExpense(100, group,person4);
@@ -104,7 +120,7 @@ public class LogicTest {
         System.out.println();
         System.out.println();
         System.out.println();
-        group.simplifyGroupExpenses(group);
+//        group.simplifyGroupExpenses(group);
         System.out.println();
         System.out.println();
         System.out.println();
