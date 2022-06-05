@@ -20,7 +20,7 @@ public class Expense {
         if(group.getPersonById(id) != null) {
             debtors.add(group.getPersonById(id));
         } else {
-            System.out.println("Nie można dodac osoby z poza grupy jako dłużnika!");
+            System.out.println("Nie można dodać osoby spoza grupy jako dłużnika!");
         }
 
     }
@@ -48,7 +48,4 @@ public class Expense {
                 ", debtors=" + debtors +
                 '}';
     }
-
-    //    boolean ifSimplify;
-//    String typeOfSplit;
 }

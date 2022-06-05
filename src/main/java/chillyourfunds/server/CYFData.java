@@ -26,7 +26,7 @@ public class CYFData {
             id = new Random().nextInt();
         }
             groupData.put(id, new Group(groupName, id));
-            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));
+//            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));
             System.out.println("pl");
             return groupData.get(id)!=null;
     }
