@@ -26,7 +26,7 @@ public class Expense {
     }
 
     public void createExpense(Expense e) {
-        group.expenses.add(e);
+        group.getExpenses().add(e);
     }
 
     public boolean isPayerADebtor() {
@@ -43,7 +43,7 @@ public class Expense {
     public String toString() {
         return "Expense{" +
                 "amount=" + amount +
-                ", groupName=" + group.groupName +
+                ", groupName=" + group.getGroupName() +
                 ", payer=" + payer +
                 ", debtors=" + debtors +
                 '}';

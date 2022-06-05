@@ -31,20 +31,20 @@ class GroupTest {
 
     @AfterEach
     void tearDown() {
-        group.people.clear();
+        group.getPeople().clear();
     }
 
     @Test
     void addPerson() {
         group.addPerson(person3);
-        assertEquals(person3,group.people.get(2));
-        assertEquals(person2,group.people.get(1));
+        assertEquals(person3, group.getPeople().get(2));
+        assertEquals(person2, group.getPeople().get(1));
     }
 
     @Test
     void removePerson() {
         group.removePerson(person3);
-        assertEquals(2,group.people.size());
+        assertEquals(2, group.getPeople().size());
     }
 
     @Test

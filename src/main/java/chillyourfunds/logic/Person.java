@@ -6,15 +6,40 @@ import java.util.List;
 import java.util.Map;
 
 public class Person{
-    int id;
-    String name;
+    private int id;
+    private String name;
 
-    boolean isAdmin;
-
-    Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
-    Map<Group,Integer> mapOfBalances = new HashMap<>();
+    private boolean isAdmin;
 
 
+    private Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
+    private Map<Group,Integer> mapOfBalances = new HashMap<>();
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public Map<Group, Map<Person, Integer>> getMapOfExpensesFromGroup() {
+        return mapOfExpensesFromGroup;
+    }
+
+    public void setMapOfExpensesFromGroup(Map<Group, Map<Person, Integer>> mapOfExpensesFromGroup) {
+        this.mapOfExpensesFromGroup = mapOfExpensesFromGroup;
+    }
+
+    public Map<Group, Integer> getMapOfBalances() {
+        return mapOfBalances;
+    }
+
+    public void setMapOfBalances(Map<Group, Integer> mapOfBalances) {
+        this.mapOfBalances = mapOfBalances;
+    }
 
     public Person(int id, String name) {
         this.id=id;
@@ -73,9 +98,9 @@ public class Person{
         } else {
             System.out.println("Lista długów osoby: "+ name);
             for (Group group : mapOfExpensesFromGroup.keySet()) {
-                System.out.println("Grupa: " + group.groupName);
+                System.out.println("Grupa: " + group.getGroupName());
                 for(Person person : mapOfExpensesFromGroup.get(group).keySet()) {
-                    System.out.println(person.name + ": " + mapOfExpensesFromGroup.get(group).get(person)+"$");
+                    System.out.println(person.name + ": " + (double)mapOfExpensesFromGroup.get(group).get(person)/100+"$");
                 }
             }
 //            System.out.println(mapOfExpenses);
@@ -101,7 +126,7 @@ public class Person{
     public void showMyBalances() {
         if(!mapOfBalances.isEmpty()) {
             for(Group group : mapOfBalances.keySet()) {
-                System.out.println("Balans " + name + " w grupie " + group.groupName + " wynosi: " + mapOfBalances.get(group));
+                System.out.println("Balans " + name + " w grupie " + group.getGroupName() + " wynosi: " + (double)mapOfBalances.get(group)/100);
             }
         }
     }

@@ -21,8 +21,8 @@ public class LogicTest {
 
 //        EqualExpense e1 = new EqualExpense(12, group, person1);
 //        EqualExpense e2 = new EqualExpense(12, group, person2);
-        EqualExpense e3 = new EqualExpense(30, group, person2);
-//        ExactExpense e4 = new ExactExpense(100,group1,person5);
+        EqualExpense e3 = new EqualExpense(574388, group, person2);
+        ExactExpense e4 = new ExactExpense(10000,group1,person5);
 //        PercentExpense e5 = new PercentExpense(100,group1,person5);
 //        e1.addDebtor(3);
 //        e1.createExpense(e1);
@@ -36,16 +36,17 @@ public class LogicTest {
 //        e1.equalSplit();
 //        e2.equalSplit();
         e3.equalSplit();
-//        e4.addDebtor(5);
-//        e4.addDebtor(3);
-//        e4.createExpense(e4);
-//        try{
-//            e4.exactSplit();
-//        } catch (Exception e) {
-//            System.out.println("Nastąpił problem: " + e);
-//            System.out.println("Spróbuj ponownie: ");
-//            e4.exactSplit();
-//        }
+        e4.addDebtor(5);
+        e4.addDebtor(3);
+        e4.addDebtor(1);
+        e4.createExpense(e4);
+        try{
+            e4.exactSplit();
+        } catch (Exception e) {
+            System.out.println("Nastąpił problem: " + e);
+            System.out.println("Spróbuj ponownie: ");
+            e4.exactSplit();
+        }
 //
 //        e5.addDebtor(1);
 //        e5.addDebtor(3);
@@ -120,7 +121,7 @@ public class LogicTest {
         System.out.println();
         System.out.println();
         System.out.println();
-        //group.simplifyGroupExpenses(group);
+//        group1.simplifyGroupExpenses(group1);
         System.out.println();
         System.out.println();
         System.out.println();
@@ -129,7 +130,8 @@ public class LogicTest {
         person3.showMyPayers();
         person4.showMyPayers();
         person5.showMyPayers();
-        System.out.println(person1.getBalance(group));
+        System.out.println(person1.getBalance(group1));
+        System.out.println(person3.getBalance(group1));
         //person3.payADebt(person2,group,12);
         //person3.showMyPayers();
         //person3.showMyBalances();

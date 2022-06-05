@@ -9,7 +9,7 @@ public class ExactExpense extends Expense{
         super(amount, group, payer);
     }
 
-    Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();
+    private Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();
     void exactSplit() throws WrongAmountException {
         Scanner scanner = new Scanner(System.in);
         int part = 0;
@@ -17,7 +17,7 @@ public class ExactExpense extends Expense{
 
         if(isPayerADebtor()){
             for(int i = 0; i < debtors.size(); i++) {
-            part = scanner.nextInt();
+            part = (int)(scanner.nextDouble()*100);
             mapOfAmounts.put(debtors.get(i), part);
             counter += part;
             }
@@ -28,12 +28,12 @@ public class ExactExpense extends Expense{
                         debtors.get(i).addToBalance(group,part);
                     } else {
                         debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
-                        if(debtors.get(i).mapOfExpensesFromGroup.get(group) != null && debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer)){
-                            debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer,debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer)+part);
+                        if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null && debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+part);
                         }else{
                             Map<Person,Integer> map = new HashMap<>();
                             map.put(payer,part);
-                            debtors.get(i).mapOfExpensesFromGroup.putIfAbsent(group,map);
+                            debtors.get(i).getMapOfExpensesFromGroup().putIfAbsent(group,map);
                         }
 
                     }
@@ -53,16 +53,16 @@ public class ExactExpense extends Expense{
                 payer.subtractFromBalance(group,amount);
                 for(int i = 0; i < debtors.size(); i++) {
                     debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
-                    if(debtors.get(i).mapOfExpensesFromGroup.get(group) != null) {
-                        if(debtors.get(i).mapOfExpensesFromGroup.get(group).containsKey(payer)){
-                            debtors.get(i).mapOfExpensesFromGroup.get(group).put(payer,debtors.get(i).mapOfExpensesFromGroup.get(group).get(payer)+part);
+                    if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {
+                        if(debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+part);
                         }else{
-                            debtors.get(i).mapOfExpensesFromGroup.get(group).putIfAbsent(payer,part);
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer,part);
                         }
                     } else {
                         Map<Person, Integer> map = new HashMap<>();
                         map.put(payer,part);
-                        debtors.get(i).mapOfExpensesFromGroup.put(group,map);
+                        debtors.get(i).getMapOfExpensesFromGroup().put(group,map);
                     }
 
                 }
