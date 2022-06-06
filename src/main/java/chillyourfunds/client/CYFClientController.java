@@ -1,7 +1,6 @@
 package chillyourfunds.client;
 
-import chillyourfunds.logic.Group;
-import chillyourfunds.logic.Person;
+import chillyourfunds.logic.*;
 import chillyourfunds.server.CYFProtocol;
 import chillyourfunds.server.Messenger;
 
@@ -11,7 +10,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-
+/**
+ * author: Jacek Pelczar
+ */
 public class CYFClientController implements Runnable {
     private final Socket socket;
     public Person me;
@@ -122,6 +123,11 @@ public class CYFClientController implements Runnable {
 
     void addPersonToGroup(String username){
         send(CYFProtocol.ADDPERSON,username);
+    }
+
+    void addExpense(CYFProtocol expenseType,int amount,String[] debtors){
+        send(CYFProtocol.ADDEXPENSE, new Object[]{expenseType,amount,debtors});
+
     }
 
 

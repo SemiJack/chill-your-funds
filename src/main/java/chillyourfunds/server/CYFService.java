@@ -5,6 +5,9 @@ import chillyourfunds.logic.*;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * author: Jacek Pelczar
+ */
 public class CYFService implements Runnable {
 
     private int id;
@@ -85,7 +88,20 @@ public class CYFService implements Runnable {
                     } else send(CYFProtocol.COMMENT, "This group doesn't exist!");
                     break;
                 case ADDEXPENSE:
+                    Object[] params = (Object[]) message.data;
+                    String[] debtors =(String[]) params[2];
+                    Expense newExpense = new EqualExpense((int) params[1],currGroup,userAccount.memberOfGroups);
+                    for (String debtorUsername: debtors){
+                        newExpense.addDebtor(server.database.getPersonByUsername(debtorUsername).getId());
+                    }
+                    if(params[0].equals(CYFProtocol.EQUALSPLIT)){
 
+                    }else if(params[0].equals(CYFProtocol.PERCENTSPLIT)){
+
+                    }else if(params[0].equals(CYFProtocol.EXACTSPLIT)){
+
+                    }else send(CYFProtocol.COMMENT, "Bad type of expense!");
+                    send(CYFProtocol.COMMENT, "Created expense");
                     break;
                 case ADDPERSON:
                     String usernameToAdd = (String) message.data;

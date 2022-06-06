@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
-
+/**
+ * author: Jacek Pelczar
+ */
 public class CYFData {
     private final HashMap<Integer, Group> groupData;
 

@@ -2,10 +2,7 @@ package chillyourfunds.client;
 
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
 
 public class CYFApplication extends javafx.application.Application {
     protected CYFClientController client;
@@ -23,8 +20,8 @@ public class CYFApplication extends javafx.application.Application {
     }
 
     private void talkWithServer() {
-        client.register("jacke", "1234", "Jacek", "Pelczar");
-        client.login("jacke", "1234");
+        client.register("admin", "1234", "Jacek", "Pelczar");
+        client.login("admin", "1234");
         //client.createGroup("kokokok");
 
         Scanner keyboard = new Scanner(System.in);
@@ -45,8 +42,9 @@ public class CYFApplication extends javafx.application.Application {
                     break;
                 case 3:
                     client.addPersonToGroup("jack");
-                //clients.get(0).createExpense(new Integer[]{1, 2, 3}, 12, "exact", 200);
-
+                    break;
+                case 4:
+                    break;
             }
         }
     }

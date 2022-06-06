@@ -23,6 +23,10 @@ public enum CYFProtocol {
     LOGGEDOUT,
     STOP,
     STOPPED,
-    NULLCOMMAND;
+    NULLCOMMAND,
+    PERCENTSPLIT,
+    EQUALSPLIT,
+    EXACTSPLIT;
+
 
 }
