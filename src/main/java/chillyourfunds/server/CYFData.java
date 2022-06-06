@@ -1,6 +1,7 @@
 package chillyourfunds.server;
 
 import chillyourfunds.logic.Group;
+import chillyourfunds.logic.Person;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Random;
 public class CYFData {
     private final HashMap<Integer, Group> groupData;
 
-    private final HashMap<String, User> userData;
+    private final HashMap<String, UserAccount> userData;
 
 
     public CYFData() {
@@ -19,14 +20,14 @@ public class CYFData {
 
     }
 
-    public boolean addGroup(String groupName, User creator) {
+    public boolean addGroup(String groupName, UserAccount creator) {
         Integer id = new Random().nextInt();
         if (groupData.containsKey(id)) {
             id = new Random().nextInt();
         }
         groupData.put(id, new Group(groupName, id));
-        groupData.get(id).addPerson(creator.InGroup);
-        creator.addToGroup(id);
+        groupData.get(id).addPerson(creator.memberOfGroups);
+        creator.memberOfGroups.addGroupIdToParticipate(id);
         System.out.println("pl");
         return groupData.get(id) != null;
     }
@@ -38,15 +39,18 @@ public class CYFData {
     public boolean addUser(String username, String password, String firstname, String lastname) {
         int credentialsHash = Objects.hash(username, password);
         if (!userData.containsKey(username)) {
-            userData.put(username, new User(Objects.hash(username), credentialsHash, username, firstname, lastname));
+            userData.put(username, new UserAccount(Objects.hash(username), credentialsHash, username, firstname, lastname));
             return true;
         } else {
             return false;
         }
     }
+    public Person getPersonByUsername(String username){
+        return userData.get(username).memberOfGroups;
+    }
 
-    public User getUserByCredentials(String username, String password) {
-        User temp = userData.get(username);
+    public UserAccount getUserByCredentials(String username, String password) {
+        UserAccount temp = userData.get(username);
         if (temp != null && temp.checkCredentials(Objects.hash(username, password))) {
             return temp;
         } else return null;

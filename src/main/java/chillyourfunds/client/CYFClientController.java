@@ -1,12 +1,9 @@
 package chillyourfunds.client;
 
-import chillyourfunds.logic.ExactExpense;
 import chillyourfunds.logic.Group;
-import chillyourfunds.logic.PercentExpense;
 import chillyourfunds.logic.Person;
 import chillyourfunds.server.CYFProtocol;
 import chillyourfunds.server.Messenger;
-import chillyourfunds.server.User;
 
 import javax.swing.*;
 import java.io.*;
@@ -17,14 +14,13 @@ import java.util.ArrayList;
 
 public class CYFClientController implements Runnable {
     private final Socket socket;
-    public User me;
+    public Person me;
     private  Group currGroup;
     private final ObjectInputStream objectIn;
     private final ObjectOutputStream objectOut;
 
 
     public CYFClientController(String host, String port) throws Exception {
-        //view = new CYFClientView(this, model, host + ":" + port);
         try {
             socket = new Socket(host, Integer.parseInt(port));
         } catch (UnknownHostException e) {
@@ -42,7 +38,7 @@ public class CYFClientController implements Runnable {
             objectOut = new ObjectOutputStream(socket.getOutputStream());
 
         } catch (IOException ex) {
-            throw new Exception("Can not get input/output connection stream.");
+            throw new Exception("Can't get input/output connection stream.");
         }
         new Thread(this).start();
     }
@@ -71,7 +67,7 @@ public class CYFClientController implements Runnable {
         CYFProtocol  command = message.command;
         switch (command) {
             case LOGGEDIN:
-                me = (User) message.data;
+                me = (Person) message.data;
                 System.out.println("Log in successful");
                 break;
             case REGISTERED:
@@ -79,39 +75,33 @@ public class CYFClientController implements Runnable {
                 break;
             case GROUPCHOOSED:
                 currGroup = (Group) message.data;
-                System.out.println("Choosed group: " + currGroup.getGroupName());
+                System.out.println("Chosen group: " + currGroup.getGroupName());
                 break;
-//            case 3:
-//                // a co jak się nie zmieści do jednego pakietu?
-//                break;
-//            case 4:
-//               // System.out.println(st.nextToken());
-//                break;
+            case GROUPCREATED:
+                System.out.println("Created new group");
+                break;
+            case PERSONADDED:
+                System.out.println("Added new person to group");
+                break;
+            case UPDATE:
+                Object[] freshData = (Object[]) message.data;
+                currGroup = (Group) freshData[0];
+                me = (Person) freshData[1];
+                System.out.println("Data up to date");
+                break;
             case COMMENT:
                 System.out.println((String) message.data);
                 break;
             case STOP:
-                send(CYFProtocol.STOPPED); // no break! - false must be returned
+                send(CYFProtocol.STOPPED);
             case LOGGEDOUT:
-                return false; // stop the communication
+                return false;
         }
         return true;
     }
 
-//    void createExpense(Integer groudId, Integer expensetype, Integer amount) {
-//        if(expensetype==0){
-//            PercentExpense percent = new PercentExpense(amount,currGroup,me.getMeInGroup());
-//            send(CYFProtocol.ADDEXPENSE,percent);
-//        }else if(expensetype ==1){
-//            ExactExpense exact = new ExactExpense(amount,currGroup,me.getMeInGroup());
-//        }else {
-//
-//        }
-//        send(CYFProtocol.ADDEXPENSE,expensetype,new Integer[]{amount,groudId});
-//    }
-
     ArrayList<Integer> getGroups(){
-        return me.getGroupsId();
+        return me.getParticipateGroupsId();
     }
 
     void login(String username, String password) {
@@ -128,6 +118,10 @@ public class CYFClientController implements Runnable {
 
     void chooseGroup(int groupId) {
         send(CYFProtocol.CHOOSEGROUP, groupId);
+    }
+
+    void addPersonToGroup(String username){
+        send(CYFProtocol.ADDPERSON,username);
     }
 
 
@@ -148,6 +142,10 @@ public class CYFClientController implements Runnable {
             e.printStackTrace();
             System.err.println("Cannot send data to server!");
         }
+    }
+
+    void forceUpdate(){
+        send(CYFProtocol.UPDATE);
     }
 
     void forceLogout() {

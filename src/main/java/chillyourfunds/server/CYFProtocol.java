@@ -12,7 +12,9 @@ public enum CYFProtocol {
     ADDPERSON,
     REMOVEPERSON,
     SIMPlify,
+    PERSONADDED,
 
+    UPDATE,
     HISTORY,
     REGISTER,
     REGISTERED,

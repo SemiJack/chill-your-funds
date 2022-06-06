@@ -1,13 +1,24 @@
 {
   "groupData": {
-    "324689147": {
+    "-115899304": {
       "groupName": "kokokok",
-      "groupId": 324689147,
+      "groupId": -115899304,
       "people": [
         {
           "id": 100881541,
           "name": "jacke",
           "isAdmin": false,
+          "participateGroupsId": [
+            -115899304
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        },
+        {
+          "id": 3254270,
+          "name": "jack",
+          "isAdmin": false,
+          "participateGroupsId": [],
           "mapOfExpensesFromGroup": {},
           "mapOfBalances": {}
         }
@@ -17,18 +28,33 @@
   },
   "userData": {
     "jacke": {
-      "groupsId": [
-        324689147
-      ],
       "uuid": 100881541,
       "username": "jacke",
       "credentials": -1166130083,
       "firstName": "Jacek",
       "lastName": "Pelczar",
-      "InGroups": {
+      "memberOfGroups": {
         "id": 100881541,
         "name": "jacke",
         "isAdmin": false,
+        "participateGroupsId": [
+          -115899304
+        ],
+        "mapOfExpensesFromGroup": {},
+        "mapOfBalances": {}
+      }
+    },
+    "jack": {
+      "uuid": 3254270,
+      "username": "jack",
+      "credentials": 102391812,
+      "firstName": "Jacek",
+      "lastName": "Pelczar",
+      "memberOfGroups": {
+        "id": 3254270,
+        "name": "jack",
+        "isAdmin": false,
+        "participateGroupsId": [],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}
       }

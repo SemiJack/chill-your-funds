@@ -135,11 +135,5 @@ public class Group implements Serializable{
             return bd.doubleValue();
         }
 
-    public String getGroupName() {
-        return groupName;
-    }
 
-    public Integer getGroupId() {
-        return groupId;
-    }
 }

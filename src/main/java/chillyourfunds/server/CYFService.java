@@ -10,7 +10,7 @@ public class CYFService implements Runnable {
     private int id;
     private final CYFServer server;
     private Socket clientSocket;
-    private User user;
+    private UserAccount userAccount;
 
     private Group currGroup;
     private BufferedReader messageIn;
@@ -61,10 +61,10 @@ public class CYFService implements Runnable {
             switch (command) {
                 case LOGIN:
                     String[] credentials = (String[]) message.data;
-                    user = server.database.getUserByCredentials(credentials[0], credentials[1]);
-                    if (user == null) {
+                    userAccount = server.database.getUserByCredentials(credentials[0], credentials[1]);
+                    if (userAccount == null) {
                         send(CYFProtocol.COMMENT, "Wrong login or password!");
-                    } else send(CYFProtocol.LOGGEDIN, user);
+                    } else send(CYFProtocol.LOGGEDIN, userAccount.memberOfGroups);
                     break;
                 case REGISTER:
                     String[] newcredentials = (String[]) message.data;
@@ -73,10 +73,10 @@ public class CYFService implements Runnable {
                     } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
                     break;
                 case CREATEGROUP:
-                    if (server.database.addGroup((String) message.data, user)) {
+                    if (server.database.addGroup((String) message.data, userAccount)) {
+
                         send(CYFProtocol.GROUPCREATED);
                     } else send(CYFProtocol.COMMENT, "Error while creating group!");
-
                     break;
                 case CHOOSEGROUP:
                     currGroup = server.database.getGroup((Integer) message.data);
@@ -88,12 +88,20 @@ public class CYFService implements Runnable {
 
                     break;
                 case ADDPERSON:
+                    String usernameToAdd = (String) message.data;
+                    Person personToAdd = server.database.getPersonByUsername(usernameToAdd);
+                    if(personToAdd!=null){
+                        currGroup.addPerson(personToAdd);
+                        send(CYFProtocol.PERSONADDED);
+                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
                 case REMOVEPERSON:
                     break;
                 case SIMPlify:
                     break;
-
+                case UPDATE:
+                    update();
+                    break;
                 case LOGOUT:
                     send(CYFProtocol.LOGGEDOUT); // no break!
                 case STOPPED:
@@ -102,60 +110,19 @@ public class CYFService implements Runnable {
                     return;
                 default:
                     System.out.println("Error");
-//                case SINGIN:
-//                    String newLogin = st.nextToken();
-//                    String newPassword = st.nextToken();
-//                    server.database.addUser( newLogin, newPassword, st.nextToken(),st.nextToken());
-//                    user = server.database.getUserByCredentials(newLogin,newPassword);
-//                    send(CYFProtocol.SINGEDIN+" ");
-//                    send(CYFProtocol.LOGGEDIN + " " + (id = server.nextID()) + " " + server.boardWidth() + " " + server.boardHeight());
-//                    break;
-//                case CREATEGROUP:
-//                    String groupName = st.nextToken();
-//                    server.database.addGroup(groupName,user);
-//                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_utworzona");
-//                    break;
-//                case CHOOSEGROUP:
-//                    currGroup = server.database.getGroup(Integer.parseInt(st.nextToken()));
-//                    send(CYFProtocol.COMMENT + " " + "Grupa_pomyślnie_wybrana");
-//                    break;
-////                case HISTORY:
-////                    server.send(CYFProtocol.HISTORY + );
-////                    //server.send(CYFProtocol.CYF + " " + /*jakiś stream z danymi*/, this);
-////                    break;
-//                case ADDEXPENSE:
-//                    try {
-//                    Expense expense;
-//                    String expenseType = st.nextToken();
-//                    Integer amount = Integer.parseInt(st.nextToken());
-//                    switch (expenseType) {
-//                        case "percent":
-//                            expense = new PercentExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
-//                            break;
-//                        case "exact":
-//                            expense = new ExactExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
-//                            break;
-//                        default:
-//                            expense = new EqualExpense(amount, currGroup, currGroup.getPersonById(user.getUUID()));
-//                            break;
-//                    }
-//                    ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-//                    Integer[] debtors = (Integer[]) objectInputStream.readObject();
-//                    for(Integer pId : debtors){
-//                       expense.addDebtor(pId);
-//                    }
-//                    expense.createExpense(expense);
-//
-//                    } catch (IOException | ClassNotFoundException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    // wybieramy rodzaj
-//                    // tworzymy obiekt
-//                    // dodajemy osoby
-//                    // createExpense -> zapisuje w Grupie
-//                    break;
-
             }
+            update();
+        }
+    }
+
+    void update(){
+        try {
+            if (objectOut != null)
+                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, new Object[]{currGroup,userAccount.memberOfGroups}));
+        } catch (NullPointerException npe){
+            System.out.println("Not yet logged in");
+        } catch (IOException e) {
+            System.out.println("Cannot send data to client!");
         }
     }
 

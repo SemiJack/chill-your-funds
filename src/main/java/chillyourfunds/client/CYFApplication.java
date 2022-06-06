@@ -8,13 +8,13 @@ import java.util.Scanner;
 
 
 public class CYFApplication extends javafx.application.Application {
-    protected final List<CYFClientController> clients = new ArrayList<>();
+    protected CYFClientController client;
 
     void initialize() {
         String host = "localhost";
         String port = "40000";
         try {
-            clients.add(new CYFClientController(host, port));
+            this.client = new CYFClientController(host, port);
         } catch (Exception e) {
             //Platform.exit();
             e.printStackTrace();
@@ -23,33 +23,40 @@ public class CYFApplication extends javafx.application.Application {
     }
 
     private void talkWithServer() {
-        clients.get(0).register("jacke", "1234", "Jacek", "Pelczar");
-        clients.get(0).login("jacke", "1234");
-        clients.get(0).createGroup("kokokok");
+        client.register("jacke", "1234", "Jacek", "Pelczar");
+        client.login("jacke", "1234");
+        //client.createGroup("kokokok");
 
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Choose an option: ");
-        int myint = keyboard.nextInt();
+        while (true) {
+            int myint = keyboard.nextInt();
+
             switch (myint) {
                 case 0:
-                    clients.get(0).forceLogout();
+                    client.forceLogout();
                     System.exit(0);     // exit app
                     break;
                 case 1:
-                    System.out.println(clients.get(0).me);
-                    clients.get(0).chooseGroup(clients.get(0).me.getGroupsId().get(0));
+                    System.out.println(client.me.getParticipateGroupsId());
                     break;
+                case 2:
+                    client.chooseGroup(client.me.getParticipateGroupsId().get(0));
+                    break;
+                case 3:
+                    client.addPersonToGroup("jack");
                 //clients.get(0).createExpense(new Integer[]{1, 2, 3}, 12, "exact", 200);
 
+            }
         }
     }
 
     void destroy() {
-        clients.forEach(CYFClientController::forceLogout);
+        client.forceLogout();
     }
 
     private void cleanHouse() {
-        clients.removeIf(CYFClientController::isDisconnected);
+        client.isDisconnected();
     }
 
     @Override

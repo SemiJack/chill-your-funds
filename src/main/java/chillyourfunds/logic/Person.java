@@ -2,6 +2,7 @@ package chillyourfunds.logic;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,9 @@ public class Person implements Serializable {
     private int id;
     private String name;
 
-    private boolean isAdmin;
+    private boolean isAdmin; // TODO trzeba to przerobić, żeby admin odnosił się do jednej gruopy a nie to wszystkich
 
-
+    ArrayList<Integer> participateGroupsId = new ArrayList<>(); // groups' id in which person participates
     private Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
     private Map<Group,Integer> mapOfBalances = new HashMap<>();
 
@@ -23,6 +24,18 @@ public class Person implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addGroupIdToParticipate(int id) {
+        participateGroupsId.add(id);
+    }
+
+    public void removeGroupIdToParticipate(int id) {
+        participateGroupsId.remove(id);
+    }
+
+    public ArrayList<Integer> getParticipateGroupsId() {
+        return participateGroupsId;
     }
 
 
@@ -99,7 +112,7 @@ public class Person implements Serializable {
         } else {
             System.out.println("Lista długów osoby: "+ name);
             for (Group group : mapOfExpensesFromGroup.keySet()) {
-                System.out.println("Grupa: " + group.groupName);
+                System.out.println("Grupa: " + group.getGroupName());
                 for(Person person : mapOfExpensesFromGroup.get(group).keySet()) {
                     System.out.println(person.name + ": " + mapOfExpensesFromGroup.get(group).get(person)+"$");
                 }
@@ -127,7 +140,7 @@ public class Person implements Serializable {
     public void showMyBalances() {
         if(!mapOfBalances.isEmpty()) {
             for(Group group : mapOfBalances.keySet()) {
-                System.out.println("Balans " + name + " w grupie " + group.groupName + " wynosi: " + mapOfBalances.get(group));
+                System.out.println("Balans " + name + " w grupie " + group.getGroupName() + " wynosi: " + mapOfBalances.get(group));
             }
         }
     }
