@@ -8,10 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeViewController implements Initializable {
+    SceneController sceneController=new SceneController();
 
     @FXML
     private CYFClientController client=new CYFClientController("localhost","40000");
@@ -44,8 +46,10 @@ public class HomeViewController implements Initializable {
   }
 
   @FXML
-    private void login(){
-        client.login("jacko","1234");
+    private void logout(ActionEvent e) throws IOException {
+        client.forceLogout();
+        sceneController.switchToLoginScene(e);
+
   }
 
     public void addExpense(ActionEvent e) {
