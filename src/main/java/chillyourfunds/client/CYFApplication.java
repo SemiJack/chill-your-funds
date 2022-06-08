@@ -22,7 +22,7 @@ public class CYFApplication extends javafx.application.Application {
     private void talkWithServer() {
         client.register("admin", "1234", "Jacek", "Pelczar");
         client.login("admin", "1234");
-        //client.createGroup("kokokok");
+        client.createGroup("testowaGrupa");
 
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Choose an option: ");

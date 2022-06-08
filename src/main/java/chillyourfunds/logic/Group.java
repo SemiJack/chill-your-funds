@@ -41,8 +41,11 @@ public class Group implements Serializable{
         people.add(person);
     }
 
-    public void removePerson(Person person) {
-        people.remove(person);
+    public boolean removePerson(Person person) {
+        if(person.getBalance(this)!= 0){
+            people.remove(person);
+            return true;
+        }else return false;
     }
 
     public Person getPersonById(int id) {

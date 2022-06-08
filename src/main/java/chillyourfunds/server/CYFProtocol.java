@@ -20,6 +20,7 @@ public enum CYFProtocol {
     REGISTERED,
     COMMENT,
     LOGOUT,
+    PERSONREMOVED,
     LOGGEDOUT,
     STOP,
     STOPPED,

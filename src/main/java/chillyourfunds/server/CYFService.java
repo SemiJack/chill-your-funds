@@ -87,7 +87,7 @@ public class CYFService implements Runnable {
                         send(CYFProtocol.GROUPCHOOSED, currGroup);
                     } else send(CYFProtocol.COMMENT, "This group doesn't exist!");
                     break;
-                case ADDEXPENSE:
+                case ADDEXPENSE:        //TODO
                     Object[] params = (Object[]) message.data;
                     String[] debtors =(String[]) params[2];
                     Expense newExpense = new EqualExpense((int) params[1],currGroup,userAccount.memberOfGroups);
@@ -112,6 +112,12 @@ public class CYFService implements Runnable {
                     }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
                 case REMOVEPERSON:
+                    String usernameToRemove = (String) message.data;
+                    Person personToRemove = server.database.getPersonByUsername(usernameToRemove);
+                    if(personToRemove != null){
+                        currGroup.removePerson(personToRemove);
+                        send(CYFProtocol.PERSONREMOVED);
+                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
                 case SIMPlify:
                     break;
