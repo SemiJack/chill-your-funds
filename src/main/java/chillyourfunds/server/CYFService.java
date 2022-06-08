@@ -62,7 +62,7 @@ public class CYFService implements Runnable {
         while (true) {
             Messenger message = receive();
             CYFProtocol command = message.command;
-            update();
+
             switch (command) {
                 case LOGIN:
                     String[] credentials = (String[]) message.data;
@@ -123,7 +123,9 @@ public class CYFService implements Runnable {
                 case SIMPlify:
                     break;
                 case UPDATE:
-                    update();
+                    if(userAccount!=null) {
+                        send(CYFProtocol.UPDATEDONE, currGroup, userAccount.memberOfGroups);
+                    }else send(CYFProtocol.UPDATEDONE, null, null);
                     break;
                 case LOGOUT:
                     send(CYFProtocol.LOGGEDOUT); // no break!
@@ -134,26 +136,22 @@ public class CYFService implements Runnable {
                 default:
                     System.out.println("Error");
             }
-            update();
         }
     }
-
-    void update(){
-        try {
-            if (objectOut != null)
-                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, currGroup, userAccount.memberOfGroups));
-        } catch (NullPointerException npe){
-            System.out.println("Not yet logged in");
-        } catch (IOException e) {
-            System.out.println("Cannot send data to client!");
-        }
-    }
-
 
     void send(CYFProtocol command, Object data) {
         try {
-            if (objectOut != null)
                 objectOut.writeObject(new Messenger(command, data));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Cannot send data to client!");
+        }
+    }
+    void send(CYFProtocol command, Object data, Object data2) {
+        try {
+            if (objectOut != null)
+                if(data==null)
+                objectOut.writeObject(new Messenger(command, data, data2));
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Cannot send data to client!");
