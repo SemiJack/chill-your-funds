@@ -88,6 +88,7 @@ public class CYFClientController implements Runnable {
                 Object[] freshData = (Object[]) message.data;
                 currGroup = (Group) freshData[0];
                 me = (Person) freshData[1];
+                System.out.println(currGroup.getPeople());
                 System.out.println("Data up to date");
                 break;
             case COMMENT:
@@ -98,6 +99,7 @@ public class CYFClientController implements Runnable {
             case LOGGEDOUT:
                 return false;
         }
+
         return true;
     }
 

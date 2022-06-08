@@ -22,16 +22,14 @@ public class CYFData {
 
     }
 
-    public boolean addGroup(String groupName, UserAccount creator) {
+    public Group addGroup(String groupName, UserAccount creator) {
         Integer id = new Random().nextInt();
         if (groupData.containsKey(id)) {
             id = new Random().nextInt();
         }
         groupData.put(id, new Group(groupName, id));
         groupData.get(id).addPerson(creator.memberOfGroups);
-        creator.memberOfGroups.addGroupIdToParticipate(id);
-        System.out.println("pl");
-        return groupData.get(id) != null;
+        return groupData.get(id);
     }
 
     public Group getGroup(Integer id) {

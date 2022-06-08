@@ -31,22 +31,28 @@ public class CYFApplication extends javafx.application.Application {
 
             switch (myint) {
                 case 0:
+                    // wyloguj i zamknij apkę
                     client.forceLogout();
                     System.exit(0);     // exit app
                     break;
                 case 1:
+                    // grupy w których jestem
                     System.out.println(client.me.getParticipateGroupsId());
                     break;
                 case 2:
+                    // wybierz grupę nr.0
                     client.chooseGroup(client.me.getParticipateGroupsId().get(0));
                     break;
                 case 3:
+                    // dodaj jack do grupy
                     client.addPersonToGroup("jack");
                     break;
                 case 4:
+                    // usuń osobę z grupy
                     client.removePersonFromGroup("jack");
                     break;
                 case 5:
+                    // wyświetl osoby należące do grupy
                     System.out.println(client.currGroup.getPeople());
                     break;
             }

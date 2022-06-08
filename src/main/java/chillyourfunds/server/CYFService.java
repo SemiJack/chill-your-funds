@@ -4,6 +4,7 @@ import chillyourfunds.logic.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * author: Jacek Pelczar
@@ -77,7 +78,7 @@ public class CYFService implements Runnable {
                     } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
                     break;
                 case CREATEGROUP:
-                    if (server.database.addGroup((String) message.data, userAccount)) {
+                    if ((currGroup = server.database.addGroup((String) message.data, userAccount) )!= null) {
                         send(CYFProtocol.GROUPCREATED);
                     } else send(CYFProtocol.COMMENT, "Error while creating group!");
                     break;
@@ -108,6 +109,7 @@ public class CYFService implements Runnable {
                     Person personToAdd = server.database.getPersonByUsername(usernameToAdd);
                     if(personToAdd!=null){
                         currGroup.addPerson(personToAdd);
+
                         send(CYFProtocol.PERSONADDED);
                     }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
@@ -132,13 +134,14 @@ public class CYFService implements Runnable {
                 default:
                     System.out.println("Error");
             }
+            update();
         }
     }
 
     void update(){
         try {
             if (objectOut != null)
-                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, new Object[]{currGroup,userAccount.memberOfGroups}));
+                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, currGroup, userAccount.memberOfGroups));
         } catch (NullPointerException npe){
             System.out.println("Not yet logged in");
         } catch (IOException e) {

@@ -1,8 +1,26 @@
 {
   "groupData": {
-    "1463402521": {
+    "-665230783": {
       "groupName": "testowaGrupa",
-      "groupId": 1463402521,
+      "groupId": -665230783,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            -59402647,
+            -665230783
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
+    },
+    "1815255166": {
+      "groupName": "testowaGrupa",
+      "groupId": 1815255166,
       "people": [
         {
           "id": 92668782,
@@ -11,7 +29,8 @@
           "participateGroupsId": [
             409783687,
             250467662,
-            1463402521
+            1463402521,
+            1815255166
           ],
           "mapOfExpensesFromGroup": {},
           "mapOfBalances": {}
@@ -19,79 +38,18 @@
       ],
       "expenses": []
     },
-    "250467662": {
+    "-59402647": {
       "groupName": "testowaGrupa",
-      "groupId": 250467662,
+      "groupId": -59402647,
       "people": [
         {
           "id": 92668782,
           "name": "admin",
           "isAdmin": false,
           "participateGroupsId": [
-            409783687,
-            250467662,
-            1463402521
+            -59402647,
+            -665230783
           ],
-          "mapOfExpensesFromGroup": {},
-          "mapOfBalances": {}
-        }
-      ],
-      "expenses": []
-    },
-    "409783687": {
-      "groupName": "testowaGrupa",
-      "groupId": 409783687,
-      "people": [
-        {
-          "id": 92668782,
-          "name": "admin",
-          "isAdmin": false,
-          "participateGroupsId": [
-            409783687,
-            250467662,
-            1463402521
-          ],
-          "mapOfExpensesFromGroup": {},
-          "mapOfBalances": {}
-        },
-        {
-          "id": 3254270,
-          "name": "jack",
-          "isAdmin": false,
-          "participateGroupsId": [],
-          "mapOfExpensesFromGroup": {},
-          "mapOfBalances": {}
-        },
-        {
-          "id": 3254270,
-          "name": "jack",
-          "isAdmin": false,
-          "participateGroupsId": [],
-          "mapOfExpensesFromGroup": {},
-          "mapOfBalances": {}
-        }
-      ],
-      "expenses": []
-    },
-    "-115899304": {
-      "groupName": "kokokok",
-      "groupId": -115899304,
-      "people": [
-        {
-          "id": 100881541,
-          "name": "jacke",
-          "isAdmin": false,
-          "participateGroupsId": [
-            -115899304
-          ],
-          "mapOfExpensesFromGroup": {},
-          "mapOfBalances": {}
-        },
-        {
-          "id": 3254270,
-          "name": "jack",
-          "isAdmin": false,
-          "participateGroupsId": [],
           "mapOfExpensesFromGroup": {},
           "mapOfBalances": {}
         }
@@ -110,9 +68,7 @@
         "id": 100881541,
         "name": "jacke",
         "isAdmin": false,
-        "participateGroupsId": [
-          -115899304
-        ],
+        "participateGroupsId": [],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}
       }
@@ -128,9 +84,8 @@
         "name": "admin",
         "isAdmin": false,
         "participateGroupsId": [
-          409783687,
-          250467662,
-          1463402521
+          -59402647,
+          -665230783
         ],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}
