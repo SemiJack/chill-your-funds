@@ -1,6 +1,8 @@
 package chillyourfunds.logic;
 
 import java.sql.SQLOutput;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LogicTest {
     public static void main(String[] args) throws WrongPercentException, WrongAmountException {
@@ -21,31 +23,34 @@ public class LogicTest {
 
 //        EqualExpense e1 = new EqualExpense(12, group, person1);
 //        EqualExpense e2 = new EqualExpense(12, group, person2);
-        EqualExpense e3 = new EqualExpense(574388, group, person2);
-        ExactExpense e4 = new ExactExpense(10000,group1,person5);
+        EqualExpense e3 = new EqualExpense(30, group, person2);
+        ExactExpense e4 = new ExactExpense(5000,group1,person5);
 //        PercentExpense e5 = new PercentExpense(100,group1,person5);
 //        e1.addDebtor(3);
 //        e1.createExpense(e1);
 //        System.out.println("------------------");
 //        e2.addDebtor(1);
 //        e2.createExpense(e2);
-        e3.addDebtor(1);
-        e3.addDebtor(3);
-        e3.addDebtor(4);
-        e3.createExpense(e3);
+//        e3.addDebtor(1);
+//        e3.addDebtor(3);
+//        e3.addDebtor(4);
+//        e3.createExpense(e3);
 //        e1.equalSplit();
 //        e2.equalSplit();
-        e3.equalSplit();
+        //e3.equalSplit();
         e4.addDebtor(5);
-        e4.addDebtor(3);
         e4.addDebtor(1);
         e4.createExpense(e4);
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(5,2500);
+        map.put(1,2500);
+
         try{
-            e4.exactSplit();
+            e4.exactSplit(map);
         } catch (Exception e) {
             System.out.println("Nastąpił problem: " + e);
             System.out.println("Spróbuj ponownie: ");
-            e4.exactSplit();
+            e4.exactSplit(map);
         }
 //
 //        e5.addDebtor(1);
@@ -94,7 +99,6 @@ public class LogicTest {
 
 
 //        System.out.println("-----------------------------------------");
-//        group.simplifyGroupExpenses();
 //        person4.showMyPayers();
 //        person1.showMyPayers();
 //        person2.showMyPayers();
@@ -121,7 +125,7 @@ public class LogicTest {
         System.out.println();
         System.out.println();
         System.out.println();
-//        group1.simplifyGroupExpenses(group1);
+        //group.simplifyGroupExpenses(group);
         System.out.println();
         System.out.println();
         System.out.println();
@@ -130,8 +134,8 @@ public class LogicTest {
         person3.showMyPayers();
         person4.showMyPayers();
         person5.showMyPayers();
-        System.out.println(person1.getBalance(group1));
-        System.out.println(person3.getBalance(group1));
+        System.out.println(person1.getBalance(group));
+        //group1.simplifyGroupExpenses(group1);
         //person3.payADebt(person2,group,12);
         //person3.showMyPayers();
         //person3.showMyBalances();

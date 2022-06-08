@@ -10,29 +10,27 @@ public class ExactExpense extends Expense{
     }
 
     private Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();
-    void exactSplit() throws WrongAmountException {
-        Scanner scanner = new Scanner(System.in);
-        int part = 0;
+    void exactSplit(Map<Integer,Integer> mapOfDebtorsWithAmount) throws WrongAmountException {
         int counter = 0;
+        int part = 0;
 
         if(isPayerADebtor()){
             for(int i = 0; i < debtors.size(); i++) {
-            part = (int)(scanner.nextDouble()*100);
-            mapOfAmounts.put(debtors.get(i), part);
-            counter += part;
+                mapOfAmounts.put(debtors.get(i),mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
+                counter += mapOfDebtorsWithAmount.get(debtors.get(i).getId());
             }
             if(counter == amount) {
                 for(int i = 0; i < debtors.size(); i++) {
                     if(debtors.get(i) == payer) {
                         debtors.get(i).subtractFromBalance(group,amount);
-                        debtors.get(i).addToBalance(group,part);
+                        debtors.get(i).addToBalance(group,mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
                     } else {
                         debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
                         if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null && debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){
-                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+part);
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
                         }else{
                             Map<Person,Integer> map = new HashMap<>();
-                            map.put(payer,part);
+                            map.put(payer,mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
                             debtors.get(i).getMapOfExpensesFromGroup().putIfAbsent(group,map);
                         }
 
@@ -45,9 +43,8 @@ public class ExactExpense extends Expense{
         } else {
 
             for (int i = 0; i < debtors.size(); i++) {
-                part = scanner.nextInt();
-                mapOfAmounts.put(debtors.get(i), part);
-                counter+=part;
+                mapOfAmounts.put(debtors.get(i), mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
+                counter+=mapOfDebtorsWithAmount.get(debtors.get(i).getId());
             }
             if(counter == amount) {
                 payer.subtractFromBalance(group,amount);
@@ -55,13 +52,13 @@ public class ExactExpense extends Expense{
                     debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
                     if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {
                         if(debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){
-                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+part);
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
                         }else{
-                            debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer,part);
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer,mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
                         }
                     } else {
                         Map<Person, Integer> map = new HashMap<>();
-                        map.put(payer,part);
+                        map.put(payer,mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
                         debtors.get(i).getMapOfExpensesFromGroup().put(group,map);
                     }
 
