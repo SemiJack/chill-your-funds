@@ -14,13 +14,16 @@ import java.util.ResourceBundle;
 public class HomeViewController implements Initializable {
 
     @FXML
-    private CYFClientController client;
+    private CYFClientController client=new CYFClientController("localhost","40000");
     @FXML
     public ListView<String> grouplist;
 
     @FXML
     public javafx.scene.control.Button addgroupButton;
     ObservableList<String> groups = FXCollections.observableArrayList("Koksy", "Gracze", "Malepieski");
+
+    public HomeViewController() throws Exception {
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

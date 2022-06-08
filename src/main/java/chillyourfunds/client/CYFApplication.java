@@ -1,11 +1,15 @@
 package chillyourfunds.client;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Scanner;
 
 public class CYFApplication extends javafx.application.Application {
     protected CYFClientController client;
+
 
     void initialize() {
         String host = "localhost";
@@ -16,7 +20,7 @@ public class CYFApplication extends javafx.application.Application {
             //Platform.exit();
             e.printStackTrace();
         }
-        talkWithServer();
+//        talkWithServer();
     }
 
     private void talkWithServer() {
@@ -70,14 +74,14 @@ public class CYFApplication extends javafx.application.Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         initialize();
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
-//        Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/Login.fxml"));
+        Parent root = loader.load();
 //        MainController mainController = loader.getController();
-//        mainController.initData(clients.get(0));
-//        Scene scene = new Scene(root);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+//        mainController.initData(client);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String args[]) {
