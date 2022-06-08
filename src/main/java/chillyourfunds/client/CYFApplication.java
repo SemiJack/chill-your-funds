@@ -44,6 +44,10 @@ public class CYFApplication extends javafx.application.Application {
                     client.addPersonToGroup("jack");
                     break;
                 case 4:
+                    client.removePersonFromGroup("jack");
+                    break;
+                case 5:
+                    System.out.println(client.currGroup.getPeople());
                     break;
             }
         }

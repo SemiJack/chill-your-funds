@@ -38,7 +38,9 @@ public class Group implements Serializable{
     }
 
     public void addPerson(Person person) {
-        people.add(person);
+        if(!people.contains(person)){
+            people.add(person);
+        }
     }
 
     public boolean removePerson(Person person) {

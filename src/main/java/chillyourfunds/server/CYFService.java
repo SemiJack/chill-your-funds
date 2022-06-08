@@ -61,6 +61,7 @@ public class CYFService implements Runnable {
         while (true) {
             Messenger message = receive();
             CYFProtocol command = message.command;
+            update();
             switch (command) {
                 case LOGIN:
                     String[] credentials = (String[]) message.data;
@@ -77,7 +78,6 @@ public class CYFService implements Runnable {
                     break;
                 case CREATEGROUP:
                     if (server.database.addGroup((String) message.data, userAccount)) {
-
                         send(CYFProtocol.GROUPCREATED);
                     } else send(CYFProtocol.COMMENT, "Error while creating group!");
                     break;
@@ -114,8 +114,7 @@ public class CYFService implements Runnable {
                 case REMOVEPERSON:
                     String usernameToRemove = (String) message.data;
                     Person personToRemove = server.database.getPersonByUsername(usernameToRemove);
-                    if(personToRemove != null){
-                        currGroup.removePerson(personToRemove);
+                    if(personToRemove != null && currGroup.removePerson(personToRemove)){
                         send(CYFProtocol.PERSONREMOVED);
                     }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
@@ -133,7 +132,6 @@ public class CYFService implements Runnable {
                 default:
                     System.out.println("Error");
             }
-            update();
         }
     }
 

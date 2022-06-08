@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CYFClientController implements Runnable {
     private final Socket socket;
     public Person me;
-    private  Group currGroup;
+    public   Group currGroup;
     private final ObjectInputStream objectIn;
     private final ObjectOutputStream objectOut;
 
@@ -125,9 +125,12 @@ public class CYFClientController implements Runnable {
         send(CYFProtocol.ADDPERSON,username);
     }
 
+    void removePersonFromGroup(String username){
+        send(CYFProtocol.REMOVEPERSON,username);
+    }
+
     void addExpense(CYFProtocol expenseType,int amount,String[] debtors){
         send(CYFProtocol.ADDEXPENSE, new Object[]{expenseType,amount,debtors});
-
     }
 
 
