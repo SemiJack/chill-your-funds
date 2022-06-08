@@ -11,13 +11,12 @@ public class PercentExpense extends Expense {
 
     private Map<Person, Integer> mapOfPercents = new HashMap<Person, Integer>();
 
-    void percentSplit() throws WrongPercentException {
-        Scanner scanner = new Scanner(System.in);
+    void percentSplit(Map<Integer,Integer> mapOfDebtorsWithPercents) throws WrongPercentException {
         int percent = 0;
         int counter = 0;
         if (isPayerADebtor()) {
             for (int i = 0; i < debtors.size(); i++) {
-                percent = scanner.nextInt();
+                percent = mapOfDebtorsWithPercents.get(debtors.get(i).getId());
                 mapOfPercents.put(debtors.get(i), percent);
                 counter += percent;
             }
@@ -26,6 +25,18 @@ public class PercentExpense extends Expense {
                     if (debtors.get(i) == payer) {
                         debtors.get(i).subtractFromBalance(group, amount);
                         debtors.get(i).addToBalance(group, percent * amount / 100);
+                        if (debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {
+                            if (debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)) {
+                                debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer) + mapOfPercents.get(debtors.get(i)) * amount / 100);
+                            } else {
+                                debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
+                            }
+                        } else {
+                            Map<Person, Integer> map = new HashMap<>();
+                            map.put(payer, mapOfPercents.get(debtors.get(i)) * amount / 100);
+                            debtors.get(i).getMapOfExpensesFromGroup().put(group, map);
+                        }
+
                     } else {
                         debtors.get(i).addToBalance(group, mapOfPercents.get(debtors.get(i)) * amount / 100);
                         if (debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {
@@ -46,7 +57,7 @@ public class PercentExpense extends Expense {
             }
         } else {
             for (int i = 0; i < debtors.size(); i++) {
-                percent = scanner.nextInt();
+                percent = mapOfDebtorsWithPercents.get(debtors.get(i).getId());
                 mapOfPercents.put(debtors.get(i), percent);
                 counter += percent;
             }

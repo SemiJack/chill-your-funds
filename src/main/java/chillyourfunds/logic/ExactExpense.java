@@ -12,7 +12,6 @@ public class ExactExpense extends Expense{
     private Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();
     void exactSplit(Map<Integer,Integer> mapOfDebtorsWithAmount) throws WrongAmountException {
         int counter = 0;
-        int part = 0;
 
         if(isPayerADebtor()){
             for(int i = 0; i < debtors.size(); i++) {
@@ -24,6 +23,13 @@ public class ExactExpense extends Expense{
                     if(debtors.get(i) == payer) {
                         debtors.get(i).subtractFromBalance(group,amount);
                         debtors.get(i).addToBalance(group,mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
+                        if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null && debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)) {
+                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer,debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
+                        } else {
+                            Map<Person,Integer> map = new HashMap<>();
+                            map.put(payer,mapOfDebtorsWithAmount.get(debtors.get(i).getId()));
+                            debtors.get(i).getMapOfExpensesFromGroup().putIfAbsent(group,map);
+                        }
                     } else {
                         debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));
                         if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null && debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){

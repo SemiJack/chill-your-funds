@@ -25,7 +25,7 @@ public class LogicTest {
 //        EqualExpense e2 = new EqualExpense(12, group, person2);
         EqualExpense e3 = new EqualExpense(30, group, person2);
         ExactExpense e4 = new ExactExpense(5000,group1,person5);
-//        PercentExpense e5 = new PercentExpense(100,group1,person5);
+        PercentExpense e5 = new PercentExpense(1000,group1,person5);
 //        e1.addDebtor(3);
 //        e1.createExpense(e1);
 //        System.out.println("------------------");
@@ -52,17 +52,22 @@ public class LogicTest {
             System.out.println("Spróbuj ponownie: ");
             e4.exactSplit(map);
         }
-//
-//        e5.addDebtor(1);
-//        e5.addDebtor(3);
-//        e5.createExpense(e5);
-//        try{
-//            e5.percentSplit();
-//        } catch (Exception e) {
-//            System.out.println("Nastąpił problem: " + e);
-//            System.out.println("Spróbuj ponownie: ");
-//            e5.percentSplit();
-//        }
+
+
+        e5.addDebtor(1);
+        e5.addDebtor(5);
+        e5.createExpense(e5);
+        Map<Integer,Integer> mappercents = new HashMap<>();
+        mappercents.put(1,10);
+        mappercents.put(5,90);
+
+        try{
+            e5.percentSplit(mappercents);
+        } catch (Exception e) {
+            System.out.println("Nastąpił problem: " + e);
+            System.out.println("Spróbuj ponownie: ");
+            e5.percentSplit(mappercents);
+        }
 
 //
 //
@@ -125,7 +130,7 @@ public class LogicTest {
         System.out.println();
         System.out.println();
         System.out.println();
-        //group.simplifyGroupExpenses(group);
+        //group.simplifyGroupExpenses(group1);
         System.out.println();
         System.out.println();
         System.out.println();
@@ -135,12 +140,23 @@ public class LogicTest {
         person4.showMyPayers();
         person5.showMyPayers();
         System.out.println(person1.getBalance(group));
+        person5.showMyBalances();
         //group1.simplifyGroupExpenses(group1);
         //person3.payADebt(person2,group,12);
         //person3.showMyPayers();
         //person3.showMyBalances();
         //person5.showMyBalances();
         //person5.showMyPayers();
+        //group1.simplifyGroupExpenses(group1);
+        person5.payADebt(person5,group1,3400);
+
+        person5.showMyBalances();
+        person5.showMyPayers();
+        person1.payADebt(person5,group1,2600);
+        person1.showMyBalances();
+        person1.showMyPayers();
+        person5.showMyBalances();
+
 
 
     }
