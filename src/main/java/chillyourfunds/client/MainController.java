@@ -56,6 +56,8 @@ public class MainController {
         stage.show();
     }
 
+
+
     public void switchToHome(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("view/HomeView.fxml"));
