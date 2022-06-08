@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CYFClientController implements Runnable {
     private final Socket socket;
     public Person me;
-    public   Group currGroup;
+    public Group currGroup;
     private final ObjectInputStream objectIn;
     private final ObjectOutputStream objectOut;
 
@@ -58,14 +58,15 @@ public class CYFClientController implements Runnable {
                     socket.close();
                     break;
                 }
-            } catch (IOException | ClassNotFoundException ignore ) {
+
+            } catch (IOException | ClassNotFoundException ignore) {
             }
         }
     }
 
     private boolean handleCommand() throws IOException, ClassNotFoundException {
         Messenger message = (Messenger) objectIn.readObject();
-        CYFProtocol  command = message.command;
+        CYFProtocol command = message.command;
         switch (command) {
             case LOGGEDIN:
                 me = (Person) message.data;
@@ -84,59 +85,67 @@ public class CYFClientController implements Runnable {
             case PERSONADDED:
                 System.out.println("Added new person to group");
                 break;
-            case UPDATE:
-                Object[] freshData = (Object[]) message.data;
-                currGroup = (Group) freshData[0];
-                me = (Person) freshData[1];
-                System.out.println(currGroup.getPeople());
-                System.out.println("Data up to date");
-                break;
             case COMMENT:
                 System.out.println((String) message.data);
+                break;
+            case UPDATEDONE:
+                Object[] dataarr = (Object[]) message.data;
+                currGroup = (Group) dataarr[0];
+                me = (Person) dataarr[1];
+                System.out.println("Up to date");
                 break;
             case STOP:
                 send(CYFProtocol.STOPPED);
             case LOGGEDOUT:
                 return false;
         }
-
         return true;
     }
 
-    ArrayList<Integer> getGroups(){
+    ArrayList<Integer> getGroups() {
         return me.getParticipateGroupsId();
     }
 
     void login(String username, String password) {
-        send(CYFProtocol.LOGIN, new String[]{username,password});
+        send(CYFProtocol.LOGIN, new String[]{username, password});
     }
 
-    void register(String login, String password, String firstname, String lastname){
+    void register(String login, String password, String firstname, String lastname) {
         send(CYFProtocol.REGISTER, new String[]{login, password, firstname, lastname});
     }
 
-     void createGroup(String groupName) {
-       send(CYFProtocol.CREATEGROUP, groupName);
+    void createGroup(String groupName) {
+        send(CYFProtocol.CREATEGROUP, groupName);
     }
 
     void chooseGroup(int groupId) {
         send(CYFProtocol.CHOOSEGROUP, groupId);
     }
 
-    void addPersonToGroup(String username){
-        send(CYFProtocol.ADDPERSON,username);
+    void addPersonToGroup(String username) {
+        send(CYFProtocol.ADDPERSON, username);
     }
 
-    void removePersonFromGroup(String username){
-        send(CYFProtocol.REMOVEPERSON,username);
+    void removePersonFromGroup(String username) {
+        send(CYFProtocol.REMOVEPERSON, username);
     }
 
-    void addExpense(CYFProtocol expenseType,int amount,String[] debtors){
-        send(CYFProtocol.ADDEXPENSE, new Object[]{expenseType,amount,debtors});
+    void addExpense(CYFProtocol expenseType, int amount, String[] debtors) {
+        send(CYFProtocol.ADDEXPENSE, new Object[]{expenseType, amount, debtors});
     }
 
+   void update() {
+        if (objectOut != null) {
+            try {
+                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
+    }
     void send(CYFProtocol command, Object data) {
+        update();
         try {
             if (objectOut != null)
                 objectOut.writeObject(new Messenger(command, data));
@@ -145,7 +154,9 @@ public class CYFClientController implements Runnable {
             System.err.println("Cannot send data to server!");
         }
     }
+
     void send(CYFProtocol command) {
+        update();
         try {
             if (objectOut != null)
                 objectOut.writeObject(new Messenger(command));
@@ -155,7 +166,7 @@ public class CYFClientController implements Runnable {
         }
     }
 
-    void forceUpdate(){
+    void forceUpdate() {
         send(CYFProtocol.UPDATE);
     }
 
