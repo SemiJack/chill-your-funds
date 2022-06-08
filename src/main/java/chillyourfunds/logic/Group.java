@@ -9,7 +9,7 @@ public class Group implements Serializable{
 
     private String groupName;
 
-    private Integer groupId;
+    private int groupId;
     private List<Person> people = new ArrayList<>();
     private List<Expense> expenses = new ArrayList<>();
 
@@ -18,7 +18,7 @@ public class Group implements Serializable{
     }
 
 
-    public Integer getGroupId() {
+    public int getGroupId() {
         return groupId;
     }
 

@@ -23,13 +23,5 @@ public class GroupViewController {
         this.mainController = mainController;
     }
 
-    @FXML
-    public void switchToHistory(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Main.fxml"));
-        root = loader.load();
-        System.out.println("click");
-        this.mainController = loader.getController();
-        this.mainController.switchToHistory(event);
-    }
 
 }

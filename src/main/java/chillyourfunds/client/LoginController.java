@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class LoginController {
     SceneController sceneController=new SceneController();
-    CYFClientController client=new CYFClientController("localhost","40000");
     @FXML
     TextField username=new TextField();
     @FXML
@@ -39,7 +38,7 @@ public class LoginController {
         usernameString=username.getText();
         passwordString=password.getText();
         sceneController.switchToMain(e);
-        client.login(usernameString,passwordString);
+        //client.login(usernameString,passwordString);
     }
 
 }
