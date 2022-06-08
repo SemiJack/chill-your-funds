@@ -40,11 +40,7 @@ public class CYFServer extends Frame implements Runnable {
             send(CYFProtocol.STOP);
             new Thread(() -> {
                 while (clients.size() != 0) {
-                    try {
-                        TimeUnit.of(ChronoUnit.MILLIS).sleep(500);
-                    } catch (InterruptedException ignore) {
-                        break;
-                    }
+                    break;
                 }
                 saveDatabase("database.json");
                 System.exit(0);

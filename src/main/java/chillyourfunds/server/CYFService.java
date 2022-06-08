@@ -61,6 +61,7 @@ public class CYFService implements Runnable {
         while (true) {
             Messenger message = receive();
             CYFProtocol command = message.command;
+            update();
             switch (command) {
                 case LOGIN:
                     String[] credentials = (String[]) message.data;
@@ -77,7 +78,6 @@ public class CYFService implements Runnable {
                     break;
                 case CREATEGROUP:
                     if (server.database.addGroup((String) message.data, userAccount)) {
-
                         send(CYFProtocol.GROUPCREATED);
                     } else send(CYFProtocol.COMMENT, "Error while creating group!");
                     break;
@@ -87,7 +87,7 @@ public class CYFService implements Runnable {
                         send(CYFProtocol.GROUPCHOOSED, currGroup);
                     } else send(CYFProtocol.COMMENT, "This group doesn't exist!");
                     break;
-                case ADDEXPENSE:
+                case ADDEXPENSE:        //TODO
                     Object[] params = (Object[]) message.data;
                     String[] debtors =(String[]) params[2];
                     Expense newExpense = new EqualExpense((int) params[1],currGroup,userAccount.memberOfGroups);
@@ -112,6 +112,11 @@ public class CYFService implements Runnable {
                     }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
                 case REMOVEPERSON:
+                    String usernameToRemove = (String) message.data;
+                    Person personToRemove = server.database.getPersonByUsername(usernameToRemove);
+                    if(personToRemove != null && currGroup.removePerson(personToRemove)){
+                        send(CYFProtocol.PERSONREMOVED);
+                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
                     break;
                 case SIMPlify:
                     break;
@@ -127,7 +132,6 @@ public class CYFService implements Runnable {
                 default:
                     System.out.println("Error");
             }
-            update();
         }
     }
 

@@ -1,5 +1,78 @@
 {
   "groupData": {
+    "1463402521": {
+      "groupName": "testowaGrupa",
+      "groupId": 1463402521,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            409783687,
+            250467662,
+            1463402521
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
+    },
+    "250467662": {
+      "groupName": "testowaGrupa",
+      "groupId": 250467662,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            409783687,
+            250467662,
+            1463402521
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
+    },
+    "409783687": {
+      "groupName": "testowaGrupa",
+      "groupId": 409783687,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            409783687,
+            250467662,
+            1463402521
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        },
+        {
+          "id": 3254270,
+          "name": "jack",
+          "isAdmin": false,
+          "participateGroupsId": [],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        },
+        {
+          "id": 3254270,
+          "name": "jack",
+          "isAdmin": false,
+          "participateGroupsId": [],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
+    },
     "-115899304": {
       "groupName": "kokokok",
       "groupId": -115899304,
@@ -39,6 +112,25 @@
         "isAdmin": false,
         "participateGroupsId": [
           -115899304
+        ],
+        "mapOfExpensesFromGroup": {},
+        "mapOfBalances": {}
+      }
+    },
+    "admin": {
+      "uuid": 92668782,
+      "username": "admin",
+      "credentials": -1420725612,
+      "firstName": "Jacek",
+      "lastName": "Pelczar",
+      "memberOfGroups": {
+        "id": 92668782,
+        "name": "admin",
+        "isAdmin": false,
+        "participateGroupsId": [
+          409783687,
+          250467662,
+          1463402521
         ],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}
