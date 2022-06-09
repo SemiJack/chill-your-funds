@@ -4,24 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Teraz powinno działać">
+    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Equalsplit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddPersonViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddPersonViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/SceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/SceneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Group.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/GroupView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/GroupView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/AddPersonViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/AddPersonViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/ExactExpense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/ExactExpense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Expense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Expense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/EqualExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/EqualExpenseViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/SceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/SceneController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/EqualExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/GroupView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/GroupView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Group.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Group.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Logic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Logic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/ExactExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/ExactExpenseViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/ExactExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/ExactExpense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/ExactExpense.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Expense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Expense.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654744401482</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Equalsplit">
+      <created>1654747090741</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1654747090741</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -297,7 +297,8 @@
     <MESSAGE value="fxml pliki" />
     <MESSAGE value="Działa lista grup i osób" />
     <MESSAGE value="Teraz powinno działać" />
-    <option name="LAST_COMMIT_MESSAGE" value="Teraz powinno działać" />
+    <MESSAGE value="Equalsplit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Equalsplit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

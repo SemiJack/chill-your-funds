@@ -9,8 +9,8 @@ public class ExactExpense extends Expense{
         super(amount, group, payer);
     }
 
-    private Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();
-    void exactSplit(Map<Integer,Integer> mapOfDebtorsWithAmount) throws WrongAmountException {
+    public Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();
+    public void exactSplit(Map<Integer,Integer> mapOfDebtorsWithAmount) throws WrongAmountException {
         int counter = 0;
 
         if(isPayerADebtor()){

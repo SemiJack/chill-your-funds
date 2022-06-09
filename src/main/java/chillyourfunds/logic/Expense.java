@@ -25,6 +25,7 @@ public class Expense {
 
     }
 
+
     public void createExpense(Expense e) {
         group.getExpenses().add(e);
     }
