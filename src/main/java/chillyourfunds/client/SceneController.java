@@ -52,6 +52,30 @@ import javafx.stage.Stage;
             stage.setScene(scene);
             stage.show();
         }
+        public void switchToEqualSplitView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/addPersonView.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+        public void switchToExactSplitView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/addPersonView.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+        public void switchToPercentSplitView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/addPersonView.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
         public void switchToAddPersonView(ActionEvent event) throws IOException {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/addPersonView.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -59,5 +83,7 @@ import javafx.stage.Stage;
             stage.setScene(scene);
             stage.show();
         }
+
+
 
     }
