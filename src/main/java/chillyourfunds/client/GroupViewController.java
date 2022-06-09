@@ -39,7 +39,8 @@ public class GroupViewController {
         sceneController.switchToAddPersonView(e);
     }
     public void simplify(){
-        Logic.groups.get(Logic.groups.size()-1).simplifyGroupExpenses(Logic.groups.get(Logic.groups.size()-1));
+//        Logic.groups.get(Logic.groups.size()-1).simplifyGroupExpenses(Logic.groups.get(Logic.groups.size()-1));
+        Logic.lastGroup.simplifyGroupExpenses(Logic.lastGroup);
     }
     public void showPeople(){
         System.out.println(Logic.lastGroup.getPeople().toString());

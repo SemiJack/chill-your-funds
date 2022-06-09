@@ -11,6 +11,7 @@
       <TextField fx:id="debtorID" layoutX="42.0" layoutY="48.0" promptText="Debtor 's ID" />
       <Button fx:id="confirmButton" layoutX="394.0" layoutY="142.0" mnemonicParsing="false" onAction="#confirm" prefHeight="58.0" prefWidth="131.0" text="Confirm" />
       <Button fx:id="addButton" layoutX="80.0" layoutY="94.0" mnemonicParsing="false" onAction="#add" prefHeight="33.0" prefWidth="83.0" text="Add" />
-      <Button fx:id="equalsplit" layoutX="246.0" layoutY="273.0" mnemonicParsing="false" onAction="#equalSplit" onDragDetected="#equalSplit" prefHeight="58.0" prefWidth="109.0" text="EqualSplit" />
+      <Button fx:id="equalsplit" layoutX="246.0" layoutY="271.0" mnemonicParsing="false" onAction="#equalSplit" onDragDetected="#equalSplit" prefHeight="58.0" prefWidth="109.0" text="EqualSplit" />
+      <Button fx:id="back" layoutX="25.0" layoutY="329.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
 </AnchorPane>

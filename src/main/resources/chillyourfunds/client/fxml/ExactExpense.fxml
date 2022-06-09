@@ -13,5 +13,6 @@
       <TextField fx:id="payerTextField" layoutX="359.0" layoutY="100.0" promptText="Payer" />
       <Button fx:id="confirmButton" layoutX="378.0" layoutY="161.0" mnemonicParsing="false" onAction="#confirm" prefHeight="56.0" prefWidth="122.0" text="Confirm" />
       <Button fx:id="exactSplitButton" layoutX="237.0" layoutY="263.0" mnemonicParsing="false" onAction="#exactSplit" prefHeight="56.0" prefWidth="84.0" text="Exact split" />
+      <Button fx:id="back" layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
 </AnchorPane>

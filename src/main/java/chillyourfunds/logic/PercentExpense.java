@@ -9,9 +9,9 @@ public class PercentExpense extends Expense {
         super(amount, group, payer);
     }
 
-    private Map<Person, Integer> mapOfPercents = new HashMap<Person, Integer>();
+    public Map<Person, Integer> mapOfPercents = new HashMap<Person, Integer>();
 
-    void percentSplit(Map<Integer,Integer> mapOfDebtorsWithPercents) throws WrongPercentException {
+    public void percentSplit(Map<Integer,Integer> mapOfDebtorsWithPercents) throws WrongPercentException {
         int percent = 0;
         int counter = 0;
         if (isPayerADebtor()) {

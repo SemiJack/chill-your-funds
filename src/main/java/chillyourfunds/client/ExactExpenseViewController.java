@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +18,9 @@ public class ExactExpenseViewController {
     public TextField payerTextField=new TextField();
     public Button confirmButton=new Button();
     public Button exactSplitButton=new Button();
+    public Button back = new Button();
 
-
+SceneController sceneController = new SceneController();
     int amount;
     Person payer;
     int debtorsID;
@@ -45,7 +47,11 @@ public class ExactExpenseViewController {
     public void exactSplit(ActionEvent event) throws WrongAmountException {
         lastExactExpense.exactSplit(map);
         for (int i = 0; i < lastExactExpense.debtors.size(); i++) {
-            System.out.println(lastExactExpense.debtors.get(0).getBalance(Logic.lastGroup));
+            System.out.println(lastExactExpense.debtors.get(i).getBalance(Logic.lastGroup));
         }
+    }
+
+    public void back(ActionEvent event) throws IOException {
+        sceneController.switchToGroupView(event);
     }
 }

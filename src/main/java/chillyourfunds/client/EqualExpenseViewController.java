@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+
 public class EqualExpenseViewController {
 
     public TextField amountTextField=new TextField();
@@ -16,6 +18,7 @@ public class EqualExpenseViewController {
     public Button addButton=new Button();
     public TextField debtorID=new TextField();
     public Button equalsplit = new Button();
+    SceneController sceneController = new SceneController();
 
     int amount;
     Person payer;
@@ -43,5 +46,9 @@ public class EqualExpenseViewController {
         }
 
 
+    }
+
+    public void back(ActionEvent event) throws IOException {
+        sceneController.switchToGroupView(event);
     }
 }

@@ -4,17 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Equalsplit">
+    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/ExactExpense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/ExactExpense.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Expense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Expense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/PercentExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/PercentExpenseViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/PercentExpense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/PercentExpense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/PercentExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/PercentExpense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/registerView.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/EqualExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/EqualExpenseViewController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/ExactExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/ExactExpenseViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/PercentExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/PercentExpenseViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/EqualExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/ExactExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/ExactExpense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/ExactExpense.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Expense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Expense.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/PercentExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/PercentExpense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/registerView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/EqualExpense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/EqualExpense.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/PercentExpense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/PercentExpense.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,14 +53,8 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2A581upa3pwDqvec8x1vMViCOOp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -282,6 +288,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Naprawa logica zeby dzialal" />
