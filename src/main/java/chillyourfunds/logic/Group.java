@@ -185,9 +185,9 @@ public class Group implements Serializable{
         }
 
     /**
-     * Metoda round
-     * @param value podana wortośc
-     * @param places miejsce
+     * Metoda round zaokrągla podaną wartość
+     * @param value podana wartość
+     * @param places miejsce, do którego zaokrąglana jest funkcja
      * @return
      */
         public static double round(double value, int places) {
