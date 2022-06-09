@@ -73,7 +73,7 @@ public class Person implements Serializable {
         }
     }
 
-    void payADebt(Person payer, Group g, int amount) {
+   public void payADebt(Person payer, Group g, int amount) {
         int debt = 0;
         for(int i = 0; i < mapOfExpensesFromGroup.size(); i++) {
             if(mapOfExpensesFromGroup.containsKey(g)) {

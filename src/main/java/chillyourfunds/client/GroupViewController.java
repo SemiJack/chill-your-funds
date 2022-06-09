@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
@@ -30,6 +32,12 @@ public class GroupViewController {
     Button addPersonButton=new Button();
     @FXML
     Button returnButton=new Button();
+    @FXML
+    TextArea textoutput = new TextArea();
+    @FXML
+    Button balanceButton = new Button();
+    @FXML
+    TextField personNameTextField = new TextField();
 
 
     public void addExpense(ActionEvent e) throws IOException {
@@ -40,14 +48,25 @@ public class GroupViewController {
     }
     public void simplify(){
 //        Logic.groups.get(Logic.groups.size()-1).simplifyGroupExpenses(Logic.groups.get(Logic.groups.size()-1));
-        Logic.lastGroup.simplifyGroupExpenses(Logic.lastGroup);
+        textoutput.setText(Logic.lastGroup.simplifyGroupExpenses(Logic.lastGroup));
     }
     public void showPeople(){
         System.out.println(Logic.lastGroup.getPeople().toString());
     }
-    public void returnDebt(){
+    public void returnDebt(ActionEvent e) throws IOException {
+        sceneController.switchToPayADebtView(e);
     }
     public void returnToMain(ActionEvent e) throws IOException {
         sceneController.switchToMain(e);
     }
+    int balance;
+    String name;
+
+    public void showBalance(ActionEvent e) {
+        name = personNameTextField.getText();
+        balance = Logic.lastGroup.getPersonByName(name).getBalance(Logic.lastGroup);
+        textoutput.setText("Balans użytkownika " + name + " wynosi: " + balance + "$");
+    }
+
+
 }

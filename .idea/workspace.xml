@@ -4,29 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Wszystkie operacje działają!">
+      <change afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/PayADebtViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/payADebtView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/PercentExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/PercentExpenseViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/PercentExpense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/PercentExpense.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/PercentExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/PercentExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/registerView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/EqualExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/EqualExpenseViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/ExactExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/ExactExpenseViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/SceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/SceneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/GroupView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/GroupView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/PercentExpenseViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/PercentExpenseViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/EqualExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/ExactExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/PercentExpense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/PercentExpense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/registerView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/EqualExpense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/EqualExpense.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/PercentExpense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/PercentExpense.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/SceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/SceneController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/GroupView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/fxml/GroupView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Group.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Group.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/GroupTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/GroupTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Person.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +43,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -275,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654747090741</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Wszystkie operacje działają!">
+      <created>1654755346716</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1654755346716</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,7 +314,8 @@
     <MESSAGE value="Działa lista grup i osób" />
     <MESSAGE value="Teraz powinno działać" />
     <MESSAGE value="Equalsplit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Equalsplit" />
+    <MESSAGE value="Wszystkie operacje działają!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wszystkie operacje działają!" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

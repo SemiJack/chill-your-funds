@@ -72,13 +72,13 @@ public class Group implements Serializable{
         return p;
     }
 
-    public void simplifyGroupExpenses(Group group) {
+    public String simplifyGroupExpenses(Group group) {
         for(int i = 0; i < people.size(); i++) {
             if(people.get(i).getMapOfExpensesFromGroup().get(group)!=null) {
                 people.get(i).getMapOfExpensesFromGroup().get(group).clear();
             }
         }
-        findPath(groupToSimplify(group),group);
+        return findPath(groupToSimplify(group),group);
     }
 
     private Map groupToSimplify(Group group) {
@@ -94,25 +94,26 @@ public class Group implements Serializable{
 
 
 
-
-        private void findPath(Map details, Group group) {
+    String essa = new String();
+        private String findPath(Map details, Group group) {
 
             Double Max_Value = (Double) Collections.max(details.values());
             Double Min_Value = (Double) Collections.min(details.values());
+
             if (Max_Value != Min_Value) {
                 String Max_Key = getKeyFromValue(details, Max_Value).toString();
                 String Min_Key = getKeyFromValue(details, Min_Value).toString();
                 Double result = Max_Value + Min_Value;
                 result = round(result, 1);
                 if ((result >= 0.0)) {
-                    System.out.println((Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Min_Value), 2)));
+                    essa += ((Min_Key + " musi zaplacic " + Max_Key + ": " + (int)round(Math.abs(Min_Value), 2)) + "$ \n");
                     getPersonByName(Min_Key).getMapOfExpensesFromGroup().get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
                     details.put(Max_Key, result);
                     details.put(Min_Key, 0.0);
                 } else {
-                    System.out.println(Min_Key + " musi zaplacic " + Max_Key + ":" + round(Math.abs(Max_Value), 2));
+                    essa += (Min_Key + " musi zaplacic " + Max_Key + ":" + (int)round(Math.abs(Max_Value), 2) + "$ \n");
                     getPersonByName(Min_Key).getMapOfExpensesFromGroup().get(group).put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));
                     details.remove(Max_Key);
                     details.remove(Min_Key);
@@ -121,6 +122,7 @@ public class Group implements Serializable{
                 }
                 findPath(details,group);
             }
+            return essa;
         }
 
 

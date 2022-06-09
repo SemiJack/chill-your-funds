@@ -38,10 +38,12 @@ public class LoginController {
     public void submit(ActionEvent e) throws IOException {
         usernameString=username.getText();
         passwordString=password.getText();
-        sceneController.switchToMain(e);
+        if(usernameString.equals("admin") && passwordString.equals("admin")) {
+            System.out.println("essa");
+            sceneController.switchToMain(e);
+        }
 
 
-        //client.login(usernameString,passwordString);
     }
 
 }
