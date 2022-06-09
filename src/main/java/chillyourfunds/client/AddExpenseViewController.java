@@ -1,24 +1,47 @@
 package chillyourfunds.client;
 
-import chillyourfunds.logic.Group;
-import chillyourfunds.logic.Person;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class AddExpenseViewController {
     AddGroupViewController addGroupViewController=new AddGroupViewController();
+    SceneController sceneController = new SceneController();
 
     @FXML
     TextField amountTextField=new TextField();
     @FXML
     TextField payerTextField=new TextField();
     @FXML
-    Button addExpenseBut=new Button();
-int amount;
-String payerName;
-    public void addExpense(){
-        amount=Integer.parseInt(amountTextField.getText());
-//        Group group=addGroupViewController.groups.get(0)
+    Button percentsplit = new Button();
+    @FXML
+    Button exactsplit = new Button();
+    @FXML
+    Button equalsplit = new Button();
+
+
+
+
+    public void addExpenseEqual(ActionEvent event) throws IOException {
+        sceneController.switchToEqualSplitView(event);
     }
+
+    public void addExpensePercent(ActionEvent event) throws IOException {
+        sceneController.switchToPercentSplitView(event);
+    }
+
+    public void addExpenseExact(ActionEvent event) throws IOException {
+        sceneController.switchToExactSplitView(event);
+    }
+
+
+
+
 }

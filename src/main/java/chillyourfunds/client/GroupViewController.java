@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class GroupViewController {
     CYFApplication cyfApplication=new CYFApplication();
+    SceneController sceneController = new SceneController();
 
     @FXML
     Button addExpenseButton=new Button();
@@ -27,7 +28,8 @@ public class GroupViewController {
     Button addPersonButton=new Button();
 
 
-    public void addExpense(){
+    public void addExpenseView(ActionEvent event) throws IOException {
+        sceneController.switchToAddExpenseView(event);
     }
     public void addPerson(){
 //        cyfApplication.groups.get(0).addPerson(new Person());

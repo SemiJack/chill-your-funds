@@ -46,10 +46,35 @@ import javafx.stage.Stage;
             stage.show();
         }
         public void switchToAddExpenseView(ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/GroupView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/addExpenseView.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         }
+
+        public void switchToEqualSplitView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/EqualExpense.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+        public void switchToExactSplitView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ExactExpense.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
+        public void switchToPercentSplitView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/PercentExpense.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
