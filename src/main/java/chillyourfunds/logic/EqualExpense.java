@@ -39,6 +39,8 @@ public class EqualExpense extends Expense{
             }
         }
         payer.subtractFromBalance(group, amount);
+
+
     }
 
 }
