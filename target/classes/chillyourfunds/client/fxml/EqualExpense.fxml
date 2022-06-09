@@ -6,10 +6,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chillyourfunds.client.EqualExpenseViewController">
    <children>
-      <TextField layoutX="380.0" layoutY="48.0" promptText="amount" />
-      <TextField layoutX="380.0" layoutY="97.0" promptText="payer" />
-      <TextField layoutX="42.0" layoutY="48.0" promptText="Debtor 's ID" />
-      <Button layoutX="220.0" layoutY="200.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" text="Confirm" />
-      <Button layoutX="80.0" layoutY="94.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="83.0" text="Add" />
+      <TextField fx:id="amountTextField" layoutX="380.0" layoutY="48.0" promptText="amount" />
+      <TextField fx:id="payerTextField" layoutX="380.0" layoutY="97.0" promptText="payer" />
+      <TextField fx:id="debtorID" layoutX="42.0" layoutY="48.0" promptText="Debtor 's ID" />
+      <Button fx:id="confirmButton" layoutX="220.0" layoutY="200.0" mnemonicParsing="false" onAction="#confirm" prefHeight="72.0" prefWidth="160.0" text="Confirm" />
+      <Button fx:id="addButton" layoutX="80.0" layoutY="94.0" mnemonicParsing="false" onAction="#add" prefHeight="33.0" prefWidth="83.0" text="Add" />
    </children>
 </AnchorPane>

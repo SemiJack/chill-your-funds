@@ -30,7 +30,6 @@ public class AddPersonViewController {
         }catch(Exception e){
             addPerson(event);
         }
-        System.out.println(Logic.lastGroup.getPeople().toString());
-        System.out.println(Logic.groups.get(0).getGroupName());
+
     }
 }

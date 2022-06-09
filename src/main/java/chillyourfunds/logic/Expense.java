@@ -8,7 +8,7 @@ public class Expense {
     Group group;
     Person payer;
     boolean isPaid = false;
-    List<Person> debtors = new ArrayList<>();
+    public List<Person> debtors = new ArrayList<>();
 
     public Expense(int amount, Group group, Person payer) {
         this.amount = amount;
