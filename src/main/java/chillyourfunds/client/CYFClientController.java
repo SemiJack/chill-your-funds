@@ -14,16 +14,17 @@ import java.util.ArrayList;
  * author: Jacek Pelczar
  */
 public class CYFClientController implements Runnable {
-    private final Socket socket;
-    public Person me;
-    public Group currGroup;
-    private final ObjectInputStream objectIn;
-    private final ObjectOutputStream objectOut;
+    private final Socket _socket;
+    public Person _me;
+    public Group _currGroup;
+    private  ObjectInputStream _objectIn;
+    private  ObjectOutputStream _objectOut;
+
 
 
     public CYFClientController(String host, String port) throws Exception {
         try {
-            socket = new Socket(host, Integer.parseInt(port));
+            _socket = new Socket(host, Integer.parseInt(port));
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(null, "Unknown host.");
             throw new Exception("Unknown host.");
@@ -35,9 +36,8 @@ public class CYFClientController implements Runnable {
             throw new Exception("Port value must be a number.");
         }
         try {
-            objectIn = new ObjectInputStream(socket.getInputStream());
-            objectOut = new ObjectOutputStream(socket.getOutputStream());
-
+            _objectOut = new ObjectOutputStream(_socket.getOutputStream());
+            _objectIn = new ObjectInputStream(_socket.getInputStream());
         } catch (IOException ex) {
             throw new Exception("Can't get input/output connection stream.");
         }
@@ -45,53 +45,64 @@ public class CYFClientController implements Runnable {
     }
 
     boolean isDisconnected() {
-        return socket == null;
+        return _socket == null;
     }
 
     @Override
     public void run() {
         while (true) {
-            try {
-                if (!handleCommand()) {
-                    objectOut.close();
-                    objectIn.close();
-                    socket.close();
-                    break;
-                }
-
-            } catch (IOException | ClassNotFoundException ignore) {
-            }
+//            try {
+////                if (!handleCommand()) {
+////                    _objectOut.close();
+////                    _objectIn.close();
+////                    _socket.close();
+////                    break;
+////                }
+//
+//            } catch (IOException | ClassNotFoundException ignore) {
+//            }
         }
     }
 
     private boolean handleCommand() throws IOException, ClassNotFoundException {
-        Messenger message = (Messenger) objectIn.readObject();
+
+        Object data = _objectIn.readUnshared();
+        Messenger message = (Messenger) data;
         CYFProtocol command = message.command;
         switch (command) {
             case LOGGEDIN:
-                me = (Person) message.data;
+                _me = (Person) message.data;
                 System.out.println("Log in successful");
                 break;
             case REGISTERED:
                 System.out.println("Register successful");
                 break;
             case GROUPCHOOSED:
-                currGroup = (Group) message.data;
-                System.out.println("Chosen group: " + currGroup.getGroupName());
+                _currGroup = (Group) message.data;
+                System.out.println("Chosen group: " + _currGroup.getGroupName());
                 break;
             case GROUPCREATED:
+                _currGroup = (Group) message.data;
                 System.out.println("Created new group");
                 break;
             case PERSONADDED:
+                _currGroup = (Group) message.data;
                 System.out.println("Added new person to group");
+                break;
+            case PERSON:
+                _me = (Person) message.data;
+                System.out.println("Updated person");
                 break;
             case COMMENT:
                 System.out.println((String) message.data);
                 break;
-            case UPDATEDONE:
+            case SNAPSHOT:
+                System.out.println(message.data);
                 Object[] dataarr = (Object[]) message.data;
-                currGroup = (Group) dataarr[0];
-                me = (Person) dataarr[1];
+
+                _currGroup = (Group) dataarr[0];
+                System.out.println(_currGroup);
+                _me = (Person) dataarr[1];
                 System.out.println("Up to date");
                 break;
             case STOP:
@@ -99,23 +110,31 @@ public class CYFClientController implements Runnable {
             case LOGGEDOUT:
                 return false;
         }
+        refreshConnection();
         return true;
     }
 
     ArrayList<Integer> getGroups() {
-        return me.getParticipateGroupsId();
+        return _me.getParticipateGroupsId();
     }
 
     void login(String username, String password) {
         send(CYFProtocol.LOGIN, new String[]{username, password});
+        System.out.println("send login req");
     }
 
     void register(String login, String password, String firstname, String lastname) {
         send(CYFProtocol.REGISTER, new String[]{login, password, firstname, lastname});
+        System.out.println("send register req");
     }
 
     void createGroup(String groupName) {
         send(CYFProtocol.CREATEGROUP, groupName);
+        System.out.println("send create group req");
+    }
+    void getPerson(String username) {
+        send(CYFProtocol.PERSON, username);
+
     }
 
     void chooseGroup(int groupId) {
@@ -134,44 +153,53 @@ public class CYFClientController implements Runnable {
         send(CYFProtocol.ADDEXPENSE, new Object[]{expenseType, amount, debtors});
     }
 
-   void update() {
-        if (objectOut != null) {
-            try {
-                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
+    void refreshConnection() throws IOException {
+        _objectOut.reset();
+        //_objectOut = null;
+        //_objectIn = null;
+        //_objectOut = new ObjectOutputStream(_socket.getOutputStream());
+        //_objectIn = new ObjectInputStream(_socket.getInputStream());
     }
+
+
     void send(CYFProtocol command, Object data) {
-        update();
         try {
-            if (objectOut != null)
-                objectOut.writeObject(new Messenger(command, data));
+            if (_objectOut != null) {
+                _objectOut.writeUnshared(new Messenger(command, data));
+                _objectOut.flush();
+                handleCommand();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Cannot send data to server!");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     void send(CYFProtocol command) {
-        update();
         try {
-            if (objectOut != null)
-                objectOut.writeObject(new Messenger(command));
+            if (_objectOut != null) {
+                _objectOut.writeUnshared(new Messenger(command));
+                _objectOut.flush();
+                handleCommand();
+            }
+//            if (_objectOut != null) {
+//                _objectOut.writeObject(new Messenger(CYFProtocol.UPDATE));
+//                _objectOut.flush();
+//                handleCommand();
+//            }
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Cannot send data to server!");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    void forceUpdate() {
-        send(CYFProtocol.UPDATE);
-    }
 
     void forceLogout() {
-        if (socket != null) {
+        if (_socket != null) {
             send(CYFProtocol.LOGOUT);
         }
     }

@@ -27,6 +27,7 @@ public class Person implements Serializable {
 
     public void addGroupIdToParticipate(int id) {
         participateGroupsId.add(id);
+        System.out.print("New Group IDs: " + participateGroupsId);
     }
 
     public void removeGroupIdToParticipate(int id) {

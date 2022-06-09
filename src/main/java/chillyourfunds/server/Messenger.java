@@ -13,10 +13,10 @@ public class Messenger implements Serializable {
         this.data = data;
         this.command = command;
     }
-    public Messenger( CYFProtocol command, Object data1, Object data2){
-        this.data = new Object[]{data1,data2};
-        this.command = command;
-    }
+//    public Messenger( CYFProtocol command, Object data1, Object data2){
+//        this.data = new Object[]{data1,data2};
+//        this.command = command;
+//    }
 
     public Messenger(CYFProtocol command, String option, Object data){
         this.data = data;

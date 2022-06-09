@@ -1,5 +1,25 @@
 {
   "groupData": {
+    "1928993869": {
+      "groupName": "testowaGrupa",
+      "groupId": 1928993869,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            -59402647,
+            -665230783,
+            -522451674,
+            1928993869
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
+    },
     "-665230783": {
       "groupName": "testowaGrupa",
       "groupId": -665230783,
@@ -112,11 +132,7 @@
         "id": 92668782,
         "name": "admin",
         "isAdmin": false,
-        "participateGroupsId": [
-          -59402647,
-          -665230783,
-          -522451674
-        ],
+        "participateGroupsId": [],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}
       }

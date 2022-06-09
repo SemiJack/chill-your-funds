@@ -7,67 +7,71 @@ import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class CYFServer extends Frame implements Runnable {
-    private ServerSocket serverSocket;
+    private ServerSocket _serverSocket;
 
-    protected CYFData database;
+    protected CYFData _database;
 
-    private final List<CYFService> clients = new ArrayList<>();
+    private  final List<CYFService> _clients = Collections.synchronizedList(new ArrayList<CYFService>());
 
-    private final Properties props;
+    private final Properties _props;
 
 
-    private Thread serverThread;
+    private boolean _isRunning = true;
 
     public CYFServer(Properties p, String title) {
         super(title);
-        props = p;
-        int port = Integer.parseInt(props.getProperty("port"));
+        _props = p;
+        int port = Integer.parseInt(_props.getProperty("port"));
         try {
-            serverSocket = new ServerSocket(port);
+            _serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             System.err.println("Error starting IBServer.");
             return;
         }
         Button b = new Button("stop and exit");
         b.addActionListener((actionEvent) -> {
-            send(CYFProtocol.STOP);
-            new Thread(() -> {
-                while (clients.size() != 0) {
-                    break;
-                }
-                saveDatabase("database.json");
-                System.exit(0);
-            }).start();
+            _isRunning = false;
+            try {
+                _serverSocket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         add(b);
         pack();
-        (serverThread = new Thread(this)).start();
+        _database = loadDatabase("database.json");
         EventQueue.invokeLater(() -> setVisible(true));
-        database = loadDatabase("database.json");
     }
 
     public void run() {
-        while (serverThread == Thread.currentThread()) {
+        while (_isRunning) {
             try {
-                Socket clientSocket = serverSocket.accept();
+                Socket clientSocket = _serverSocket.accept();
                 createAndStartClientService(clientSocket);
             } catch (IOException e) {
-                System.err.println("Error accepting connection. Client will not be served...");
+                if(_isRunning){
+                    System.err.println("Error accepting connection. Client will not be served...");
+                }
+                _isRunning = false;
             }
         }
     }
 
-    public void stopRunning() {
-        serverThread = null;
+    public void cleanup(){
+        send(CYFProtocol.STOP);
+        for (CYFService client : _clients) {
+            client.close();
+        }
         saveDatabase("database.json");
+        System.exit(0);
     }
+
 
     public void saveDatabase(String filename) {
 
@@ -76,20 +80,20 @@ public class CYFServer extends Frame implements Runnable {
         gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters
         Gson gson = gbuilder.create();
         try (FileWriter pw = new FileWriter(filename)) {
-            gson.toJson(database, pw);
+            gson.toJson(_database, pw);
             System.out.println("Database saved");
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
 
-    public CYFData loadDatabase(String filepath){
+    public CYFData loadDatabase(String filepath) {
         try {
             Gson gson = new Gson();
-            FileReader fr = new  FileReader(filepath);
+            FileReader fr = new FileReader(filepath);
             return gson.fromJson(fr, new CYFData() {
             }.getClass().getGenericSuperclass());
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Database file doesnt exist. Create new one ");
             return new CYFData();
         }
@@ -100,18 +104,18 @@ public class CYFServer extends Frame implements Runnable {
         CYFService clientService = new CYFService(clientSocket, this);
         clientService.init();
         new Thread(clientService).start();
-        clients.add(clientService);
-        System.out.println("Client added. Number of clients: " + clients.size());
+        _clients.add(clientService);
+        System.out.println("Client added. Number of clients: " + _clients.size());
     }
 
     synchronized void removeClientService(CYFService clientService) {
-        clients.remove(clientService);
+        _clients.remove(clientService);
         clientService.close();
-        System.out.println("Client removed. Number of clients: " + clients.size());
+        System.out.println("Client removed. Number of clients: " + _clients.size());
     }
 
     synchronized void send(CYFProtocol proto) {
-        for (CYFService s : clients) { // roześlij do wszystkich klientów
+        for (CYFService s : _clients) { // roześlij do wszystkich klientów
             s.broadcast(proto);
         }
     }
@@ -134,11 +138,11 @@ public class CYFServer extends Frame implements Runnable {
 
 
     int boardWidth() {
-        return Integer.parseInt(props.getProperty("width"));
+        return Integer.parseInt(_props.getProperty("width"));
     }
 
     int boardHeight() {
-        return Integer.parseInt(props.getProperty("height"));
+        return Integer.parseInt(_props.getProperty("height"));
     }
 
     public static void main(String[] args) {
@@ -155,6 +159,8 @@ public class CYFServer extends Frame implements Runnable {
             props.store(new FileOutputStream(pName), null);
         } catch (Exception ignore) {
         }
-        new CYFServer(props, "Internet Board Server");
+        CYFServer server = new CYFServer(props, "Internet Board Server");
+        server.run();
+        server.cleanup();
     }
 }
