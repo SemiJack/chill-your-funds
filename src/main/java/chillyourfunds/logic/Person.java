@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Klasa Person jest realizacją osoby w aplikacji, która realizuje różnego rodzaju operacje finansowe.
+ * Jej parametrami są identyfikator osoby, imię osoby, listę identyfikatorów grup, których członkiem
+ * jest dana osoba, hash mapę mapy stanów konta i mapę wydatków z grup. Klasa ta implementuje metody:
+ * addToBalance, addGroupIdToParticipate, removeGroupIdToParticipate, payADebt, removeFromAList, showMyPayers,
+ * subtractFromBalance, showMyBalances.
+ */
 public class Person implements Serializable {
     private int id;
     private String name;
@@ -25,10 +32,18 @@ public class Person implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Metoda addGroupIdToParticipate dodaje identyfikator grupy osobie, która do tej grupy jest dodana.
+     * @param id identyfikator grupy
+     */
     public void addGroupIdToParticipate(int id) {
         participateGroupsId.add(id);
     }
 
+    /**
+     * Metoda removeGroupIdToParticipate usuwa identyfikator grupy osobie, która z danej grupy została usunięta
+     * @param id identyfikator grupy
+     */
     public void removeGroupIdToParticipate(int id) {
         participateGroupsId.remove(id);
     }
@@ -36,7 +51,6 @@ public class Person implements Serializable {
     public ArrayList<Integer> getParticipateGroupsId() {
         return participateGroupsId;
     }
-
 
     public Map<Group, Map<Person, Integer>> getMapOfExpensesFromGroup() {
         return mapOfExpensesFromGroup;
@@ -63,6 +77,12 @@ public class Person implements Serializable {
         this.name = name;
         this.isAdmin = isAdmin;
     }
+
+    /**
+     * Metoda addToBalance dodaje wartość wydatku do salda.
+     * @param g grupa
+     * @param x wartość wydatku
+     */
     void addToBalance(Group g,int x){
         if(mapOfBalances.containsKey(g)) {
             int output = 0;
@@ -73,6 +93,12 @@ public class Person implements Serializable {
         }
     }
 
+    /**
+     * Metoda payADebt wykonuję operację spłaty długu.
+     * @param payer osoba, która poniosła koszt
+     * @param g grupa, wewnątrz której odbywa się operacja
+     * @param amount wartość, spłacanego długu
+     */
     void payADebt(Person payer, Group g, int amount) {
         int debt = 0;
         for(int i = 0; i < mapOfExpensesFromGroup.size(); i++) {
@@ -99,12 +125,19 @@ public class Person implements Serializable {
         }
     }
 
-
+    /**
+     * Metoda removeFromAList usuwa osobę płacącą z listy grupy
+     * @param payer osoba płacąca
+     * @param group grupa, z której zostaje usunięta
+     */
     void removeFromAList(Person payer, Group group) {
         if(mapOfExpensesFromGroup.get(group).containsValue(0))
             mapOfExpensesFromGroup.get(group).remove(payer, 0);
     }
 
+    /**
+     * Metoda showMyPayers wypisuje listę długów danej osoby.
+     */
     void showMyPayers() {
         if(mapOfExpensesFromGroup.isEmpty()){
             System.out.println("Pusta lista, brak długów osoby: " + name);
@@ -120,6 +153,11 @@ public class Person implements Serializable {
         }
     }
 
+    /**
+     * Metoda subtractFromBalance zmniejsza saldo w grupie.
+     * @param g grupa, w której wykonywana jest operacja
+     * @param x wartość, o którą wykonana jest operacja
+     */
     void subtractFromBalance(Group g,int x){
         if(mapOfBalances.containsKey(g)) {
             int output = 0;
@@ -136,6 +174,10 @@ public class Person implements Serializable {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    /**
+     * Metoda showMyBalances wypisuje saldo w grupie.
+     */
     public void showMyBalances() {
         if(!mapOfBalances.isEmpty()) {
             for(Group group : mapOfBalances.keySet()) {
