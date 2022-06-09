@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Początek grouplist" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2A581upa3pwDqvec8x1vMViCOOp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="chillyourfunds.client" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="chillyourfunds.logic" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CYFApplication">
+    <configuration name="AppOld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.AppOld" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <option name="VM_PARAMETERS" value="--module-path=&quot;/Library/Java/Extensions/javafx-sdk-18.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CYFApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.CYFApplication" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <option name="VM_PARAMETERS" value="--module-path=&quot;/Library/Java/Extensions/javafx-sdk-18.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CYFApplication2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.CYFApplication2" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <option name="VM_PARAMETERS" value="--module-path=&quot;/Library/Java/Extensions/javafx-sdk-18.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml " />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CYFServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.server.CYFServer" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LogicTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.logic.LogicTest" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.AppOld" />
+      <item itemvalue="Application.CYFServer" />
+      <item itemvalue="Application.CYFApplication" />
+      <item itemvalue="Application.CYFApplication2" />
+      <item itemvalue="Application.LogicTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CYFApplication" />
+        <item itemvalue="Application.LogicTest" />
+        <item itemvalue="Application.CYFServer" />
+        <item itemvalue="Application.AppOld" />
+        <item itemvalue="Application.CYFApplication2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="" />
+      <created>1654287874151</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1654287874151</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Naprawa logica zeby dzialal">
+      <created>1654289798612</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654289798613</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Nowe testy dla klasy Group">
+      <created>1654463361126</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654463361126</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Hermetyzacja kodu, grosze zamiast złotych dla ułatwienia operacji wewnątrz programu">
+      <created>1654470777470</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654470777470</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Piękne GUI logowania">
+      <created>1654710821109</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654710821109</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Logowanie działa!!!!!!!!!!!!!!!!!!!!!!!">
+      <created>1654714021688</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1654714021688</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Login zmienia sceny">
+      <created>1654720702329</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1654720702329</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Logout">
+      <created>1654721201527</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1654721201527</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Addpersony i takie tam">
+      <created>1654733756888</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1654733756888</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Addpgroup i addperson">
+      <created>1654736836496</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1654736836496</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Początek grouplist">
+      <created>1654740150314</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1654740150314</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Naprawa logica zeby dzialal" />
+    <MESSAGE value="Nowe testy dla klasy Group" />
+    <MESSAGE value="Hermetyzacja kodu, grosze zamiast złotych dla ułatwienia operacji wewnątrz programu" />
+    <MESSAGE value="Piękne GUI logowania" />
+    <MESSAGE value="Logowanie działa!!!!!!!!!!!!!!!!!!!!!!!" />
+    <MESSAGE value="Login zmienia sceny" />
+    <MESSAGE value="Logout" />
+    <MESSAGE value="Addpersony i takie tam" />
+    <MESSAGE value="Addpgroup i addperson" />
+    <MESSAGE value="Początek grouplist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Początek grouplist" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow$CYFApplication.ic" NAME="CYFApplication Coverage Results" MODIFIED="1654737664091" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>chillyourfunds.client.*</FILTER>
+    </SUITE>
+  </component>
+</project>

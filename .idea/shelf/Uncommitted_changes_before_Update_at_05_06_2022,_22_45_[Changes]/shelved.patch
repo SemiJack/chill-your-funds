@@ -1,0 +1,204 @@
+Index: src/main/java/chillyourfunds/logic/GroupTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//package chillyourfunds.logic;\n//\n//import org.junit.jupiter.api.AfterEach;\n//import org.junit.jupiter.api.BeforeAll;\n//import org.junit.jupiter.api.BeforeEach;\n//import org.junit.jupiter.api.Test;\n//\n//import static org.junit.jupiter.api.Assertions.*;\n//\n//class GroupTest {\n//    Group group;\n//    Person person1;\n//    Person person2;\n//    Person person3;\n//    Person person4;\n//    EqualExpense eq1;\n//    EqualExpense eq2;\n//\n//\n//    @BeforeEach\n//    void setUp() {\n//        group=new Group(\"Szefy\",2115);\n//        Person person1=new Person(1,\"Eryk\");\n//        Person person2=new Person(2,\"Grzechu\");\n//        Person person3=new Person(3,\"Krzychu\");\n//        Person person4=new Person(4,\"Jacek\");\n//        group.addPerson(person1);\n//        group.addPerson(person2);\n//        group.addPerson(person3);\n//        group.addPerson(person4);\n//        eq1=new EqualExpense(100,group,person1);\n//        eq1.addDebtor(1);\n//        eq1.addDebtor(2);\n//        eq1.addDebtor(3);\n//        eq1.addDebtor(4);\n//        eq2=new EqualExpense(300,group,person3);\n//        eq2.addDebtor(1);\n//        eq2.addDebtor(2);\n//        eq2.addDebtor(4);\n//    }\n//    @AfterEach\n//    void tearDown() {\n//        group.people.clear();\n//    }\n//\n//    @org.junit.jupiter.api.Test\n//    void addPersonTest() {\n//        assertEquals(4,group.people.size());\n//        assertEquals(group.getPersonById(1),person1);\n//    }\n//\n//    @org.junit.jupiter.api.Test\n//    void removePerson() {\n//        group.removePerson(person1);\n//        assertEquals(3,group.people.size());\n//    }\n//\n//    @org.junit.jupiter.api.Test\n//    void getPersonById() {\n//        assertEquals(group.getPersonById(1),person1);\n//        assertEquals(group.getPersonById(2),person2);\n//        assertEquals(group.getPersonById(3),person3);\n//        assertEquals(group.getPersonById(4),person4);\n//    }\n//\n//    @org.junit.jupiter.api.Test\n//    void getPersonByName() {\n//        assertEquals(group.getPersonByName(\"Eryk\"),person1);\n//        assertEquals(group.getPersonByName(\"Grzechu\"),person2);\n//        assertEquals(group.getPersonByName(\"Krzychu\"),person3);\n//        assertNotEquals(group.getPersonByName(\"Sergio\"),person4);\n//    }\n//\n//    @org.junit.jupiter.api.Test\n//    void equalExpenseTest() {\n//        eq1.createExpense(eq1);\n//        eq1.equalSplit();\n//        assertEquals(-75,person1.getBalance());\n//        assertEquals(25,person2.getBalance());\n//        assertEquals(25,person3.getBalance());\n//        assertEquals(25,person4.getBalance());\n////        ex1.exactSplit();\n//    }\n//    @Test\n//    void simplifyTest(){\n//        eq1.equalSplit();\n//        eq2.createExpense(eq2);\n//        eq2.equalSplit();\n//        group.simplifyGroupExpenses();\n//        assertEquals(25,person1.getBalance());\n//        assertEquals(125,person2.getBalance());\n//        assertEquals(-275,person3.getBalance());\n//        assertEquals(125,person4.getBalance());\n//    }\n//\n//\n
+===================================================================
+diff --git a/src/main/java/chillyourfunds/logic/GroupTest.java b/src/main/java/chillyourfunds/logic/GroupTest.java
+--- a/src/main/java/chillyourfunds/logic/GroupTest.java	
++++ b/src/main/java/chillyourfunds/logic/GroupTest.java	
+@@ -1,96 +1,99 @@
+-//package chillyourfunds.logic;
+-//
+-//import org.junit.jupiter.api.AfterEach;
+-//import org.junit.jupiter.api.BeforeAll;
+-//import org.junit.jupiter.api.BeforeEach;
+-//import org.junit.jupiter.api.Test;
+-//
+-//import static org.junit.jupiter.api.Assertions.*;
+-//
+-//class GroupTest {
+-//    Group group;
+-//    Person person1;
+-//    Person person2;
+-//    Person person3;
+-//    Person person4;
+-//    EqualExpense eq1;
+-//    EqualExpense eq2;
+-//
+-//
+-//    @BeforeEach
+-//    void setUp() {
+-//        group=new Group("Szefy",2115);
+-//        Person person1=new Person(1,"Eryk");
+-//        Person person2=new Person(2,"Grzechu");
+-//        Person person3=new Person(3,"Krzychu");
+-//        Person person4=new Person(4,"Jacek");
+-//        group.addPerson(person1);
+-//        group.addPerson(person2);
+-//        group.addPerson(person3);
+-//        group.addPerson(person4);
+-//        eq1=new EqualExpense(100,group,person1);
+-//        eq1.addDebtor(1);
+-//        eq1.addDebtor(2);
+-//        eq1.addDebtor(3);
+-//        eq1.addDebtor(4);
+-//        eq2=new EqualExpense(300,group,person3);
+-//        eq2.addDebtor(1);
+-//        eq2.addDebtor(2);
+-//        eq2.addDebtor(4);
+-//    }
+-//    @AfterEach
+-//    void tearDown() {
+-//        group.people.clear();
+-//    }
+-//
+-//    @org.junit.jupiter.api.Test
+-//    void addPersonTest() {
+-//        assertEquals(4,group.people.size());
+-//        assertEquals(group.getPersonById(1),person1);
+-//    }
+-//
+-//    @org.junit.jupiter.api.Test
+-//    void removePerson() {
+-//        group.removePerson(person1);
+-//        assertEquals(3,group.people.size());
+-//    }
+-//
+-//    @org.junit.jupiter.api.Test
+-//    void getPersonById() {
+-//        assertEquals(group.getPersonById(1),person1);
+-//        assertEquals(group.getPersonById(2),person2);
+-//        assertEquals(group.getPersonById(3),person3);
+-//        assertEquals(group.getPersonById(4),person4);
+-//    }
+-//
+-//    @org.junit.jupiter.api.Test
+-//    void getPersonByName() {
+-//        assertEquals(group.getPersonByName("Eryk"),person1);
+-//        assertEquals(group.getPersonByName("Grzechu"),person2);
+-//        assertEquals(group.getPersonByName("Krzychu"),person3);
+-//        assertNotEquals(group.getPersonByName("Sergio"),person4);
+-//    }
+-//
+-//    @org.junit.jupiter.api.Test
+-//    void equalExpenseTest() {
+-//        eq1.createExpense(eq1);
+-//        eq1.equalSplit();
+-//        assertEquals(-75,person1.getBalance());
+-//        assertEquals(25,person2.getBalance());
+-//        assertEquals(25,person3.getBalance());
+-//        assertEquals(25,person4.getBalance());
+-////        ex1.exactSplit();
+-//    }
+-//    @Test
+-//    void simplifyTest(){
+-//        eq1.equalSplit();
+-//        eq2.createExpense(eq2);
+-//        eq2.equalSplit();
+-//        group.simplifyGroupExpenses();
+-//        assertEquals(25,person1.getBalance());
+-//        assertEquals(125,person2.getBalance());
+-//        assertEquals(-275,person3.getBalance());
+-//        assertEquals(125,person4.getBalance());
+-//    }
+-//
+-//
++package chillyourfunds.logic;
++
++import org.junit.jupiter.api.AfterEach;
++import org.junit.jupiter.api.BeforeAll;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class GroupTest {
++    Group group;
++    Person person1;
++    Person person2;
++    Person person3;
++    Person person4;
++    EqualExpense eq1;
++    EqualExpense eq2;
++
++
++    @BeforeEach
++    void setUp() {
++        group = new Group("Szefy", 2115);
++        Person person1 = new Person(1, "Eryk");
++        Person person2 = new Person(2, "Grzechu");
++        Person person3 = new Person(3, "Krzychu");
++        Person person4 = new Person(4, "Jacek");
++        group.addPerson(person1);
++        group.addPerson(person2);
++        group.addPerson(person3);
++        group.addPerson(person4);
++        eq1 = new EqualExpense(100, group, person1);
++        eq1.addDebtor(1);
++        eq1.addDebtor(2);
++        eq1.addDebtor(3);
++        eq1.addDebtor(4);
++        eq2 = new EqualExpense(300, group, person3);
++        eq2.addDebtor(1);
++        eq2.addDebtor(2);
++        eq2.addDebtor(4);
++    }
++
++    @AfterEach
++    void tearDown() {
++        group.people.clear();
++    }
++
++    @org.junit.jupiter.api.Test
++    void addPersonTest() {
++        assertEquals(4, group.people.size());
++        assertEquals(group.getPersonById(1), person1);
++    }
++
++    @org.junit.jupiter.api.Test
++    void removePerson() {
++        group.removePerson(person1);
++        assertEquals(3, group.people.size());
++    }
++
++    @org.junit.jupiter.api.Test
++    void getPersonById() {
++        assertEquals(group.getPersonById(1), person1);
++        assertEquals(group.getPersonById(2), person2);
++        assertEquals(group.getPersonById(3), person3);
++        assertEquals(group.getPersonById(4), person4);
++    }
++
++    @org.junit.jupiter.api.Test
++    void getPersonByName() {
++        assertEquals(group.getPersonByName("Eryk"), person1);
++        assertEquals(group.getPersonByName("Grzechu"), person2);
++        assertEquals(group.getPersonByName("Krzychu"), person3);
++        assertNotEquals(group.getPersonByName("Sergio"), person4);
++    }
++
++    @org.junit.jupiter.api.Test
++    void equalExpenseTest() {
++        eq1.createExpense(eq1);
++        eq1.equalSplit();
++        assertEquals(-75, person1.getBalance(group));
++        assertEquals(25, person2.getBalance(group));
++        assertEquals(25, person3.getBalance(group));
++        assertEquals(25, person4.getBalance(group));
++//        ex1.exactSplit();
++    }
++
++    @Test
++    void simplifyTest() {
++        eq1.equalSplit();
++        eq2.createExpense(eq2);
++        eq2.equalSplit();
++        group.simplifyGroupExpenses(group);
++        assertEquals(25, person1.getBalance(group));
++        assertEquals(125, person2.getBalance(group));
++        assertEquals(-275, person3.getBalance(group));
++        assertEquals(125, person4.getBalance(group));
++    }
++}
++
++
