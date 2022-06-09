@@ -39,6 +39,8 @@ public class LoginController {
         usernameString=username.getText();
         passwordString=password.getText();
         sceneController.switchToMain(e);
+
+
         //client.login(usernameString,passwordString);
     }
 

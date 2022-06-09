@@ -28,12 +28,13 @@ public void addGroup(ActionEvent event) {
         groupName = groupnametextfield.getText();
             try{
                 groupId = Integer.parseInt(groupidtextfield.getText());
+                Logic.groups.add(new Group(groupName,groupId));
             }catch(Exception e){
                 System.out.println("Wpisz liczbę");
                 addGroup(event);
             }
 
-    Logic.groups.add(new Group(groupName,groupId));
+
     try {
         sceneController.switchToGroupView(event);
     } catch (IOException e) {
