@@ -35,9 +35,9 @@
                      <children>
                         <AnchorPane prefHeight="481.0" prefWidth="173.0">
                            <children>
-                              <Button fx:id="addExpense" layoutX="23.0" layoutY="85.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="116.0" text="Dodaj wydatek" />
-                              <Button fx:id="returnDebt" layoutX="28.0" layoutY="180.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="106.0" text="Zwróć dług" />
-                              <Button fx:id="addPerson" layoutX="23.0" layoutY="373.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="116.0" text="Dodaj osobę" />
+                              <Button fx:id="addExpenseButton" layoutX="23.0" layoutY="85.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="42.0" prefWidth="116.0" text="Dodaj wydatek" />
+                              <Button fx:id="returnDebtButton" layoutX="28.0" layoutY="180.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="106.0" text="Zwróć dług" />
+                              <Button fx:id="addPersonButton" layoutX="23.0" layoutY="373.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="46.0" prefWidth="116.0" text="Dodaj osobę" />
                               <Text layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ChillYourFounds">
                                  <font>
                                     <Font size="19.0" />
@@ -64,7 +64,7 @@
                                     </LinearGradient>
                                  </fill>
                               </Text>
-                              <Button layoutX="29.0" layoutY="275.0" mnemonicParsing="false" text="Uprość">
+                              <Button fx:id="simplifyButton" layoutX="29.0" layoutY="275.0" mnemonicParsing="false" onAction="#simplify" text="Uprość">
                                  <padding>
                                     <Insets bottom="15.0" left="33.0" right="33.0" top="15.0" />
                                  </padding>

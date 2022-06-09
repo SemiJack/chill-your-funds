@@ -1,5 +1,6 @@
 package chillyourfunds.client;
 
+import chillyourfunds.logic.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

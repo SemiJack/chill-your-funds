@@ -21,11 +21,7 @@
                         <fx:include fx:id="grupa" source="GroupView.fxml"/>
                     </content>
                 </Tab>
-                <Tab id="tab2" fx:id="tab2" text="Historia">
-                    <content>
-                        <fx:include fx:id="historyTab" source="HistoryView.fxml"/>
-                    </content>
-                </Tab>
+
                 <Tab id="tab3" fx:id="tab3" text="Moje długi">
                     <content>
                         <fx:include fx:id="mydebt" source="myDebtView.fxml"/>

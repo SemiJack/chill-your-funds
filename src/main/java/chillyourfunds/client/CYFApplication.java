@@ -1,11 +1,14 @@
 package chillyourfunds.client;
 
+import chillyourfunds.logic.Group;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CYFApplication extends javafx.application.Application {
@@ -14,9 +17,10 @@ public class CYFApplication extends javafx.application.Application {
 
 
     public Stage primaryStage=new Stage();
-
+    List<Group> groups=new ArrayList<>();
     @Override
     public void start(Stage primaryStage) throws Exception {
+
 
 
         FXMLLoader loader = new FXMLLoader();
