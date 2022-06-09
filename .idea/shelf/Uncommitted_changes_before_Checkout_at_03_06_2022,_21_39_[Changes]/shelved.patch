@@ -1,0 +1,48 @@
+Index: src/main/java/chillyourfunds/client/CYFApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.client;\n\nimport javafx.fxml.FXMLLoader;\nimport javafx.scene.Parent;\nimport javafx.scene.Scene;\nimport javafx.stage.Stage;\n\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Scanner;\n\n\npublic class CYFApplication extends javafx.application.Application {\n    protected final List<CYFClientController> clients = new ArrayList<>();\n\n    void initialize() {\n        String host = \"localhost\";\n        String port = \"40000\";\n        try {\n            clients.add(new CYFClientController(host, port));\n        } catch (Exception e) {\n            //Platform.exit();\n            e.printStackTrace();\n        }\n        talkWithServer();\n    }\n\n    private void talkWithServer() {\n        clients.get(0).register(\"jacko\", \"1234\", \"Jacek\", \"Pelczar\");\n        clients.get(0).login(\"jacko\", \"1234\");\n        clients.get(0).createGroup(\"Akolici_Cyerbezpieczenstwa\");\n        //clients.get(0).createExpense();\n        Scanner keyboard = new Scanner(System.in);\n        System.out.println(\"Choose an option: \");\n        int myint = keyboard.nextInt();\n        switch (myint) {\n            case 0:\n                clients.get(0).forceLogout();\n                System.exit(0);     // exit app\n                break;\n            case 1:\n                // clients.get(0).createExpense();\n                break;\n\n            //clients.get(0).createExpense(new Integer[]{1, 2, 3}, 12, \"exact\", 200);\n\n        }\n    }\n\n    void destroy() {\n        clients.forEach(CYFClientController::forceLogout);\n    }\n\n    private void cleanHouse() {\n        clients.removeIf(CYFClientController::isDisconnected);\n    }\n\n    @Override\n    public void start(Stage primaryStage) throws Exception {\n        initialize();\n//        FXMLLoader loader = new FXMLLoader();\n//        loader.setLocation(getClass().getResource(\"fxml/Main.fxml\"));\n//        Parent root = loader.load();\n//        MainController mainController = loader.getController();\n//        mainController.initData(clients.get(0));\n//        Scene scene = new Scene(root);\n//        primaryStage.setScene(scene);\n//        primaryStage.show();\n    }\n\n    public static void main(String args[]) {\n        launch(args);\n    }\n}
+===================================================================
+diff --git a/src/main/java/chillyourfunds/client/CYFApplication.java b/src/main/java/chillyourfunds/client/CYFApplication.java
+--- a/src/main/java/chillyourfunds/client/CYFApplication.java	
++++ b/src/main/java/chillyourfunds/client/CYFApplication.java	
+@@ -1,8 +1,10 @@
+ package chillyourfunds.client;
+ 
+ import javafx.fxml.FXMLLoader;
++import javafx.scene.Group;
+ import javafx.scene.Parent;
+ import javafx.scene.Scene;
++import javafx.scene.paint.Color;
+ import javafx.stage.Stage;
+ 
+ import java.util.ArrayList;
+@@ -58,14 +60,20 @@
+     @Override
+     public void start(Stage primaryStage) throws Exception {
+         initialize();
+-//        FXMLLoader loader = new FXMLLoader();
+-//        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
+-//        Parent root = loader.load();
+-//        MainController mainController = loader.getController();
+-//        mainController.initData(clients.get(0));
+-//        Scene scene = new Scene(root);
+-//        primaryStage.setScene(scene);
+-//        primaryStage.show();
++//         Group root = new Group();
++//        Scene scene = new Scene(root, Color.BLACK);
++//
++//
++//        stage.setScene(scene);
++//        stage.show();
++        FXMLLoader loader = new FXMLLoader();
++        loader.setLocation(getClass().getResource("/Users/krzysztofrogan/apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow/src/main/resources/chillyourfunds/client/fxml/Main.fxml"));
++        Parent root = loader.load();
++        MainController mainController = loader.getController();
++        mainController.initData(clients.get(0));
++        Scene scene = new Scene(root);
++        primaryStage.setScene(scene);
++        primaryStage.show();
+     }
+ 
+     public static void main(String args[]) {

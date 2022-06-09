@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fcac5f27-f418-4d3f-b563-4a7b9a2ecb3f" name="Changes" comment="gui poczatek z backendem">
+      <change afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/EqualExpenseViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/ExactExpenseViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/PercentExpenseViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/EqualExpense.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/ExactExpense.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/PercentExpense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddExpenseViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddExpenseViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/SceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/SceneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/GroupView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/GroupView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/addExpenseView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/addExpenseView.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="gui_backend" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2A0vEn4GtMlk3Pfx9QsTMCOpiiL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CYFApplication">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.App" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CYFApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.CYFApplication" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <option name="VM_PARAMETERS" value="--module-path=&quot;/Library/Java/Extensions/javafx-sdk-18.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CYFServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.server.CYFServer" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LogicTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.logic.LogicTest" />
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GroupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="chillyourfunds.logic" />
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.logic.GroupTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.LogicTest" />
+      <item itemvalue="Application.CYFServer" />
+      <item itemvalue="Application.CYFApplication" />
+      <item itemvalue="Application.App" />
+      <item itemvalue="JUnit.GroupTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CYFApplication" />
+        <item itemvalue="Application.CYFServer" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.LogicTest" />
+        <item itemvalue="JUnit.GroupTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fcac5f27-f418-4d3f-b563-4a7b9a2ecb3f" name="Changes" comment="" />
+      <created>1654159208982</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1654159208982</updated>
+    </task>
+    <task id="LOCAL-00001" summary="People list jest juz okej">
+      <created>1654282791263</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654282791263</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Gui tests">
+      <created>1654322417924</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654322417924</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Naprawa Backendu, balans uzytkownika przypisany do grupy, rozwiazany problem wielu grup i simplify, zostaly tylko testy, kilka wyjatkow i sprzatanie.">
+      <created>1654341802889</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654341802889</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Wyjątki w Backendzie zrobione, przetestowane. &#10;Zostało tylko posprzątanie kodu, hermetyzacja, ewentualne testy.">
+      <created>1654440793664</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654440793665</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Poprawa EqualSplita">
+      <created>1654461906943</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1654461906943</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Exact Expense dostosowany pod serwer">
+      <created>1654688795710</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1654688795710</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Exact Split i Percent Split naprawione pod serwer">
+      <created>1654692614760</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1654692614760</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Login dalej robiony">
+      <created>1654727789192</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1654727789192</updated>
+    </task>
+    <task id="LOCAL-00009" summary="gui poczatek z backendem">
+      <created>1654730829151</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1654730829151</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="People list jest juz okej" />
+    <MESSAGE value="Gui tests" />
+    <MESSAGE value="Naprawa Backendu, balans uzytkownika przypisany do grupy, rozwiazany problem wielu grup i simplify, zostaly tylko testy, kilka wyjatkow i sprzatanie." />
+    <MESSAGE value="Wyjątki w Backendzie zrobione, przetestowane. &#10;Zostało tylko posprzątanie kodu, hermetyzacja, ewentualne testy." />
+    <MESSAGE value="Poprawa EqualSplita" />
+    <MESSAGE value="Exact Expense dostosowany pod serwer" />
+    <MESSAGE value="Exact Split i Percent Split naprawione pod serwer" />
+    <MESSAGE value="Login dalej robiony" />
+    <MESSAGE value="gui poczatek z backendem" />
+    <option name="LAST_COMMIT_MESSAGE" value="gui poczatek z backendem" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/chillyourfunds/server/CYFServer.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

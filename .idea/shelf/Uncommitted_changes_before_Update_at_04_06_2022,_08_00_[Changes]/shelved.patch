@@ -1,0 +1,96 @@
+Index: src/main/java/chillyourfunds/logic/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.logic;\n\n\nimport java.util.HashMap;\nimport java.util.Map;\n\npublic class Person{\n    String username;\n    int balance;\n    String firstname;\n\n    boolean isAdmin;\n\n    Map<Person,Integer> mapOfExpenses=new HashMap<>();\n\n\n\n    public Person(String username, String firstname) {\n        this.username = username;\n        this.firstname = firstname;\n    }\n    public Person(String username, String name, boolean isAdmin) {\n        this.username = username;\n        this.firstname = name;\n        this.isAdmin = isAdmin;\n    }\n    void addToBalance(int x){\n        balance+=x;\n    }\n\n    void payADebt(Person payer, int amount) {\n        int debt = 0;\n        for(int i = 0; i < mapOfExpenses.size(); i++) {\n            if(mapOfExpenses.containsKey(payer)) {\n                debt = mapOfExpenses.get(payer);\n                if(debt - amount >= 0) {\n                    mapOfExpenses.put(payer,debt - amount);\n                    removeFromAList(payer);\n                    subtractFromBalance(amount);\n                    payer.addToBalance(amount);\n                    break;\n                } else {\n                    System.out.println(\"Nie można zapłacić więcej niż wynosi twój dług\");\n                }\n            } else {\n                System.out.println(\"Nie ma takiego dłużnika\");\n                break;\n            }\n        }\n    }\n\n\n    void removeFromAList(Person payer) {\n        if(mapOfExpenses.containsValue(0))\n        mapOfExpenses.remove(payer, 0);\n    }\n\n    void showMyPayers() {\n        if(mapOfExpenses.isEmpty()){\n            System.out.println(\"Pusta lista, brak długów\");\n        } else {\n            System.out.println(\"Lista długów osoby: \"+firstname);\n            for (Person person : mapOfExpenses.keySet()) {\n                System.out.println(person.firstname + \": \" + mapOfExpenses.get(person)+\"$\");\n            }\n//            System.out.println(mapOfExpenses);\n        }\n    }\n\n    void subtractFromBalance(int x){\n        balance-=x;\n    }\n    @Override\n    public String toString() {\n        return \"Person{\" +\n                \"username=\" + username +\n                \", balance=\" + balance +\n                \", firstname='\" + firstname + '\\'' +\n                '}';\n    }\n\n    public int getBalance() {\n        return balance;\n    }\n\n    public String getFirstname() {\n        return firstname;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/logic/Person.java b/src/main/java/chillyourfunds/logic/Person.java
+--- a/src/main/java/chillyourfunds/logic/Person.java	
++++ b/src/main/java/chillyourfunds/logic/Person.java	
+@@ -8,13 +8,12 @@
+     String username;
+     int balance;
+     String firstname;
+-
+     boolean isAdmin;
+ 
++
+     Map<Person,Integer> mapOfExpenses=new HashMap<>();
+ 
+ 
+-
+     public Person(String username, String firstname) {
+         this.username = username;
+         this.firstname = firstname;
+Index: src/main/java/chillyourfunds/logic/Group.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.logic;\n\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.util.*;\n\npublic class Group {\n\n    String groupName;\n\n    Integer groupId;\n    public List<Person> people = new ArrayList<>(); // to nie może być static\n    public List<Expense> expenses = new ArrayList<>();\n\n    public Group(String groupName, Integer groupId) {\n        this.groupName = groupName;\n        this.groupId = groupId;\n    }\n\n    public void addPerson(Person person) {\n        people.add(person);\n    }\n\n    public void removePerson(Person person) {\n        people.remove(person);\n    }\n\n//    public Person getPersonById(int id) {\n//        Person p = null;\n//        for (int i = 0; i < people.size(); i++) {\n//            if (people.get(i).id == id) {\n//                p = people.get(i);\n//            }\n//        }\n//        return p;\n//    }\n\n    public  Person getPersonByName(String name) {\n        Person p = null;\n        for (int i = 0; i < people.size(); i++) {\n            if (people.get(i).username.equals(name)) {\n                p = people.get(i);\n            }\n        }\n        return p;\n    }\n\n    public void simplifyGroupExpenses() {\n        for(int i = 0; i < people.size(); i++) {\n            people.get(i).mapOfExpenses.clear();\n        }\n        findPath(groupToSimplify());\n    }\n\n    private Map groupToSimplify() {\n        Map<String,Double> mapOfBalancesInGroup = new HashMap<>();\n        for(int i = 0; i < people.size(); i++) {\n            mapOfBalancesInGroup.put(people.get(i).username, (double) -(people.get(i).balance));\n        }\n\n        return mapOfBalancesInGroup;\n    }\n\n    static List printBill;\n\n\n        private void findPath(Map details) {\n\n            Double Max_Value = (Double) Collections.max(details.values());\n            Double Min_Value = (Double) Collections.min(details.values());\n            if (Max_Value != Min_Value) {\n                String Max_Key = getKeyFromValue(details, Max_Value).toString();\n                String Min_Key = getKeyFromValue(details, Min_Value).toString();\n                Double result = Max_Value + Min_Value;\n                result = round(result, 1);\n                if ((result >= 0.0)) {\n\n                    System.out.println(Min_Key + \" musi zaplacic \" + Max_Key + \":\" + round(Math.abs(Min_Value), 2));\n                    getPersonByName(Min_Key).mapOfExpenses.put(getPersonByName(Max_Key), (int) round(Math.abs(Min_Value), 2));\n                    details.remove(Max_Key);\n                    details.remove(Min_Key);\n                    details.put(Max_Key, result);\n                    details.put(Min_Key, 0.0);\n                } else {\n\n                    System.out.println(Min_Key + \" musi zaplacic \" + Max_Key + \":\" + round(Math.abs(Max_Value), 2));\n                    getPersonByName(Min_Key).mapOfExpenses.put(getPersonByName(Max_Key), (int) round(Math.abs(Max_Value), 2));\n                    details.remove(Max_Key);\n                    details.remove(Min_Key);\n                    details.put(Max_Key, 0.0);\n                    details.put(Min_Key, result);\n                }\n                findPath(details);\n            }\n        }\n\n\n        public static Object getKeyFromValue(Map hm, Double value) {\n            for (Object o : hm.keySet()) {\n                if (hm.get(o).equals(value)) {\n                    return o;\n                }\n            }\n            return null;\n        }\n\n        public static double round(double value, int places) {\n            if (places < 0)\n                throw new IllegalArgumentException();\n\n            BigDecimal bd = new BigDecimal(value);\n            bd = bd.setScale(places, RoundingMode.HALF_UP);\n            return bd.doubleValue();\n        }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/logic/Group.java b/src/main/java/chillyourfunds/logic/Group.java
+--- a/src/main/java/chillyourfunds/logic/Group.java	
++++ b/src/main/java/chillyourfunds/logic/Group.java	
+@@ -27,7 +27,7 @@
+ 
+ //    public Person getPersonById(int id) {
+ //        Person p = null;
+-//        for (int i = 0; i < people.size(); i++) {
++//        for (int i = 0; i < people.size (); i++) {
+ //            if (people.get(i).id == id) {
+ //                p = people.get(i);
+ //            }
+Index: src/main/java/chillyourfunds/logic/LogicTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.logic;\n\npublic class LogicTest {\n    public static void main(String[] args) {\n        Person person1=new Person(\"eric\",\"Eryk\");\n        Person person2=new Person(\"gregor\",\"Grzechu\");\n        Person person3=new Person(\"kris\",\"Krzychu\");\n        Person person4=new Person(\"json\",\"Jacek\");\n        Group group=new Group(\"szefy\",997);\n        group.addPerson(person1);\n        group.addPerson(person2);\n        group.addPerson(person3);\n        group.addPerson(person4);\n\n        EqualExpense e1 = new EqualExpense(100, group, person1);\n        EqualExpense e2 = new EqualExpense(150, group, person2);\n        EqualExpense e3 = new EqualExpense(200, group, person3);\n        e1.addDebtor(\"eric\");\n        e1.addDebtor(\"gregor\");\n        e1.addDebtor(\"kris\");\n        e1.addDebtor(\"json\");\n        e1.createExpense(e1);\n        System.out.println(\"------------------\");\n        e2.addDebtor(\"gregor\");\n        e2.addDebtor(\"kris\");\n        e2.addDebtor(\"json\");\n        e2.createExpense(e2);\n        e3.addDebtor(\"eric\");\n        e3.addDebtor(\"gregor\");\n        e3.addDebtor(\"kris\");\n        e3.addDebtor(\"json\");\n        e3.createExpense(e3);\n        e1.equalSplit();\n        e2.equalSplit();\n        e3.equalSplit();\n//\n//\n//        ExactExpense e5 = new ExactExpense(100, group,person4);\n//        e5.addDebtor(2);\n//        e5.addDebtor(3);\n//        e5.exactSplit();\n//        e5.createExpense(e5);\n//\n//        PercentExpense e6 = new PercentExpense(200,group,person4);\n//        e6.addDebtor(1);\n//        e6.addDebtor(2);\n//        e6.addDebtor(3);\n//        e6.percentSplit();\n//        e6.createExpense(e6);\n        System.out.println(\"Stan konta \"+person1.username+\" wynosi \"+person1.balance+\"$\");\n        System.out.println(\"Stan konta \"+person2.username+\" wynosi \"+person2.balance+\"$\");\n        System.out.println(\"Stan konta \"+person3.username+\" wynosi \"+person3.balance+\"$\");\n        System.out.println(\"Stan konta \"+person4.username+\" wynosi \"+person4.balance+\"$\");\n        System.out.println();\n//        System.out.println(person2.name+\" jest winien \"+person1.name+\" \"+person2.mapOfExpenses.get(person1)+\"$\");\n//        System.out.println(person2.name+\" jest winien \"+person4.name+\" \"+person2.mapOfExpenses.get(person4)+\"$\");\n//\n        person1.showMyPayers();\n        person2.showMyPayers();\n        person3.showMyPayers();\n        person4.showMyPayers();\n\n//       person4.payADebt(person1,25);\n//\n//        person4.showMyPayers();\n\n//        System.out.println(person4.balance);\n\n\n        System.out.println(\"-----------------------------------------\");\n        group.simplifyGroupExpenses();\n        person4.showMyPayers();\n        person1.showMyPayers();\n        person2.showMyPayers();\n        person3.showMyPayers();\n        person4.payADebt(person3,75);\n        person4.showMyPayers();\n        person3.showMyPayers();\n        System.out.println(person3.balance);\n\n\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/logic/LogicTest.java b/src/main/java/chillyourfunds/logic/LogicTest.java
+--- a/src/main/java/chillyourfunds/logic/LogicTest.java	
++++ b/src/main/java/chillyourfunds/logic/LogicTest.java	
+@@ -2,7 +2,7 @@
+ 
+ public class LogicTest {
+     public static void main(String[] args) {
+-        Person person1=new Person("eric","Eryk");
++         Person person1=new Person("eric","Eryk");
+         Person person2=new Person("gregor","Grzechu");
+         Person person3=new Person("kris","Krzychu");
+         Person person4=new Person("json","Jacek");
+Index: src/main/java/chillyourfunds/client/CYFApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.client;\n\nimport javafx.fxml.FXMLLoader;\nimport javafx.scene.Parent;\nimport javafx.scene.Scene;\nimport javafx.stage.Stage;\n\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Scanner;\n\n\npublic class CYFApplication extends javafx.application.Application {\n    protected final List<CYFClientController> clients = new ArrayList<>();\n\n    void initialize() {\n        String host = \"localhost\";\n        String port = \"40000\";\n        try {\n            clients.add(new CYFClientController(host, port));\n        } catch (Exception e) {\n            //Platform.exit();\n            e.printStackTrace();\n        }\n        talkWithServer();\n    }\n\n    private void talkWithServer() {\n        clients.get(0).register(\"jacko\", \"1234\", \"Jacek\", \"Pelczar\");\n        clients.get(0).login(\"jacko\", \"1234\");\n        clients.get(0).createGroup(\"Akolici_Cyerbezpieczenstwa\");\n        //clients.get(0).createExpense();\n        Scanner keyboard = new Scanner(System.in);\n        System.out.println(\"Choose an option: \");\n        int myint = keyboard.nextInt();\n        switch (myint) {\n            case 0:\n                clients.get(0).forceLogout();\n                System.exit(0);     // exit app\n                break;\n            case 1:\n                // clients.get(0).createExpense();\n                break;\n\n            //clients.get(0).createExpense(new Integer[]{1, 2, 3}, 12, \"exact\", 200);\n\n        }\n    }\n\n    void destroy() {\n        clients.forEach(CYFClientController::forceLogout);\n    }\n\n    private void cleanHouse() {\n        clients.removeIf(CYFClientController::isDisconnected);\n    }\n\n    @Override\n    public void start(Stage primaryStage) throws Exception {\n        initialize();\n//        FXMLLoader loader = new FXMLLoader();\n//        loader.setLocation(getClass().getResource(\"fxml/Main.fxml\"));\n//        Parent root = loader.load();\n//        MainController mainController = loader.getController();\n//        mainController.initData(clients.get(0));\n//        Scene scene = new Scene(root);\n//        primaryStage.setScene(scene);\n//        primaryStage.show();\n    }\n\n    public static void main(String args[]) {\n        launch(args);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/client/CYFApplication.java b/src/main/java/chillyourfunds/client/CYFApplication.java
+--- a/src/main/java/chillyourfunds/client/CYFApplication.java	
++++ b/src/main/java/chillyourfunds/client/CYFApplication.java	
+@@ -58,14 +58,14 @@
+     @Override
+     public void start(Stage primaryStage) throws Exception {
+         initialize();
+-//        FXMLLoader loader = new FXMLLoader();
+-//        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
+-//        Parent root = loader.load();
+-//        MainController mainController = loader.getController();
+-//        mainController.initData(clients.get(0));
+-//        Scene scene = new Scene(root);
+-//        primaryStage.setScene(scene);
+-//        primaryStage.show();
++        FXMLLoader loader = new FXMLLoader();
++        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
++        Parent root = loader.load();
++        MainController mainController = loader.getController();
++        mainController.initData(clients.get(0));
++        Scene scene = new Scene(root);
++        primaryStage.setScene(scene);
++        primaryStage.show();
+     }
+ 
+     public static void main(String args[]) {
