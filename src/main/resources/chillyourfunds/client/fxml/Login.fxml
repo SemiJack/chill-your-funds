@@ -11,12 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane fx:id="username" prefHeight="400.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chillyourfunds.client.LoginController">
+<AnchorPane fx:id="anchorpane" prefHeight="400.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chillyourfunds.client.LoginController">
    <children>
-      <TextField layoutX="166.0" layoutY="146.0" prefHeight="26.0" prefWidth="338.0" promptText="username" />
+      <TextField fx:id="username" layoutX="166.0" layoutY="146.0" prefHeight="26.0" prefWidth="338.0" promptText="username" />
       <PasswordField fx:id="password" layoutX="166.0" layoutY="184.0" prefHeight="26.0" prefWidth="338.0" promptText="password" />
-      <Button fx:id="okbutton" layoutX="166.0" layoutY="247.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="338.0" text="OK" textOverrun="WORD_ELLIPSIS">
+      <Button fx:id="okbutton" layoutX="166.0" layoutY="247.0" mnemonicParsing="false" onAction="#submit" prefHeight="42.0" prefWidth="338.0" text="OK" textOverrun="WORD_ELLIPSIS">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

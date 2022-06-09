@@ -22,8 +22,7 @@ public class CYFApplication extends javafx.application.Application {
             //Platform.exit();
             e.printStackTrace();
         }
-
-
+//        talkWithServer();
     }
 
     private void talkWithServer() {
@@ -96,17 +95,31 @@ public class CYFApplication extends javafx.application.Application {
         client.isDisconnected();
     }
 
+    public Stage primaryStage=new Stage();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         initialize();
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("fxml/Login.fxml"));
-//        Parent root = loader.load();
-////        MainController mainController = loader.getController();
-////        mainController.initData(client);
-//        Scene scene = new Scene(root);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxml/Login.fxml"));
+        Parent root = loader.load();
+//        MainController mainController = loader.getController();
+        Scene scene = new Scene(root);
+        this.primaryStage=primaryStage;
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+    }
+
+    public void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(
+                getClass().getResource(fxml));
+
+        Scene scene = new Scene(pane);
+        primaryStage.close();
+        primaryStage.setScene(scene);
+
+        primaryStage.show();
     }
 
     public static void main(String args[]) {

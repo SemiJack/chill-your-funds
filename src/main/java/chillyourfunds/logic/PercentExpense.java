@@ -4,6 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Klasa PercentExpense realizuje podział kosztów w ramach danego wydatku według wartości procentowych.
+ * Dziedziczy po klasie Expense. Jej parametrami są wartość poniesionego kosztu, grupa, wewnątrz której
+ * wydatek jest realizowany, a także osoba, która ponosi dany koszt. Klasa ta przypisuje każdemu
+ * uwzględnionemu członkowi grupy wartość kosztu, jaki powinien zwrócić osobie płacącej. Operuje ona na
+ * Hash Mapie, za pomocą której przypisywane są wartości podzielonych kwot do dłużników.
+ */
+
 public class PercentExpense extends Expense {
     public PercentExpense(int amount, Group group, Person payer) {
         super(amount, group, payer);

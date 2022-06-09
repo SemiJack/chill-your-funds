@@ -6,7 +6,11 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class Group implements Serializable{
-
+    /**
+     * Klasa Group jest reprezentacją grupy, wewnątrz której realizowane są wydatki.
+     * Parametrami grupy są nazwa grupy, identyfikator grupy, lista osób, które są członkami grupy
+     * i lista wydatków grupy, na podstawie których wyliczane są kwoty do zwrotu.
+     */
     private String groupName;
 
     private Integer groupId;
@@ -31,11 +35,20 @@ public class Group implements Serializable{
         return expenses;
     }
 
-
+    /**
+     *
+     * @param groupName nazwa grupy
+     * @param groupId identyfikator grupy
+     */
     public Group(String groupName, Integer groupId) {
         this.groupName = groupName;
         this.groupId = groupId;
     }
+
+    /**
+     * Metoda addPerson dodaje osobę do danej grupy
+     * @param person obiekt osoby, która jest dodawana do grupy
+     */
 
     public void addPerson(Person person) {
         if(!people.contains(person)){
@@ -45,6 +58,11 @@ public class Group implements Serializable{
         }
     }
 
+    /**
+     * Metoda removePerson usuwa osobę z grupy w wypadku gdy jej bilans wyjdzie na 0.
+     * @param person obiekt osoby, która jest usuwana
+     * @return zwraca wartość boolean dla stanu czy osoba zastaje usunięta, czy nie
+     */
     public boolean removePerson(Person person) {
         if(person.getBalance(this)== 0){
             people.remove(person);
@@ -53,6 +71,11 @@ public class Group implements Serializable{
         }else return false;
     }
 
+    /**
+     * Metoda getPersonById pozwala wyszukać osobę po numerze id.
+     * @param id identyfikator przypisany osobie
+     * @return zwraca obiekt osoby, której id zostało wprowadzone
+     */
     public Person getPersonById(int id) {
         Person p = null;
         for (int i = 0; i < people.size(); i++) {
@@ -63,6 +86,11 @@ public class Group implements Serializable{
         return p;
     }
 
+    /**
+     * Metoda getPersonById pozwala wyszukać osobę po numerze id.
+     * @param name imię osoby
+     * @return zwraca obiekt osoby, której id zostało wprowadzone
+     */
     public  Person getPersonByName(String name) {
         Person p = null;
         for (int i = 0; i < people.size(); i++) {
@@ -73,6 +101,12 @@ public class Group implements Serializable{
         return p;
     }
 
+    /**
+     * Metoda simplifyGroupExpenses inicjuje operację, która upraszcza proces zwrotu pieniędzy.
+     * Znajduje ona koszty, które można pominąć poprzez przekazanie opłat no inne osoby i
+     * zminimalizowaniu ilości operacji.
+     * @param group obiekt grupy, w której upraszczamy zwroty
+     */
     public void simplifyGroupExpenses(Group group) {
         for(int i = 0; i < people.size(); i++) {
             if(people.get(i).getMapOfExpensesFromGroup().get(group)!=null) {
@@ -81,6 +115,12 @@ public class Group implements Serializable{
         }
         findPath(groupToSimplify(group),group);
     }
+
+    /**
+     * Metoda groupToSimplify bierze grupę, której zwroty ma uprościć i zwraca mapę wydatków tej grupy.
+     * @param group obiekt grupy, której wydatki mamy uprościć
+     * @return mapa wydatków grupy
+     */
 
     private Map groupToSimplify(Group group) {
         Map<String,Double> mapOfBalancesInGroup = new HashMap<>();
@@ -93,8 +133,11 @@ public class Group implements Serializable{
         return mapOfBalancesInGroup;
     }
 
-
-
+    /**
+     * Metoda findPath znajduje możliwości uproszczenia zwrotów i upraszcza mapę wydatków.
+     * @param details mapa wydatków grupy do uproszczenia
+     * @param group grupa, której zwroty są upraszczane
+     */
 
         private void findPath(Map details, Group group) {
 
@@ -124,6 +167,13 @@ public class Group implements Serializable{
             }
         }
 
+    /**
+     * Metoda getKeyFromValue na podstawie hash mapy i otrzymanej wartości
+     * zwraca obiekt klucza dla szukanej wartości.
+     * @param hm mapa wydatków
+     * @param value szukana wartość
+     * @return obiekt klucza
+     */
 
         public static Object getKeyFromValue(Map hm, Double value) {
             for (Object o : hm.keySet()) {
@@ -134,6 +184,12 @@ public class Group implements Serializable{
             return null;
         }
 
+    /**
+     * Metoda round zaokrągla podaną wartość
+     * @param value podana wartość
+     * @param places miejsce, do którego zaokrąglana jest funkcja
+     * @return
+     */
         public static double round(double value, int places) {
             if (places < 0)
                 throw new IllegalArgumentException();
@@ -142,6 +198,4 @@ public class Group implements Serializable{
             bd = bd.setScale(places, RoundingMode.HALF_UP);
             return bd.doubleValue();
         }
-
-
 }

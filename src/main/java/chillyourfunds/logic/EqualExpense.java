@@ -3,6 +3,12 @@ package chillyourfunds.logic;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Klasa realizuje równy podział kosztów w ramach danego wydatku. Dziedziczy po klasie Expense.
+ * Jej parametrami są wartość poniesionego kosztu, grupa, wewnątrz której wydatek jest realizowany,
+ * a także osoba, która ponosi dany koszt. Klasa ta przypisuje każdemu uwzględnionemu członkowi
+ * grupy wartość kosztu, jaki powinien zwrócić osobie płacącej.
+ */
 public class EqualExpense extends Expense{
     public EqualExpense(int amount, Group group, Person payer) {
         super(amount, group, payer);
