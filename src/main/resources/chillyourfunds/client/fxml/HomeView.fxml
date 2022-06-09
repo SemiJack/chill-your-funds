@@ -52,7 +52,7 @@
                   </LinearGradient>
                </fill>
             </Text>
-            <Button fx:id="seeGroups" alignment="CENTER" contentDisplay="CENTER" layoutX="340.0" layoutY="118.0" mnemonicParsing="false" prefHeight="328.0" prefWidth="210.0" text="See&#10;groups" textAlignment="CENTER">
+            <Button fx:id="seeGroups" alignment="CENTER" contentDisplay="CENTER" layoutX="340.0" layoutY="118.0" mnemonicParsing="false" onAction="#seeGroupListButtonClick" prefHeight="328.0" prefWidth="210.0" text="See&#10;groups" textAlignment="CENTER">
                <font>
                   <Font size="40.0" />
                </font>
