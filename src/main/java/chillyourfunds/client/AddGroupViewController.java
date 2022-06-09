@@ -1,6 +1,7 @@
 package chillyourfunds.client;
 
 import chillyourfunds.logic.Group;
+import chillyourfunds.logic.Logic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class AddGroupViewController {
     SceneController sceneController=new SceneController();
-    List<Group> groups = new ArrayList<>();
+    CYFApplication cyfApplication=new CYFApplication();
 @FXML
     TextField groupnametextfield = new TextField();
 @FXML
@@ -25,8 +26,14 @@ int groupId;
 
 public void addGroup(ActionEvent event) {
         groupName = groupnametextfield.getText();
-        groupId = Integer.parseInt(groupidtextfield.getText());
-        groups.add(new Group(groupName,groupId));
+            try{
+                groupId = Integer.parseInt(groupidtextfield.getText());
+            }catch(Exception e){
+                System.out.println("Wpisz liczbę");
+                addGroup(event);
+            }
+
+    Logic.groups.add(new Group(groupName,groupId));
     try {
         sceneController.switchToGroupView(event);
     } catch (IOException e) {
