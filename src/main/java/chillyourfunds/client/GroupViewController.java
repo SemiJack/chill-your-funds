@@ -30,13 +30,17 @@ public class GroupViewController {
     Button addPersonButton=new Button();
 
 
-    public void addExpense(){
+    public void addExpense(ActionEvent e) throws IOException {
+        sceneController.switchToAddExpenseView(e);
     }
     public void addPerson(ActionEvent e) throws IOException {
         sceneController.switchToAddPersonView(e);
     }
     public void simplify(){
         Logic.groups.get(Logic.groups.size()-1).simplifyGroupExpenses(Logic.groups.get(Logic.groups.size()-1));
+    }
+    public void showPeople(){
+        System.out.println(Logic.lastGroup.getPeople().toString());
     }
     public void returnDebt(){
     }

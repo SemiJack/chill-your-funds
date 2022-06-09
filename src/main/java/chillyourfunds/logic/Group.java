@@ -41,7 +41,6 @@ public class Group implements Serializable{
         if(!people.contains(person)){
             people.add(person);
             person.addGroupIdToParticipate(groupId);
-            System.out.println("powinno dodac");
         }
     }
 
