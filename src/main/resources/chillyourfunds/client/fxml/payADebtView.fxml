@@ -9,7 +9,7 @@
       <TextField fx:id="payerFieldName" layoutX="236.0" layoutY="46.0" prefHeight="26.0" prefWidth="130.0" promptText="Payer's name" />
       <TextField fx:id="amountFieldName" layoutX="236.0" layoutY="89.0" prefHeight="20.0" prefWidth="130.0" promptText="Amount" />
       <Button fx:id="back" layoutX="38.0" layoutY="329.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <Button fx:id="payADebt" layoutX="248.0" layoutY="173.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="107.0" text="Confirm" />
+      <Button fx:id="payADebt" layoutX="248.0" layoutY="173.0" mnemonicParsing="false" onAction="#payADebt" prefHeight="55.0" prefWidth="107.0" text="Confirm" />
       <TextField fx:id="debtorsname" layoutX="241.0" layoutY="128.0" prefHeight="18.0" prefWidth="130.0" promptText="Debtor's Name" />
    </children>
 </AnchorPane>

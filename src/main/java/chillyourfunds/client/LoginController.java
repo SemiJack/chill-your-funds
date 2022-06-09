@@ -39,7 +39,6 @@ public class LoginController {
         usernameString=username.getText();
         passwordString=password.getText();
         if(usernameString.equals("admin") && passwordString.equals("admin")) {
-            System.out.println("essa");
             sceneController.switchToMain(e);
         }
 
