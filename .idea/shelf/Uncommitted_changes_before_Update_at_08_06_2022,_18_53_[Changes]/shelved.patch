@@ -1,0 +1,867 @@
+Index: src/main/java/chillyourfunds/server/CYFData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.server;\n\nimport chillyourfunds.logic.Group;\nimport chillyourfunds.logic.Person;\n\nimport java.util.HashMap;\nimport java.util.Objects;\nimport java.util.Random;\n\n/**\n * author: Jacek Pelczar\n */\npublic class CYFData {\n    private final HashMap<Integer, Group> groupData;\n\n    private final HashMap<String, UserAccount> userData;\n\n\n    public CYFData() {\n        groupData = new HashMap<>();\n        userData = new HashMap<>();\n\n    }\n\n    public boolean addGroup(String groupName, UserAccount creator) {\n        Integer id = new Random().nextInt();\n        if (groupData.containsKey(id)) {\n            id = new Random().nextInt();\n        }\n        groupData.put(id, new Group(groupName, id));\n        groupData.get(id).addPerson(creator.memberOfGroups);\n        creator.memberOfGroups.addGroupIdToParticipate(id);\n        System.out.println(\"pl\");\n        return groupData.get(id) != null;\n    }\n\n    public Group getGroup(Integer id) {\n        return groupData.get(id);\n    }\n\n    public boolean addUser(String username, String password, String firstname, String lastname) {\n        int credentialsHash = Objects.hash(username, password);\n        if (!userData.containsKey(username)) {\n            userData.put(username, new UserAccount(Objects.hash(username), credentialsHash, username, firstname, lastname));\n            return true;\n        } else {\n            return false;\n        }\n    }\n    public Person getPersonByUsername(String username){\n        return userData.get(username).memberOfGroups;\n    }\n\n    public UserAccount getUserByCredentials(String username, String password) {\n        UserAccount temp = userData.get(username);\n        if (temp != null && temp.checkCredentials(Objects.hash(username, password))) {\n            return temp;\n        } else return null;\n    }\n\n\n//\n//    public static void main(String[] args) {\n//        Group gr = new Group(\"dddsd\");\n//        HashMap<Integer, LinkedList<Expense>> database = new HashMap<>();\n//        Person payer = new Person(32323, \"sasas@gmail.com\",\"jacek\");\n//        Person payer2 = new Person(32523, \"sasas@gmyl.com\",\"kolega\");\n//        LinkedList<Expense> koo = new LinkedList<>();\n//        koo.add(new Expense(233,gr,payer2));\n//        database.put(12,koo);\n//\n//        database.get(12).add(new Expense(3453,gr,payer));\n//\n//        System.out.println();\n//\n//        System.out.println(database.get(12));\n//    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/server/CYFData.java b/src/main/java/chillyourfunds/server/CYFData.java
+--- a/src/main/java/chillyourfunds/server/CYFData.java	(revision 432117ceca6bfd468c17fa81cf5702266793074e)
++++ b/src/main/java/chillyourfunds/server/CYFData.java	(date 1654707203233)
+@@ -3,17 +3,16 @@
+ import chillyourfunds.logic.Group;
+ import chillyourfunds.logic.Person;
+ 
++
+ import java.util.HashMap;
+ import java.util.Objects;
+ import java.util.Random;
+ 
+-/**
+- * author: Jacek Pelczar
+- */
++
+ public class CYFData {
+-    private final HashMap<Integer, Group> groupData;
++    private HashMap<Integer, Group> groupData; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??
+ 
+-    private final HashMap<String, UserAccount> userData;
++    private HashMap<String,User> userData;
+ 
+ 
+     public CYFData() {
+@@ -21,59 +20,54 @@
+         userData = new HashMap<>();
+ 
+     }
+-
+-    public boolean addGroup(String groupName, UserAccount creator) {
++    public boolean addGroup(String groupName, User creator){
+         Integer id = new Random().nextInt();
+-        if (groupData.containsKey(id)) {
++        if(groupData.containsKey(id)) {
+             id = new Random().nextInt();
+         }
+-        groupData.put(id, new Group(groupName, id));
+-        groupData.get(id).addPerson(creator.memberOfGroups);
+-        creator.memberOfGroups.addGroupIdToParticipate(id);
+-        System.out.println("pl");
+-        return groupData.get(id) != null;
++            groupData.put(id, new Group(groupName, id));
++//            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));
++            System.out.println("pl");
++            return groupData.get(id)!=null;
+     }
+ 
+-    public Group getGroup(Integer id) {
+-        return groupData.get(id);
++    public Group getGroup(Integer id){
++        return  groupData.get(id);
+     }
+ 
+-    public boolean addUser(String username, String password, String firstname, String lastname) {
+-        int credentialsHash = Objects.hash(username, password);
+-        if (!userData.containsKey(username)) {
+-            userData.put(username, new UserAccount(Objects.hash(username), credentialsHash, username, firstname, lastname));
++    public boolean addUser(String username, String password, String firstname, String lastname){
++        int credentialsHash = Objects.hash(username,password);
++        if(!userData.containsKey(username)){
++            userData.put(username,new User(credentialsHash, username, firstname, lastname));
+             return true;
+-        } else {
++        }else{
+             return false;
+         }
+     }
+-    public Person getPersonByUsername(String username){
+-        return userData.get(username).memberOfGroups;
+-    }
+ 
+-    public UserAccount getUserByCredentials(String username, String password) {
+-        UserAccount temp = userData.get(username);
+-        if (temp != null && temp.checkCredentials(Objects.hash(username, password))) {
++    public User getUserByCredentials(String username, String password){
++        User temp = userData.get(username);
++        if(temp != null && temp.checkCredentials(Objects.hash(username,password))){
+             return temp;
+-        } else return null;
++        }else return null;
+     }
+ 
+ 
+-//
+-//    public static void main(String[] args) {
+-//        Group gr = new Group("dddsd");
+-//        HashMap<Integer, LinkedList<Expense>> database = new HashMap<>();
+-//        Person payer = new Person(32323, "sasas@gmail.com","jacek");
+-//        Person payer2 = new Person(32523, "sasas@gmyl.com","kolega");
+-//        LinkedList<Expense> koo = new LinkedList<>();
+-//        koo.add(new Expense(233,gr,payer2));
+-//        database.put(12,koo);
+-//
+-//        database.get(12).add(new Expense(3453,gr,payer));
+-//
+-//        System.out.println();
+-//
+-//        System.out.println(database.get(12));
+-//    }
++
++    public static void main(String[] args) {
++        Group gr = new Group("dddsd");
++        HashMap<Integer, LinkedList<Expense>> database = new HashMap<>();
++        Person payer = new Person(32323, "sasas@gmail.com","jacek");
++        Person payer2 = new Person(32523, "sasas@gmyl.com","kolega");
++        LinkedList<Expense> koo = new LinkedList<>();
++        koo.add(new Expense(233,gr,payer2));
++        database.put(12,koo);
++
++        database.get(12).add(new Expense(3453,gr,payer));
++
++        System.out.println();
++
++        System.out.println(database.get(12));
++    }
+ 
+ }
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>groupId</groupId>\n    <artifactId>apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow</artifactId>\n    <version>1.0-SNAPSHOT</version>\n    <dependencies>\n        <dependency>\n            <groupId>com.google.code.gson</groupId>\n            <artifactId>gson</artifactId>\n            <version>2.9.0</version>\n        </dependency>\n        <dependency>\n            <groupId>junit</groupId>\n            <artifactId>junit</artifactId>\n            <version>4.13.1</version>\n            <scope>compile</scope>\n        </dependency>\n        <dependency>\n            <groupId>org.junit.jupiter</groupId>\n            <artifactId>junit-jupiter</artifactId>\n            <version>RELEASE</version>\n            <scope>compile</scope>\n        </dependency>\n    </dependencies>\n\n    <properties>\n        <maven.compiler.source>18</maven.compiler.source>\n        <maven.compiler.target>18</maven.compiler.target>\n    </properties>\n\n    <build>\n        <plugins>\n            <plugin>\n                <!-- Build an executable JAR -->\n                <groupId>org.apache.maven.plugins</groupId>\n                <artifactId>maven-jar-plugin</artifactId>\n                <version>3.1.0</version>\n                <configuration>\n                    <archive>\n                        <manifest>\n                            <addClasspath>true</addClasspath>\n                            <classpathPrefix>lib/</classpathPrefix>\n                            <mainClass>chillyourfunds.client.CYFApplication</mainClass>\n                        </manifest>\n                    </archive>\n                </configuration>\n            </plugin>\n        </plugins>\n    </build>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 432117ceca6bfd468c17fa81cf5702266793074e)
++++ b/pom.xml	(date 1654688820149)
+@@ -49,6 +49,14 @@
+                     </archive>
+                 </configuration>
+             </plugin>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>16</source>
++                    <target>16</target>
++                </configuration>
++            </plugin>
+         </plugins>
+     </build>
+ 
+Index: src/main/java/chillyourfunds/server/CYFService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.server;\n\nimport chillyourfunds.logic.*;\n\nimport java.io.*;\nimport java.net.Socket;\n\n/**\n * author: Jacek Pelczar\n */\npublic class CYFService implements Runnable {\n\n    private int id;\n    private final CYFServer server;\n    private Socket clientSocket;\n    private UserAccount userAccount;\n\n    private Group currGroup;\n    private BufferedReader messageIn;\n    private PrintWriter messageOut;\n    private ObjectOutputStream objectOut;\n    private ObjectInputStream objectIn;\n\n\n    public CYFService(Socket clientSocket, CYFServer server) {\n        this.server = server;\n        this.clientSocket = clientSocket;\n    }\n\n    void init() throws IOException {\n        objectOut = new ObjectOutputStream(clientSocket.getOutputStream());\n        objectIn = new ObjectInputStream(clientSocket.getInputStream());\n    }\n\n    void close() {\n        try {\n            objectIn.close();\n            objectOut.close();\n            clientSocket.close();\n        } catch (IOException e) {\n            System.err.println(\"Error closing client (\" + id + \"), \" + e);\n        } finally {\n            messageOut = null;\n            messageIn = null;\n            clientSocket = null;\n        }\n    }\n    // To-Do\n    // określić jakie dane będzie przesyłał server\n    // określić kiedy je będzie przesyłał\n    // określić syntax protokołu\n    //\n    //user odbiera:\n    // historię rozliczeń dla danej osoby\n    // kto ma jaki balance\n    // kto mu ile wisi\n    // kto komu ile wisi??\n\n    public void run() {\n\n        while (true) {\n            Messenger message = receive();\n            CYFProtocol command = message.command;\n            update();\n            switch (command) {\n                case LOGIN:\n                    String[] credentials = (String[]) message.data;\n                    userAccount = server.database.getUserByCredentials(credentials[0], credentials[1]);\n                    if (userAccount == null) {\n                        send(CYFProtocol.COMMENT, \"Wrong login or password!\");\n                    } else send(CYFProtocol.LOGGEDIN, userAccount.memberOfGroups);\n                    break;\n                case REGISTER:\n                    String[] newcredentials = (String[]) message.data;\n                    if (server.database.addUser(newcredentials[0], newcredentials[1], newcredentials[2], newcredentials[3])) {\n                        send(CYFProtocol.REGISTERED);\n                    } else send(CYFProtocol.COMMENT, \"User with this username already exists. Choose other username.\");\n                    break;\n                case CREATEGROUP:\n                    if (server.database.addGroup((String) message.data, userAccount)) {\n                        send(CYFProtocol.GROUPCREATED);\n                    } else send(CYFProtocol.COMMENT, \"Error while creating group!\");\n                    break;\n                case CHOOSEGROUP:\n                    currGroup = server.database.getGroup((Integer) message.data);\n                    if (currGroup != null) {\n                        send(CYFProtocol.GROUPCHOOSED, currGroup);\n                    } else send(CYFProtocol.COMMENT, \"This group doesn't exist!\");\n                    break;\n                case ADDEXPENSE:        //TODO\n                    Object[] params = (Object[]) message.data;\n                    String[] debtors =(String[]) params[2];\n                    Expense newExpense = new EqualExpense((int) params[1],currGroup,userAccount.memberOfGroups);\n                    for (String debtorUsername: debtors){\n                        newExpense.addDebtor(server.database.getPersonByUsername(debtorUsername).getId());\n                    }\n                    if(params[0].equals(CYFProtocol.EQUALSPLIT)){\n\n                    }else if(params[0].equals(CYFProtocol.PERCENTSPLIT)){\n\n                    }else if(params[0].equals(CYFProtocol.EXACTSPLIT)){\n\n                    }else send(CYFProtocol.COMMENT, \"Bad type of expense!\");\n                    send(CYFProtocol.COMMENT, \"Created expense\");\n                    break;\n                case ADDPERSON:\n                    String usernameToAdd = (String) message.data;\n                    Person personToAdd = server.database.getPersonByUsername(usernameToAdd);\n                    if(personToAdd!=null){\n                        currGroup.addPerson(personToAdd);\n                        send(CYFProtocol.PERSONADDED);\n                    }else send(CYFProtocol.COMMENT, \"User with this username doesn't exist!\");\n                    break;\n                case REMOVEPERSON:\n                    String usernameToRemove = (String) message.data;\n                    Person personToRemove = server.database.getPersonByUsername(usernameToRemove);\n                    if(personToRemove != null && currGroup.removePerson(personToRemove)){\n                        send(CYFProtocol.PERSONREMOVED);\n                    }else send(CYFProtocol.COMMENT, \"User with this username doesn't exist!\");\n                    break;\n                case SIMPlify:\n                    break;\n                case UPDATE:\n                    update();\n                    break;\n                case LOGOUT:\n                    send(CYFProtocol.LOGGEDOUT); // no break!\n                case STOPPED:\n                    server.removeClientService(this); // no break!\n                case NULLCOMMAND:\n                    return;\n                default:\n                    System.out.println(\"Error\");\n            }\n        }\n    }\n\n    void update(){\n        try {\n            if (objectOut != null)\n                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, new Object[]{currGroup,userAccount.memberOfGroups}));\n        } catch (NullPointerException npe){\n            System.out.println(\"Not yet logged in\");\n        } catch (IOException e) {\n            System.out.println(\"Cannot send data to client!\");\n        }\n    }\n\n\n    void send(CYFProtocol command, Object data) {\n        try {\n            if (objectOut != null)\n                objectOut.writeObject(new Messenger(command, data));\n        } catch (IOException e) {\n            e.printStackTrace();\n            System.err.println(\"Cannot send data to client!\");\n        }\n    }\n\n    void send(CYFProtocol command) {\n        try {\n            if (objectOut != null)\n                objectOut.writeObject(new Messenger(command));\n        } catch (IOException e) {\n            e.printStackTrace();\n            System.err.println(\"Cannot send data to client!\");\n        }\n    }\n\n    void broadcast(CYFProtocol command) {\n        try {\n            if (objectOut != null)\n                objectOut.writeObject(new Messenger(command));\n        } catch (IOException e) {\n        }\n    }\n\n    private Messenger receive() {\n        try {\n            return (Messenger) objectIn.readObject();\n        } catch (IOException | ClassNotFoundException ioe) {\n            System.err.println(\"Error reading client (\" + id + \"), \" + ioe);\n            return new Messenger(CYFProtocol.NULLCOMMAND);\n        }\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/server/CYFService.java b/src/main/java/chillyourfunds/server/CYFService.java
+--- a/src/main/java/chillyourfunds/server/CYFService.java	(revision 432117ceca6bfd468c17fa81cf5702266793074e)
++++ b/src/main/java/chillyourfunds/server/CYFService.java	(date 1654689314349)
+@@ -1,187 +1,187 @@
+-package chillyourfunds.server;
+-
+-import chillyourfunds.logic.*;
+-
+-import java.io.*;
+-import java.net.Socket;
+-
+-/**
+- * author: Jacek Pelczar
+- */
+-public class CYFService implements Runnable {
+-
+-    private int id;
+-    private final CYFServer server;
+-    private Socket clientSocket;
+-    private UserAccount userAccount;
+-
+-    private Group currGroup;
+-    private BufferedReader messageIn;
+-    private PrintWriter messageOut;
+-    private ObjectOutputStream objectOut;
+-    private ObjectInputStream objectIn;
+-
+-
+-    public CYFService(Socket clientSocket, CYFServer server) {
+-        this.server = server;
+-        this.clientSocket = clientSocket;
+-    }
+-
+-    void init() throws IOException {
+-        objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
+-        objectIn = new ObjectInputStream(clientSocket.getInputStream());
+-    }
+-
+-    void close() {
+-        try {
+-            objectIn.close();
+-            objectOut.close();
+-            clientSocket.close();
+-        } catch (IOException e) {
+-            System.err.println("Error closing client (" + id + "), " + e);
+-        } finally {
+-            messageOut = null;
+-            messageIn = null;
+-            clientSocket = null;
+-        }
+-    }
+-    // To-Do
+-    // określić jakie dane będzie przesyłał server
+-    // określić kiedy je będzie przesyłał
+-    // określić syntax protokołu
+-    //
+-    //user odbiera:
+-    // historię rozliczeń dla danej osoby
+-    // kto ma jaki balance
+-    // kto mu ile wisi
+-    // kto komu ile wisi??
+-
+-    public void run() {
+-
+-        while (true) {
+-            Messenger message = receive();
+-            CYFProtocol command = message.command;
+-            update();
+-            switch (command) {
+-                case LOGIN:
+-                    String[] credentials = (String[]) message.data;
+-                    userAccount = server.database.getUserByCredentials(credentials[0], credentials[1]);
+-                    if (userAccount == null) {
+-                        send(CYFProtocol.COMMENT, "Wrong login or password!");
+-                    } else send(CYFProtocol.LOGGEDIN, userAccount.memberOfGroups);
+-                    break;
+-                case REGISTER:
+-                    String[] newcredentials = (String[]) message.data;
+-                    if (server.database.addUser(newcredentials[0], newcredentials[1], newcredentials[2], newcredentials[3])) {
+-                        send(CYFProtocol.REGISTERED);
+-                    } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
+-                    break;
+-                case CREATEGROUP:
+-                    if (server.database.addGroup((String) message.data, userAccount)) {
+-                        send(CYFProtocol.GROUPCREATED);
+-                    } else send(CYFProtocol.COMMENT, "Error while creating group!");
+-                    break;
+-                case CHOOSEGROUP:
+-                    currGroup = server.database.getGroup((Integer) message.data);
+-                    if (currGroup != null) {
+-                        send(CYFProtocol.GROUPCHOOSED, currGroup);
+-                    } else send(CYFProtocol.COMMENT, "This group doesn't exist!");
+-                    break;
+-                case ADDEXPENSE:        //TODO
+-                    Object[] params = (Object[]) message.data;
+-                    String[] debtors =(String[]) params[2];
+-                    Expense newExpense = new EqualExpense((int) params[1],currGroup,userAccount.memberOfGroups);
+-                    for (String debtorUsername: debtors){
+-                        newExpense.addDebtor(server.database.getPersonByUsername(debtorUsername).getId());
+-                    }
+-                    if(params[0].equals(CYFProtocol.EQUALSPLIT)){
+-
+-                    }else if(params[0].equals(CYFProtocol.PERCENTSPLIT)){
+-
+-                    }else if(params[0].equals(CYFProtocol.EXACTSPLIT)){
+-
+-                    }else send(CYFProtocol.COMMENT, "Bad type of expense!");
+-                    send(CYFProtocol.COMMENT, "Created expense");
+-                    break;
+-                case ADDPERSON:
+-                    String usernameToAdd = (String) message.data;
+-                    Person personToAdd = server.database.getPersonByUsername(usernameToAdd);
+-                    if(personToAdd!=null){
+-                        currGroup.addPerson(personToAdd);
+-                        send(CYFProtocol.PERSONADDED);
+-                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
+-                    break;
+-                case REMOVEPERSON:
+-                    String usernameToRemove = (String) message.data;
+-                    Person personToRemove = server.database.getPersonByUsername(usernameToRemove);
+-                    if(personToRemove != null && currGroup.removePerson(personToRemove)){
+-                        send(CYFProtocol.PERSONREMOVED);
+-                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
+-                    break;
+-                case SIMPlify:
+-                    break;
+-                case UPDATE:
+-                    update();
+-                    break;
+-                case LOGOUT:
+-                    send(CYFProtocol.LOGGEDOUT); // no break!
+-                case STOPPED:
+-                    server.removeClientService(this); // no break!
+-                case NULLCOMMAND:
+-                    return;
+-                default:
+-                    System.out.println("Error");
+-            }
+-        }
+-    }
+-
+-    void update(){
+-        try {
+-            if (objectOut != null)
+-                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, new Object[]{currGroup,userAccount.memberOfGroups}));
+-        } catch (NullPointerException npe){
+-            System.out.println("Not yet logged in");
+-        } catch (IOException e) {
+-            System.out.println("Cannot send data to client!");
+-        }
+-    }
+-
+-
+-    void send(CYFProtocol command, Object data) {
+-        try {
+-            if (objectOut != null)
+-                objectOut.writeObject(new Messenger(command, data));
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-            System.err.println("Cannot send data to client!");
+-        }
+-    }
+-
+-    void send(CYFProtocol command) {
+-        try {
+-            if (objectOut != null)
+-                objectOut.writeObject(new Messenger(command));
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-            System.err.println("Cannot send data to client!");
+-        }
+-    }
+-
+-    void broadcast(CYFProtocol command) {
+-        try {
+-            if (objectOut != null)
+-                objectOut.writeObject(new Messenger(command));
+-        } catch (IOException e) {
+-        }
+-    }
+-
+-    private Messenger receive() {
+-        try {
+-            return (Messenger) objectIn.readObject();
+-        } catch (IOException | ClassNotFoundException ioe) {
+-            System.err.println("Error reading client (" + id + "), " + ioe);
+-            return new Messenger(CYFProtocol.NULLCOMMAND);
+-        }
+-    }
+-
+-}
+\ No newline at end of file
++//package chillyourfunds.server;
++//
++//import chillyourfunds.logic.*;
++//
++//import java.io.*;
++//import java.net.Socket;
++//
++///**
++// * author: Jacek Pelczar
++// */
++//public class CYFService implements Runnable {
++//
++//    private int id;
++//    private final CYFServer server;
++//    private Socket clientSocket;
++//    private UserAccount userAccount;
++//
++//    private Group currGroup;
++//    private BufferedReader messageIn;
++//    private PrintWriter messageOut;
++//    private ObjectOutputStream objectOut;
++//    private ObjectInputStream objectIn;
++//
++//
++//    public CYFService(Socket clientSocket, CYFServer server) {
++//        this.server = server;
++//        this.clientSocket = clientSocket;
++//    }
++//
++//    void init() throws IOException {
++//        objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
++//        objectIn = new ObjectInputStream(clientSocket.getInputStream());
++//    }
++//
++//    void close() {
++//        try {
++//            objectIn.close();
++//            objectOut.close();
++//            clientSocket.close();
++//        } catch (IOException e) {
++//            System.err.println("Error closing client (" + id + "), " + e);
++//        } finally {
++//            messageOut = null;
++//            messageIn = null;
++//            clientSocket = null;
++//        }
++//    }
++//    // To-Do
++//    // określić jakie dane będzie przesyłał server
++//    // określić kiedy je będzie przesyłał
++//    // określić syntax protokołu
++//    //
++//    //user odbiera:
++//    // historię rozliczeń dla danej osoby
++//    // kto ma jaki balance
++//    // kto mu ile wisi
++//    // kto komu ile wisi??
++//
++//    public void run() {
++//
++//        while (true) {
++//            Messenger message = receive();
++//            CYFProtocol command = message.command;
++//            update();
++//            switch (command) {
++//                case LOGIN:
++//                    String[] credentials = (String[]) message.data;
++//                    userAccount = server.database.getUserByCredentials(credentials[0], credentials[1]);
++//                    if (userAccount == null) {
++//                        send(CYFProtocol.COMMENT, "Wrong login or password!");
++//                    } else send(CYFProtocol.LOGGEDIN, userAccount.memberOfGroups);
++//                    break;
++//                case REGISTER:
++//                    String[] newcredentials = (String[]) message.data;
++//                    if (server.database.addUser(newcredentials[0], newcredentials[1], newcredentials[2], newcredentials[3])) {
++//                        send(CYFProtocol.REGISTERED);
++//                    } else send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
++//                    break;
++//                case CREATEGROUP:
++//                    if (server.database.addGroup((String) message.data, userAccount)) {
++//                        send(CYFProtocol.GROUPCREATED);
++//                    } else send(CYFProtocol.COMMENT, "Error while creating group!");
++//                    break;
++//                case CHOOSEGROUP:
++//                    currGroup = server.database.getGroup((Integer) message.data);
++//                    if (currGroup != null) {
++//                        send(CYFProtocol.GROUPCHOOSED, currGroup);
++//                    } else send(CYFProtocol.COMMENT, "This group doesn't exist!");
++//                    break;
++//                case ADDEXPENSE:        //TODO
++//                    Object[] params = (Object[]) message.data;
++//                    String[] debtors =(String[]) params[2];
++//                    Expense newExpense = new EqualExpense((int) params[1],currGroup,userAccount.memberOfGroups);
++//                    for (String debtorUsername: debtors){
++//                        newExpense.addDebtor(server.database.getPersonByUsername(debtorUsername).getId());
++//                    }
++//                    if(params[0].equals(CYFProtocol.EQUALSPLIT)){
++//
++//                    }else if(params[0].equals(CYFProtocol.PERCENTSPLIT)){
++//
++//                    }else if(params[0].equals(CYFProtocol.EXACTSPLIT)){
++//
++//                    }else send(CYFProtocol.COMMENT, "Bad type of expense!");
++//                    send(CYFProtocol.COMMENT, "Created expense");
++//                    break;
++//                case ADDPERSON:
++//                    String usernameToAdd = (String) message.data;
++//                    Person personToAdd = server.database.getPersonByUsername(usernameToAdd);
++//                    if(personToAdd!=null){
++//                        currGroup.addPerson(personToAdd);
++//                        send(CYFProtocol.PERSONADDED);
++//                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
++//                    break;
++//                case REMOVEPERSON:
++//                    String usernameToRemove = (String) message.data;
++//                    Person personToRemove = server.database.getPersonByUsername(usernameToRemove);
++//                    if(personToRemove != null && currGroup.removePerson(personToRemove)){
++//                        send(CYFProtocol.PERSONREMOVED);
++//                    }else send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
++//                    break;
++//                case SIMPlify:
++//                    break;
++//                case UPDATE:
++//                    update();
++//                    break;
++//                case LOGOUT:
++//                    send(CYFProtocol.LOGGEDOUT); // no break!
++//                case STOPPED:
++//                    server.removeClientService(this); // no break!
++//                case NULLCOMMAND:
++//                    return;
++//                default:
++//                    System.out.println("Error");
++//            }
++//        }
++//    }
++//
++//    void update(){
++//        try {
++//            if (objectOut != null)
++//                objectOut.writeObject(new Messenger(CYFProtocol.UPDATE, new Object[]{currGroup,userAccount.memberOfGroups}));
++//        } catch (NullPointerException npe){
++//            System.out.println("Not yet logged in");
++//        } catch (IOException e) {
++//            System.out.println("Cannot send data to client!");
++//        }
++//    }
++//
++//
++//    void send(CYFProtocol command, Object data) {
++//        try {
++//            if (objectOut != null)
++//                objectOut.writeObject(new Messenger(command, data));
++//        } catch (IOException e) {
++//            e.printStackTrace();
++//            System.err.println("Cannot send data to client!");
++//        }
++//    }
++//
++//    void send(CYFProtocol command) {
++//        try {
++//            if (objectOut != null)
++//                objectOut.writeObject(new Messenger(command));
++//        } catch (IOException e) {
++//            e.printStackTrace();
++//            System.err.println("Cannot send data to client!");
++//        }
++//    }
++//
++//    void broadcast(CYFProtocol command) {
++//        try {
++//            if (objectOut != null)
++//                objectOut.writeObject(new Messenger(command));
++//        } catch (IOException e) {
++//        }
++//    }
++//
++//    private Messenger receive() {
++//        try {
++//            return (Messenger) objectIn.readObject();
++//        } catch (IOException | ClassNotFoundException ioe) {
++//            System.err.println("Error reading client (" + id + "), " + ioe);
++//            return new Messenger(CYFProtocol.NULLCOMMAND);
++//        }
++//    }
++//
++//}
+\ No newline at end of file
+Index: src/main/java/chillyourfunds/server/CYFServer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.server;\n\nimport com.google.gson.Gson;\nimport com.google.gson.GsonBuilder;\n\nimport java.awt.*;\nimport java.io.*;\nimport java.net.ServerSocket;\nimport java.net.Socket;\nimport java.time.temporal.ChronoUnit;\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Properties;\nimport java.util.concurrent.TimeUnit;\n\npublic class CYFServer extends Frame implements Runnable {\n    private ServerSocket serverSocket;\n\n    protected CYFData database;\n\n    private final List<CYFService> clients = new ArrayList<>();\n\n    private final Properties props;\n\n\n    private Thread serverThread;\n\n    public CYFServer(Properties p, String title) {\n        super(title);\n        props = p;\n        int port = Integer.parseInt(props.getProperty(\"port\"));\n        try {\n            serverSocket = new ServerSocket(port);\n        } catch (IOException e) {\n            System.err.println(\"Error starting IBServer.\");\n            return;\n        }\n        Button b = new Button(\"stop and exit\");\n        b.addActionListener((actionEvent) -> {\n            send(CYFProtocol.STOP);\n            new Thread(() -> {\n                while (clients.size() != 0) {\n                    break;\n                }\n                saveDatabase(\"database.json\");\n                System.exit(0);\n            }).start();\n        });\n        add(b);\n        pack();\n        (serverThread = new Thread(this)).start();\n        EventQueue.invokeLater(() -> setVisible(true));\n        database = loadDatabase(\"database.json\");\n    }\n\n    public void run() {\n        while (serverThread == Thread.currentThread()) {\n            try {\n                Socket clientSocket = serverSocket.accept();\n                createAndStartClientService(clientSocket);\n            } catch (IOException e) {\n                System.err.println(\"Error accepting connection. Client will not be served...\");\n            }\n        }\n    }\n\n    public void stopRunning() {\n        serverThread = null;\n        saveDatabase(\"database.json\");\n    }\n\n    public void saveDatabase(String filename) {\n\n        GsonBuilder gbuilder = new GsonBuilder();\n        gbuilder.setPrettyPrinting();\n        gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters\n        Gson gson = gbuilder.create();\n        try (FileWriter pw = new FileWriter(filename)) {\n            gson.toJson(database, pw);\n            System.out.println(\"Database saved\");\n        } catch (IOException ioe) {\n            ioe.printStackTrace();\n        }\n    }\n\n    public CYFData loadDatabase(String filepath){\n        try {\n            Gson gson = new Gson();\n            FileReader fr = new  FileReader(filepath);\n            return gson.fromJson(fr, new CYFData() {\n            }.getClass().getGenericSuperclass());\n        }catch (FileNotFoundException e){\n            System.out.println(\"Database file doesnt exist. Create new one \");\n            return new CYFData();\n        }\n\n    }\n\n    synchronized void createAndStartClientService(Socket clientSocket) throws IOException {\n        CYFService clientService = new CYFService(clientSocket, this);\n        clientService.init();\n        new Thread(clientService).start();\n        clients.add(clientService);\n        System.out.println(\"Client added. Number of clients: \" + clients.size());\n    }\n\n    synchronized void removeClientService(CYFService clientService) {\n        clients.remove(clientService);\n        clientService.close();\n        System.out.println(\"Client removed. Number of clients: \" + clients.size());\n    }\n\n    synchronized void send(CYFProtocol proto) {\n        for (CYFService s : clients) { // roześlij do wszystkich klientów\n            s.broadcast(proto);\n        }\n    }\n\n\n//    synchronized void send(String msg, CYFService skip) {\n//        for (CYFService s : clients) { // roześlij do wszystkich klientów\n//            if (s != skip) { // oprócz jednego, którego trzeba pominąć...\n//                s.send(msg);\n//            }\n//        }\n//    }\n\n\n    private int $lastID = -1;\n\n    synchronized int nextID() {\n        return ++$lastID;\n    }\n\n\n    int boardWidth() {\n        return Integer.parseInt(props.getProperty(\"width\"));\n    }\n\n    int boardHeight() {\n        return Integer.parseInt(props.getProperty(\"height\"));\n    }\n\n    public static void main(String[] args) {\n        Properties props = new Properties();\n        String pName = \"CYFServer.properties\";\n        try {\n            props.load(new FileInputStream(pName));\n        } catch (Exception e) {\n            props.put(\"port\", \"40000\");\n            props.put(\"width\", \"250\");\n            props.put(\"height\", \"250\");\n        }\n        try {\n            props.store(new FileOutputStream(pName), null);\n        } catch (Exception ignore) {\n        }\n        new CYFServer(props, \"Internet Board Server\");\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/server/CYFServer.java b/src/main/java/chillyourfunds/server/CYFServer.java
+--- a/src/main/java/chillyourfunds/server/CYFServer.java	(revision 432117ceca6bfd468c17fa81cf5702266793074e)
++++ b/src/main/java/chillyourfunds/server/CYFServer.java	(date 1654689314345)
+@@ -1,160 +1,160 @@
+-package chillyourfunds.server;
+-
+-import com.google.gson.Gson;
+-import com.google.gson.GsonBuilder;
+-
+-import java.awt.*;
+-import java.io.*;
+-import java.net.ServerSocket;
+-import java.net.Socket;
+-import java.time.temporal.ChronoUnit;
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Properties;
+-import java.util.concurrent.TimeUnit;
+-
+-public class CYFServer extends Frame implements Runnable {
+-    private ServerSocket serverSocket;
+-
+-    protected CYFData database;
+-
+-    private final List<CYFService> clients = new ArrayList<>();
+-
+-    private final Properties props;
+-
+-
+-    private Thread serverThread;
+-
+-    public CYFServer(Properties p, String title) {
+-        super(title);
+-        props = p;
+-        int port = Integer.parseInt(props.getProperty("port"));
+-        try {
+-            serverSocket = new ServerSocket(port);
+-        } catch (IOException e) {
+-            System.err.println("Error starting IBServer.");
+-            return;
+-        }
+-        Button b = new Button("stop and exit");
+-        b.addActionListener((actionEvent) -> {
+-            send(CYFProtocol.STOP);
+-            new Thread(() -> {
+-                while (clients.size() != 0) {
+-                    break;
+-                }
+-                saveDatabase("database.json");
+-                System.exit(0);
+-            }).start();
+-        });
+-        add(b);
+-        pack();
+-        (serverThread = new Thread(this)).start();
+-        EventQueue.invokeLater(() -> setVisible(true));
+-        database = loadDatabase("database.json");
+-    }
+-
+-    public void run() {
+-        while (serverThread == Thread.currentThread()) {
+-            try {
+-                Socket clientSocket = serverSocket.accept();
+-                createAndStartClientService(clientSocket);
+-            } catch (IOException e) {
+-                System.err.println("Error accepting connection. Client will not be served...");
+-            }
+-        }
+-    }
+-
+-    public void stopRunning() {
+-        serverThread = null;
+-        saveDatabase("database.json");
+-    }
+-
+-    public void saveDatabase(String filename) {
+-
+-        GsonBuilder gbuilder = new GsonBuilder();
+-        gbuilder.setPrettyPrinting();
+-        gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters
+-        Gson gson = gbuilder.create();
+-        try (FileWriter pw = new FileWriter(filename)) {
+-            gson.toJson(database, pw);
+-            System.out.println("Database saved");
+-        } catch (IOException ioe) {
+-            ioe.printStackTrace();
+-        }
+-    }
+-
+-    public CYFData loadDatabase(String filepath){
+-        try {
+-            Gson gson = new Gson();
+-            FileReader fr = new  FileReader(filepath);
+-            return gson.fromJson(fr, new CYFData() {
+-            }.getClass().getGenericSuperclass());
+-        }catch (FileNotFoundException e){
+-            System.out.println("Database file doesnt exist. Create new one ");
+-            return new CYFData();
+-        }
+-
+-    }
+-
+-    synchronized void createAndStartClientService(Socket clientSocket) throws IOException {
+-        CYFService clientService = new CYFService(clientSocket, this);
+-        clientService.init();
+-        new Thread(clientService).start();
+-        clients.add(clientService);
+-        System.out.println("Client added. Number of clients: " + clients.size());
+-    }
+-
+-    synchronized void removeClientService(CYFService clientService) {
+-        clients.remove(clientService);
+-        clientService.close();
+-        System.out.println("Client removed. Number of clients: " + clients.size());
+-    }
+-
+-    synchronized void send(CYFProtocol proto) {
+-        for (CYFService s : clients) { // roześlij do wszystkich klientów
+-            s.broadcast(proto);
+-        }
+-    }
+-
+-
+-//    synchronized void send(String msg, CYFService skip) {
++//package chillyourfunds.server;
++//
++//import com.google.gson.Gson;
++//import com.google.gson.GsonBuilder;
++//
++//import java.awt.*;
++//import java.io.*;
++//import java.net.ServerSocket;
++//import java.net.Socket;
++//import java.time.temporal.ChronoUnit;
++//import java.util.ArrayList;
++//import java.util.List;
++//import java.util.Properties;
++//import java.util.concurrent.TimeUnit;
++//
++//public class CYFServer extends Frame implements Runnable {
++//    private ServerSocket serverSocket;
++//
++//    protected CYFData database;
++//
++//    private final List<CYFService> clients = new ArrayList<>();
++//
++//    private final Properties props;
++//
++//
++//    private Thread serverThread;
++//
++//    public CYFServer(Properties p, String title) {
++//        super(title);
++//        props = p;
++//        int port = Integer.parseInt(props.getProperty("port"));
++//        try {
++//            serverSocket = new ServerSocket(port);
++//        } catch (IOException e) {
++//            System.err.println("Error starting IBServer.");
++//            return;
++//        }
++//        Button b = new Button("stop and exit");
++//        b.addActionListener((actionEvent) -> {
++//            send(CYFProtocol.STOP);
++//            new Thread(() -> {
++//                while (clients.size() != 0) {
++//                    break;
++//                }
++//                saveDatabase("database.json");
++//                System.exit(0);
++//            }).start();
++//        });
++//        add(b);
++//        pack();
++//        (serverThread = new Thread(this)).start();
++//        EventQueue.invokeLater(() -> setVisible(true));
++//        database = loadDatabase("database.json");
++//    }
++//
++//    public void run() {
++//        while (serverThread == Thread.currentThread()) {
++//            try {
++//                Socket clientSocket = serverSocket.accept();
++//                createAndStartClientService(clientSocket);
++//            } catch (IOException e) {
++//                System.err.println("Error accepting connection. Client will not be served...");
++//            }
++//        }
++//    }
++//
++//    public void stopRunning() {
++//        serverThread = null;
++//        saveDatabase("database.json");
++//    }
++//
++//    public void saveDatabase(String filename) {
++//
++//        GsonBuilder gbuilder = new GsonBuilder();
++//        gbuilder.setPrettyPrinting();
++//        gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters
++//        Gson gson = gbuilder.create();
++//        try (FileWriter pw = new FileWriter(filename)) {
++//            gson.toJson(database, pw);
++//            System.out.println("Database saved");
++//        } catch (IOException ioe) {
++//            ioe.printStackTrace();
++//        }
++//    }
++//
++//    public CYFData loadDatabase(String filepath){
++//        try {
++//            Gson gson = new Gson();
++//            FileReader fr = new  FileReader(filepath);
++//            return gson.fromJson(fr, new CYFData() {
++//            }.getClass().getGenericSuperclass());
++//        }catch (FileNotFoundException e){
++//            System.out.println("Database file doesnt exist. Create new one ");
++//            return new CYFData();
++//        }
++//
++//    }
++//
++//    synchronized void createAndStartClientService(Socket clientSocket) throws IOException {
++//        CYFService clientService = new CYFService(clientSocket, this);
++//        clientService.init();
++//        new Thread(clientService).start();
++//        clients.add(clientService);
++//        System.out.println("Client added. Number of clients: " + clients.size());
++//    }
++//
++//    synchronized void removeClientService(CYFService clientService) {
++//        clients.remove(clientService);
++//        clientService.close();
++//        System.out.println("Client removed. Number of clients: " + clients.size());
++//    }
++//
++//    synchronized void send(CYFProtocol proto) {
+ //        for (CYFService s : clients) { // roześlij do wszystkich klientów
+-//            if (s != skip) { // oprócz jednego, którego trzeba pominąć...
+-//                s.send(msg);
+-//            }
++//            s.broadcast(proto);
++//        }
++//    }
++//
++//
++////    synchronized void send(String msg, CYFService skip) {
++////        for (CYFService s : clients) { // roześlij do wszystkich klientów
++////            if (s != skip) { // oprócz jednego, którego trzeba pominąć...
++////                s.send(msg);
++////            }
++////        }
++////    }
++//
++//
++//    private int $lastID = -1;
++//
++//    synchronized int nextID() {
++//        return ++$lastID;
++//    }
++//
++//
++//    int boardWidth() {
++//        return Integer.parseInt(props.getProperty("width"));
++//    }
++//
++//    int boardHeight() {
++//        return Integer.parseInt(props.getProperty("height"));
++//    }
++//
++//    public static void main(String[] args) {
++//        Properties props = new Properties();
++//        String pName = "CYFServer.properties";
++//        try {
++//            props.load(new FileInputStream(pName));
++//        } catch (Exception e) {
++//            props.put("port", "40000");
++//            props.put("width", "250");
++//            props.put("height", "250");
+ //        }
++//        try {
++//            props.store(new FileOutputStream(pName), null);
++//        } catch (Exception ignore) {
++//        }
++//        new CYFServer(props, "Internet Board Server");
+ //    }
+-
+-
+-    private int $lastID = -1;
+-
+-    synchronized int nextID() {
+-        return ++$lastID;
+-    }
+-
+-
+-    int boardWidth() {
+-        return Integer.parseInt(props.getProperty("width"));
+-    }
+-
+-    int boardHeight() {
+-        return Integer.parseInt(props.getProperty("height"));
+-    }
+-
+-    public static void main(String[] args) {
+-        Properties props = new Properties();
+-        String pName = "CYFServer.properties";
+-        try {
+-            props.load(new FileInputStream(pName));
+-        } catch (Exception e) {
+-            props.put("port", "40000");
+-            props.put("width", "250");
+-            props.put("height", "250");
+-        }
+-        try {
+-            props.store(new FileOutputStream(pName), null);
+-        } catch (Exception ignore) {
+-        }
+-        new CYFServer(props, "Internet Board Server");
+-    }
+-}
+\ No newline at end of file
++//}
+\ No newline at end of file

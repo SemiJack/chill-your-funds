@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chillyourfunds.client.fxml.EqualExpenseViewController">
+   <children>
+      <TextField layoutX="380.0" layoutY="48.0" promptText="amount" />
+      <TextField layoutX="380.0" layoutY="97.0" promptText="payer" />
+      <TextField layoutX="42.0" layoutY="48.0" promptText="Debtor 's ID" />
+      <Button layoutX="220.0" layoutY="200.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="160.0" text="Confirm" />
+      <Button layoutX="80.0" layoutY="94.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="83.0" text="Add" />
+   </children>
+</AnchorPane>

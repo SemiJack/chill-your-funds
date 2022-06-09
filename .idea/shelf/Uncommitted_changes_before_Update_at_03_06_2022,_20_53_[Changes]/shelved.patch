@@ -1,0 +1,110 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>groupId</groupId>\n    <artifactId>apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow</artifactId>\n    <version>1.0-SNAPSHOT</version>\n    <dependencies>\n        <dependency>\n            <groupId>com.google.code.gson</groupId>\n            <artifactId>gson</artifactId>\n            <version>2.9.0</version>\n        </dependency>\n        <dependency>\n            <groupId>junit</groupId>\n            <artifactId>junit</artifactId>\n            <version>4.13.1</version>\n            <scope>compile</scope>\n        </dependency>\n        <dependency>\n            <groupId>org.junit.jupiter</groupId>\n            <artifactId>junit-jupiter</artifactId>\n            <version>RELEASE</version>\n            <scope>compile</scope>\n        </dependency>\n    </dependencies>\n\n    <properties>\n        <maven.compiler.source>18</maven.compiler.source>\n        <maven.compiler.target>18</maven.compiler.target>\n    </properties>\n\n    <build>\n        <plugins>\n            <plugin>\n                <!-- Build an executable JAR -->\n                <groupId>org.apache.maven.plugins</groupId>\n                <artifactId>maven-jar-plugin</artifactId>\n                <version>3.1.0</version>\n                <configuration>\n                    <archive>\n                        <manifest>\n                            <addClasspath>true</addClasspath>\n                            <classpathPrefix>lib/</classpathPrefix>\n                            <mainClass>chillyourfunds.client.CYFApplication</mainClass>\n                        </manifest>\n                    </archive>\n                </configuration>\n            </plugin>\n        </plugins>\n    </build>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 9b3ed26d215c8922892b0496d6460e462e2fda6b)
++++ b/pom.xml	(date 1654167867207)
+@@ -49,6 +49,14 @@
+                     </archive>
+                 </configuration>
+             </plugin>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>16</source>
++                    <target>16</target>
++                </configuration>
++            </plugin>
+         </plugins>
+     </build>
+ 
+Index: src/main/java/chillyourfunds/client/CYFApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.client;\n\nimport com.sun.tools.javac.Main;\nimport javafx.application.Platform;\nimport javafx.fxml.FXML;\nimport javafx.fxml.FXMLLoader;\nimport javafx.scene.Parent;\nimport javafx.scene.Scene;\nimport javafx.stage.Stage;\n\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Scanner;\n\n\npublic class CYFApplication extends javafx.application.Application{\n    protected final List<CYFClientController> clients = new ArrayList<>();\n    void initialize() {\n        String host = \"localhost\";\n        String port = \"40000\";\n        try {\n            clients.add(new CYFClientController(host, port));\n        } catch (Exception e) {\n            //Platform.exit();\n            e.printStackTrace();\n        }\n        clients.get(0).singin(\"jacko\",\"1234\", \"Jacek\",\"Pelczar\");\n        clients.get(0).createGroup(\"Akolici_Cyerbezpieczenstwa\", 1);\n        //clients.get(0).createExpense();\n        Scanner keyboard = new Scanner(System.in);\n        System.out.println(\"enter an integer\");\n        int myint = keyboard.nextInt();\n        switch (myint){\n            case 0:\n                clients.get(0).forceLogout();\n                break;\n            case 1 :\n               // clients.get(0).createExpense();\n                break;\n        }\n\n\n        clients.get(0).createExpense(new Integer[]{1,2,3},12,\"exact\",200);\n\n    }\n\n    void destroy() {\n        clients.forEach(CYFClientController::forceLogout);\n    }\n\n    private void cleanHouse() {\n        clients.removeIf(CYFClientController::isDisconnected);\n    }\n\n    @Override\n    public void start(Stage primaryStage) throws Exception {\n        initialize();\n        FXMLLoader loader = new FXMLLoader();\n        loader.setLocation(getClass().getResource(\"fxml/Main.fxml\"));\n        Parent root = loader.load();\n        MainController mainController = loader.getController();\n        mainController.initData(clients.get(0));\n        Scene scene = new Scene(root);\n        primaryStage.setScene(scene);\n        primaryStage.show();\n    }\n    public static void main(String args[]){\n        launch(args);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/client/CYFApplication.java b/src/main/java/chillyourfunds/client/CYFApplication.java
+--- a/src/main/java/chillyourfunds/client/CYFApplication.java	(revision 9b3ed26d215c8922892b0496d6460e462e2fda6b)
++++ b/src/main/java/chillyourfunds/client/CYFApplication.java	(date 1654167984904)
+@@ -24,20 +24,20 @@
+             //Platform.exit();
+             e.printStackTrace();
+         }
+-        clients.get(0).singin("jacko","1234", "Jacek","Pelczar");
+-        clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
+-        //clients.get(0).createExpense();
+-        Scanner keyboard = new Scanner(System.in);
+-        System.out.println("enter an integer");
+-        int myint = keyboard.nextInt();
+-        switch (myint){
+-            case 0:
+-                clients.get(0).forceLogout();
+-                break;
+-            case 1 :
+-               // clients.get(0).createExpense();
+-                break;
+-        }
++//        clients.get(0).singin("jacko","1234", "Jacek","Pelczar");
++//        clients.get(0).createGroup("Akolici_Cyerbezpieczenstwa", 1);
++//        //clients.get(0).createExpense();
++//        Scanner keyboard = new Scanner(System.in);
++//        System.out.println("enter an integer");
++//        int myint = keyboard.nextInt();
++//        switch (myint){
++//            case 0:
++//                clients.get(0).forceLogout();
++//                break;
++//            case 1 :
++//               // clients.get(0).createExpense();
++//                break;
++//        }
+ 
+ 
+         clients.get(0).createExpense(new Integer[]{1,2,3},12,"exact",200);
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1654167867208)
++++ b/.idea/compiler.xml	(date 1654167867208)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <annotationProcessing>
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
++      </profile>
++    </annotationProcessing>
++    <bytecodeTargetLevel target="17">
++      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" target="16" />
++    </bytecodeTargetLevel>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1654167867210)
++++ b/.idea/.gitignore	(date 1654167867210)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml

@@ -1,0 +1,116 @@
+Index: src/main/java/chillyourfunds/client/CYFApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.client;\n\nimport javafx.stage.Stage;\n\nimport java.util.Scanner;\n\npublic class CYFApplication extends javafx.application.Application {\n    protected CYFClientController client;\n\n    void initialize() {\n        String host = \"localhost\";\n        String port = \"40000\";\n        try {\n            this.client = new CYFClientController(host, port);\n        } catch (Exception e) {\n            //Platform.exit();\n            e.printStackTrace();\n        }\n        talkWithServer();\n    }\n\n    private void talkWithServer() {\n        client.register(\"admin\", \"1234\", \"Jacek\", \"Pelczar\");\n        client.login(\"admin\", \"1234\");\n        client.createGroup(\"testowaGrupa\");\n\n        Scanner keyboard = new Scanner(System.in);\n        System.out.println(\"Choose an option: \");\n        while (true) {\n            int myint = keyboard.nextInt();\n\n            switch (myint) {\n                case 0:\n                    // wyloguj i zamknij apkę\n                    client.forceLogout();\n                    System.exit(0);     // exit app\n                    break;\n                case 1:\n                    // grupy w których jestem\n                    System.out.println(client.me.getParticipateGroupsId());\n                    break;\n                case 2:\n                    // wybierz grupę nr.0\n                    client.chooseGroup(client.me.getParticipateGroupsId().get(0));\n                    break;\n                case 3:\n                    // dodaj jack do grupy\n                    client.addPersonToGroup(\"jack\");\n                    break;\n                case 4:\n                    // usuń osobę z grupy\n                    client.removePersonFromGroup(\"jack\");\n                    break;\n                case 5:\n                    // wyświetl osoby należące do grupy\n                    System.out.println(client.currGroup.getPeople());\n                    break;\n            }\n        }\n    }\n\n    void destroy() {\n        client.forceLogout();\n    }\n\n    private void cleanHouse() {\n        client.isDisconnected();\n    }\n\n    @Override\n    public void start(Stage primaryStage) throws Exception {\n        initialize();\n//        FXMLLoader loader = new FXMLLoader();\n//        loader.setLocation(getClass().getResource(\"fxml/Main.fxml\"));\n//        Parent root = loader.load();\n//        MainController mainController = loader.getController();\n//        mainController.initData(clients.get(0));\n//        Scene scene = new Scene(root);\n//        primaryStage.setScene(scene);\n//        primaryStage.show();\n    }\n\n    public static void main(String args[]) {\n        launch(args);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/client/CYFApplication.java b/src/main/java/chillyourfunds/client/CYFApplication.java
+--- a/src/main/java/chillyourfunds/client/CYFApplication.java	(revision f713030b476e0115be6041d6e540b4492abbe04a)
++++ b/src/main/java/chillyourfunds/client/CYFApplication.java	(date 1654708764518)
+@@ -1,11 +1,18 @@
+ package chillyourfunds.client;
+ 
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Parent;
++import javafx.scene.Scene;
+ import javafx.stage.Stage;
+ 
+ import java.util.Scanner;
+ 
+ public class CYFApplication extends javafx.application.Application {
+-    protected CYFClientController client;
++    protected CYFClientController client = new CYFClientController("localhost", "4000");
++
++    public CYFApplication() throws Exception {
++    }
++
+ 
+     void initialize() {
+         String host = "localhost";
+@@ -16,7 +23,7 @@
+             //Platform.exit();
+             e.printStackTrace();
+         }
+-        talkWithServer();
++        //talkWithServer();
+     }
+ 
+     private void talkWithServer() {
+@@ -70,14 +77,14 @@
+     @Override
+     public void start(Stage primaryStage) throws Exception {
+         initialize();
+-//        FXMLLoader loader = new FXMLLoader();
+-//        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
+-//        Parent root = loader.load();
++        FXMLLoader loader = new FXMLLoader();
++        loader.setLocation(getClass().getResource("fxml/Main.fxml"));
++        Parent root = loader.load();
+ //        MainController mainController = loader.getController();
+-//        mainController.initData(clients.get(0));
+-//        Scene scene = new Scene(root);
+-//        primaryStage.setScene(scene);
+-//        primaryStage.show();
++//        mainController.initData(client);
++        Scene scene = new Scene(root);
++        primaryStage.setScene(scene);
++        primaryStage.show();
+     }
+ 
+     public static void main(String args[]) {
+Index: src/main/java/chillyourfunds/client/HomeViewController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.client;\n\nimport javafx.collections.FXCollections;\nimport javafx.collections.ObservableList;\n\nimport javafx.event.ActionEvent;\nimport javafx.fxml.FXML;\nimport javafx.fxml.Initializable;\nimport javafx.scene.control.ListView;\n\nimport java.net.URL;\nimport java.util.ResourceBundle;\n\npublic class HomeViewController implements Initializable {\n\n    @FXML\n    private CYFClientController client;\n    @FXML\n    public ListView<String> grouplist;\n\n    @FXML\n    public javafx.scene.control.Button addgroupButton;\n    ObservableList<String> groups = FXCollections.observableArrayList(\"Koksy\", \"Gracze\", \"Malepieski\");\n\n    @Override\n    public void initialize(URL location, ResourceBundle resources) {\n        grouplist.setItems(groups);\n    }\n\n    public void initData(CYFClientController client){\n        this.client = client;\n    }\n\n    public void groupsChanged(ActionEvent event){\n        grouplist.getItems().addAll(\"Kokok\");\n    }\n\n    @FXML\n    private void addgroupButtonClick(ActionEvent event){\n        client.createGroup(\"Koty\");\n  }\n\n  @FXML\n    private void login(){\n        client.login(\"jacko\",\"1234\");\n  }\n\n    public void addExpense(ActionEvent e) {\n        System.out.println(\"Expense added\");\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/client/HomeViewController.java b/src/main/java/chillyourfunds/client/HomeViewController.java
+--- a/src/main/java/chillyourfunds/client/HomeViewController.java	(revision f713030b476e0115be6041d6e540b4492abbe04a)
++++ b/src/main/java/chillyourfunds/client/HomeViewController.java	(date 1654708754300)
+@@ -14,7 +14,8 @@
+ public class HomeViewController implements Initializable {
+ 
+     @FXML
+-    private CYFClientController client;
++    private CYFClientController client = new CYFClientController("localhost","4000");
++
+     @FXML
+     public ListView<String> grouplist;
+ 
+@@ -22,6 +23,9 @@
+     public javafx.scene.control.Button addgroupButton;
+     ObservableList<String> groups = FXCollections.observableArrayList("Koksy", "Gracze", "Malepieski");
+ 
++    public HomeViewController() throws Exception {
++    }
++
+     @Override
+     public void initialize(URL location, ResourceBundle resources) {
+         grouplist.setItems(groups);
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>groupId</groupId>\n    <artifactId>apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow</artifactId>\n    <version>1.0-SNAPSHOT</version>\n    <dependencies>\n        <dependency>\n            <groupId>com.google.code.gson</groupId>\n            <artifactId>gson</artifactId>\n            <version>2.9.0</version>\n        </dependency>\n        <dependency>\n            <groupId>junit</groupId>\n            <artifactId>junit</artifactId>\n            <version>4.13.1</version>\n            <scope>compile</scope>\n        </dependency>\n        <dependency>\n            <groupId>org.junit.jupiter</groupId>\n            <artifactId>junit-jupiter</artifactId>\n            <version>RELEASE</version>\n            <scope>compile</scope>\n        </dependency>\n    </dependencies>\n\n    <properties>\n        <maven.compiler.source>18</maven.compiler.source>\n        <maven.compiler.target>18</maven.compiler.target>\n    </properties>\n\n    <build>\n        <plugins>\n            <plugin>\n                <!-- Build an executable JAR -->\n                <groupId>org.apache.maven.plugins</groupId>\n                <artifactId>maven-jar-plugin</artifactId>\n                <version>3.1.0</version>\n                <configuration>\n                    <archive>\n                        <manifest>\n                            <addClasspath>true</addClasspath>\n                            <classpathPrefix>lib/</classpathPrefix>\n                            <mainClass>chillyourfunds.client.CYFApplication</mainClass>\n                        </manifest>\n                    </archive>\n                </configuration>\n            </plugin>\n        </plugins>\n    </build>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision f713030b476e0115be6041d6e540b4492abbe04a)
++++ b/pom.xml	(date 1654707230207)
+@@ -49,6 +49,14 @@
+                     </archive>
+                 </configuration>
+             </plugin>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>16</source>
++                    <target>16</target>
++                </configuration>
++            </plugin>
+         </plugins>
+     </build>
+ 

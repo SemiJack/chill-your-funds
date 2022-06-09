@@ -1,0 +1,120 @@
+Index: src/main/java/chillyourfunds/server/CYFData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.server;\n\nimport chillyourfunds.logic.Group;\nimport chillyourfunds.logic.Person;\n\n\nimport java.util.HashMap;\nimport java.util.Objects;\nimport java.util.Random;\n\n\npublic class CYFData {\n    private HashMap<Integer, Group> groupData; //struktura danych do przechowwywania wszystkich transakcji w historii? w pliku? w arrayliście? w linkedliście? w streamie? w bazie danych??\n\n    private HashMap<String,User> userData;\n\n\n    public CYFData() {\n        groupData = new HashMap<>();\n        userData = new HashMap<>();\n\n    }\n    public boolean addGroup(String groupName, User creator){\n        Integer id = new Random().nextInt();\n        if(groupData.containsKey(id)) {\n            id = new Random().nextInt();\n        }\n            groupData.put(id, new Group(groupName, id));\n//            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));\n            System.out.println(\"pl\");\n            return groupData.get(id)!=null;\n    }\n\n    public Group getGroup(Integer id){\n        return  groupData.get(id);\n    }\n\n    public boolean addUser(String username, String password, String firstname, String lastname){\n        int credentialsHash = Objects.hash(username,password);\n        if(!userData.containsKey(username)){\n            userData.put(username,new User(credentialsHash, username, firstname, lastname));\n            return true;\n        }else{\n            return false;\n        }\n    }\n\n    public User getUserByCredentials(String username, String password){\n        User temp = userData.get(username);\n        if(temp != null && temp.checkCredentials(Objects.hash(username,password))){\n            return temp;\n        }else return null;\n    }\n\n\n//\n//    public static void main(String[] args) {\n//        Group gr = new Group(\"dddsd\");\n//        HashMap<Integer, LinkedList<Expense>> database = new HashMap<>();\n//        Person payer = new Person(32323, \"sasas@gmail.com\",\"jacek\");\n//        Person payer2 = new Person(32523, \"sasas@gmyl.com\",\"kolega\");\n//        LinkedList<Expense> koo = new LinkedList<>();\n//        koo.add(new Expense(233,gr,payer2));\n//        database.put(12,koo);\n//\n//        database.get(12).add(new Expense(3453,gr,payer));\n//\n//        System.out.println();\n//\n//        System.out.println(database.get(12));\n//    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/server/CYFData.java b/src/main/java/chillyourfunds/server/CYFData.java
+--- a/src/main/java/chillyourfunds/server/CYFData.java	(revision fbc1562f4e1063bc232624d900271e4a369629a8)
++++ b/src/main/java/chillyourfunds/server/CYFData.java	(date 1654470859226)
+@@ -25,7 +25,7 @@
+         if(groupData.containsKey(id)) {
+             id = new Random().nextInt();
+         }
+-            groupData.put(id, new Group(groupName, id));
++//            groupData.put(id, new Group(groupName, id));
+ //            groupData.get(id).addPerson(new Person(creator.getUsername(), creator.getFirstName(), true));
+             System.out.println("pl");
+             return groupData.get(id)!=null;
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>groupId</groupId>\n    <artifactId>apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow</artifactId>\n    <version>1.0-SNAPSHOT</version>\n    <dependencies>\n        <dependency>\n            <groupId>com.google.code.gson</groupId>\n            <artifactId>gson</artifactId>\n            <version>2.9.0</version>\n        </dependency>\n        <dependency>\n            <groupId>junit</groupId>\n            <artifactId>junit</artifactId>\n            <version>4.13.1</version>\n            <scope>compile</scope>\n        </dependency>\n        <dependency>\n            <groupId>org.junit.jupiter</groupId>\n            <artifactId>junit-jupiter</artifactId>\n            <version>RELEASE</version>\n            <scope>compile</scope>\n        </dependency>\n    </dependencies>\n\n    <properties>\n        <maven.compiler.source>18</maven.compiler.source>\n        <maven.compiler.target>18</maven.compiler.target>\n    </properties>\n\n    <build>\n        <plugins>\n            <plugin>\n                <!-- Build an executable JAR -->\n                <groupId>org.apache.maven.plugins</groupId>\n                <artifactId>maven-jar-plugin</artifactId>\n                <version>3.1.0</version>\n                <configuration>\n                    <archive>\n                        <manifest>\n                            <addClasspath>true</addClasspath>\n                            <classpathPrefix>lib/</classpathPrefix>\n                            <mainClass>chillyourfunds.client.CYFApplication</mainClass>\n                        </manifest>\n                    </archive>\n                </configuration>\n            </plugin>\n        </plugins>\n    </build>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision fbc1562f4e1063bc232624d900271e4a369629a8)
++++ b/pom.xml	(date 1654470816535)
+@@ -49,6 +49,14 @@
+                     </archive>
+                 </configuration>
+             </plugin>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>16</source>
++                    <target>16</target>
++                </configuration>
++            </plugin>
+         </plugins>
+     </build>
+ 
+Index: src/main/java/chillyourfunds/logic/ExactExpense.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.logic;\n\nimport java.util.HashMap;\nimport java.util.Map;\nimport java.util.Scanner;\n\npublic class ExactExpense extends Expense{\n    public ExactExpense(int amount, Group group, Person payer) {\n        super(amount, group, payer);\n    }\n\n    private Map<Person, Integer> mapOfAmounts = new HashMap<Person,Integer>();\n    void exactSplit() throws WrongAmountException {\n        Scanner scanner = new Scanner(System.in);\n        int part = 0;\n        int counter = 0;\n\n        if(isPayerADebtor()){\n            for(int i = 0; i < debtors.size(); i++) {\n            part = (int)(scanner.nextDouble()*100);\n            mapOfAmounts.put(debtors.get(i), part);\n            counter += part;\n            }\n            if(counter == amount) {\n                for(int i = 0; i < debtors.size(); i++) {\n                    if(debtors.get(i) == payer) {\n                        debtors.get(i).subtractFromBalance(group,amount);\n                        debtors.get(i).addToBalance(group,part);\n                    } else {\n                        debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));\n                        if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null && debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){\n                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+part);\n                        }else{\n                            Map<Person,Integer> map = new HashMap<>();\n                            map.put(payer,part);\n                            debtors.get(i).getMapOfExpensesFromGroup().putIfAbsent(group,map);\n                        }\n\n                    }\n                }\n            } else {\n                throw new WrongAmountException(\"Zły przydział kwot\");\n            }\n\n        } else {\n\n            for (int i = 0; i < debtors.size(); i++) {\n                part = scanner.nextInt();\n                mapOfAmounts.put(debtors.get(i), part);\n                counter+=part;\n            }\n            if(counter == amount) {\n                payer.subtractFromBalance(group,amount);\n                for(int i = 0; i < debtors.size(); i++) {\n                    debtors.get(i).addToBalance(group,mapOfAmounts.get(debtors.get(i)));\n                    if(debtors.get(i).getMapOfExpensesFromGroup().get(group) != null) {\n                        if(debtors.get(i).getMapOfExpensesFromGroup().get(group).containsKey(payer)){\n                            debtors.get(i).getMapOfExpensesFromGroup().get(group).put(payer, debtors.get(i).getMapOfExpensesFromGroup().get(group).get(payer)+part);\n                        }else{\n                            debtors.get(i).getMapOfExpensesFromGroup().get(group).putIfAbsent(payer,part);\n                        }\n                    } else {\n                        Map<Person, Integer> map = new HashMap<>();\n                        map.put(payer,part);\n                        debtors.get(i).getMapOfExpensesFromGroup().put(group,map);\n                    }\n\n                }\n            } else {\n                throw new WrongAmountException(\"Zły podział kwot\");\n            }\n\n        }\n\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/logic/ExactExpense.java b/src/main/java/chillyourfunds/logic/ExactExpense.java
+--- a/src/main/java/chillyourfunds/logic/ExactExpense.java	(revision fbc1562f4e1063bc232624d900271e4a369629a8)
++++ b/src/main/java/chillyourfunds/logic/ExactExpense.java	(date 1654471620609)
+@@ -17,7 +17,7 @@
+ 
+         if(isPayerADebtor()){
+             for(int i = 0; i < debtors.size(); i++) {
+-            part = (int)(scanner.nextDouble()*100);
++            part = (int)(scanner.nextDouble() * 100);
+             mapOfAmounts.put(debtors.get(i), part);
+             counter += part;
+             }
+Index: src/main/java/chillyourfunds/logic/LogicTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package chillyourfunds.logic;\n\nimport java.sql.SQLOutput;\n\npublic class LogicTest {\n    public static void main(String[] args) throws WrongPercentException, WrongAmountException {\n        Person person1=new Person(1,\"Eryk\");\n        Person person2=new Person(2,\"Grzechu\");\n        Person person3=new Person(3,\"Krzychu\");\n        Person person4=new Person(4,\"Jacek\");\n        Person person5 = new Person(5,\"Sergio\");\n        Group group=new Group(\"szefy\",997);\n        Group group1 = new Group(\"essa\",2115);\n        group.addPerson(person1);\n        group.addPerson(person2);\n        group.addPerson(person3);\n        group.addPerson(person4);\n        group1.addPerson(person1);\n        group1.addPerson(person3);\n        group1.addPerson(person5);\n\n//        EqualExpense e1 = new EqualExpense(12, group, person1);\n//        EqualExpense e2 = new EqualExpense(12, group, person2);\n        EqualExpense e3 = new EqualExpense(574388, group, person2);\n        ExactExpense e4 = new ExactExpense(10000,group1,person5);\n//        PercentExpense e5 = new PercentExpense(100,group1,person5);\n//        e1.addDebtor(3);\n//        e1.createExpense(e1);\n//        System.out.println(\"------------------\");\n//        e2.addDebtor(1);\n//        e2.createExpense(e2);\n        e3.addDebtor(1);\n        e3.addDebtor(3);\n        e3.addDebtor(4);\n        e3.createExpense(e3);\n//        e1.equalSplit();\n//        e2.equalSplit();\n        e3.equalSplit();\n        e4.addDebtor(5);\n        e4.addDebtor(3);\n        e4.addDebtor(1);\n        e4.createExpense(e4);\n        try{\n            e4.exactSplit();\n        } catch (Exception e) {\n            System.out.println(\"Nastąpił problem: \" + e);\n            System.out.println(\"Spróbuj ponownie: \");\n            e4.exactSplit();\n        }\n//\n//        e5.addDebtor(1);\n//        e5.addDebtor(3);\n//        e5.createExpense(e5);\n//        try{\n//            e5.percentSplit();\n//        } catch (Exception e) {\n//            System.out.println(\"Nastąpił problem: \" + e);\n//            System.out.println(\"Spróbuj ponownie: \");\n//            e5.percentSplit();\n//        }\n\n//\n//\n//        ExactExpense e5 = new ExactExpense(100, group,person4);\n//        e5.addDebtor(2);\n//        e5.addDebtor(3);\n//        e5.exactSplit();\n//        e5.createExpense(e5);\n//\n//        PercentExpense e6 = new PercentExpense(200,group,person4);\n//        e6.addDebtor(1);\n//        e6.addDebtor(2);\n//        e6.addDebtor(3);\n//        e6.percentSplit();\n//        e6.createExpense(e6);\n//        System.out.println(\"Stan konta \"+person1.name+\" wynosi \"+person1.balance+\"$\");\n//        System.out.println(\"Stan konta \"+person2.name+\" wynosi \"+person2.balance+\"$\");\n//        System.out.println(\"Stan konta \"+person3.name+\" wynosi \"+person3.balance+\"$\");\n//        System.out.println(\"Stan konta \"+person4.name+\" wynosi \"+person4.balance+\"$\");\n//        System.out.println();\n//        System.out.println(person2.name+\" jest winien \"+person1.name+\" \"+person2.mapOfExpenses.get(person1)+\"$\");\n//        System.out.println(person2.name+\" jest winien \"+person4.name+\" \"+person2.mapOfExpenses.get(person4)+\"$\");\n////\n//        person1.showMyPayers();\n//        person2.showMyPayers();\n//        person3.showMyPayers();\n//        person4.showMyPayers();\n\n//       person4.payADebt(person1,25);\n//\n//        person4.showMyPayers();\n\n//        System.out.println(person4.balance);\n\n\n//        System.out.println(\"-----------------------------------------\");\n//        group.simplifyGroupExpenses();\n//        person4.showMyPayers();\n//        person1.showMyPayers();\n//        person2.showMyPayers();\n//        person3.showMyPayers();\n//        person4.payADebt(person3,75);\n//        person4.showMyPayers();\n//        person3.showMyPayers();\n//        System.out.println(person3.balance);\n\n\n        System.out.println(\"---------------------------\");\n//        System.out.println(person1.mapOfBalances);\n\n        person1.showMyPayers();\n        person2.showMyPayers();\n        person3.showMyPayers();\n        person4.showMyPayers();\n        person5.showMyPayers();\n\n        System.out.println();\n        System.out.println();\n        System.out.println();\n        System.out.println(\"---------------------------------\");\n        System.out.println();\n        System.out.println();\n        System.out.println();\n//        group1.simplifyGroupExpenses(group1);\n        System.out.println();\n        System.out.println();\n        System.out.println();\n        person1.showMyPayers();\n        person2.showMyPayers();\n        person3.showMyPayers();\n        person4.showMyPayers();\n        person5.showMyPayers();\n        System.out.println(person1.getBalance(group1));\n        System.out.println(person3.getBalance(group1));\n        //person3.payADebt(person2,group,12);\n        //person3.showMyPayers();\n        //person3.showMyBalances();\n        //person5.showMyBalances();\n        //person5.showMyPayers();\n\n\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/chillyourfunds/logic/LogicTest.java b/src/main/java/chillyourfunds/logic/LogicTest.java
+--- a/src/main/java/chillyourfunds/logic/LogicTest.java	(revision fbc1562f4e1063bc232624d900271e4a369629a8)
++++ b/src/main/java/chillyourfunds/logic/LogicTest.java	(date 1654471786736)
+@@ -21,8 +21,8 @@
+ 
+ //        EqualExpense e1 = new EqualExpense(12, group, person1);
+ //        EqualExpense e2 = new EqualExpense(12, group, person2);
+-        EqualExpense e3 = new EqualExpense(574388, group, person2);
+-        ExactExpense e4 = new ExactExpense(10000,group1,person5);
++        EqualExpense e3 = new EqualExpense(30, group, person2);
++        ExactExpense e4 = new ExactExpense(5000,group1,person5);
+ //        PercentExpense e5 = new PercentExpense(100,group1,person5);
+ //        e1.addDebtor(3);
+ //        e1.createExpense(e1);
+@@ -36,7 +36,6 @@
+ //        e1.equalSplit();
+ //        e2.equalSplit();
+         e3.equalSplit();
+-        e4.addDebtor(5);
+         e4.addDebtor(3);
+         e4.addDebtor(1);
+         e4.createExpense(e4);
+@@ -94,7 +93,6 @@
+ 
+ 
+ //        System.out.println("-----------------------------------------");
+-//        group.simplifyGroupExpenses();
+ //        person4.showMyPayers();
+ //        person1.showMyPayers();
+ //        person2.showMyPayers();
+@@ -121,7 +119,7 @@
+         System.out.println();
+         System.out.println();
+         System.out.println();
+-//        group1.simplifyGroupExpenses(group1);
++        //group.simplifyGroupExpenses(group);
+         System.out.println();
+         System.out.println();
+         System.out.println();
+@@ -130,8 +128,8 @@
+         person3.showMyPayers();
+         person4.showMyPayers();
+         person5.showMyPayers();
+-        System.out.println(person1.getBalance(group1));
+-        System.out.println(person3.getBalance(group1));
++        System.out.println(person1.getBalance(group));
++        //group1.simplifyGroupExpenses(group1);
+         //person3.payADebt(person2,group,12);
+         //person3.showMyPayers();
+         //person3.showMyBalances();
