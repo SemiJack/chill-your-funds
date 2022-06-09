@@ -27,6 +27,11 @@ public class HomeViewController implements Initializable {
     }
 
     @FXML
+    private void seeGroupListButtonClick(ActionEvent event) throws IOException {
+        sceneController.switchToGroupListView(event);
+    }
+
+    @FXML
     private void addgroupButtonClick(ActionEvent event) throws IOException {
         sceneController.switchToAddGroup(event);
     }

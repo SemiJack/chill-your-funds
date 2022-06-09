@@ -34,8 +34,6 @@ public void addGroup(ActionEvent event) {
                 System.out.println("Wpisz liczbę");
                 addGroup(event);
             }
-
-
     try {
         sceneController.switchToGroupView(event);
     } catch (IOException e) {

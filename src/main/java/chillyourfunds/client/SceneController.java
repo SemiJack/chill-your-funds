@@ -16,7 +16,7 @@ import javafx.stage.Stage;
         private Parent root;
 
         public void switchToMain(ActionEvent event) throws IOException {
-            root = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/HomeView.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -84,6 +84,12 @@ import javafx.stage.Stage;
             stage.show();
         }
 
-
+        public void switchToGroupListView(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/Grouplist.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }

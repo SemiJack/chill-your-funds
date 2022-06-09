@@ -28,6 +28,8 @@ public class GroupViewController {
     Button returnDebtButton=new Button();
     @FXML
     Button addPersonButton=new Button();
+    @FXML
+    Button returnButton=new Button();
 
 
     public void addExpense(ActionEvent e) throws IOException {
@@ -44,5 +46,7 @@ public class GroupViewController {
     }
     public void returnDebt(){
     }
-
+    public void returnToMain(ActionEvent e) throws IOException {
+        sceneController.switchToMain(e);
+    }
 }
