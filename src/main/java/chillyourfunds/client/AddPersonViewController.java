@@ -25,12 +25,12 @@ public class AddPersonViewController {
         name=personNameTextField.getText();
         try{
             id=Integer.parseInt(personIdTextField.getText());
-            Logic.groups.get(0).addPerson(new Person(id,name));
+            Logic.groups.get(Logic.groups.size()-1).addPerson(new Person(id,name));
             sceneController.switchToGroupView(event);
         }catch(Exception e){
             addPerson(event);
         }
-
-
+        System.out.println(Logic.lastGroup.getPeople().toString());
+        System.out.println(Logic.groups.get(0).getGroupName());
     }
 }

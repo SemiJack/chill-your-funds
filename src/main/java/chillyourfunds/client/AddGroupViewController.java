@@ -28,7 +28,8 @@ public void addGroup(ActionEvent event) {
         groupName = groupnametextfield.getText();
             try{
                 groupId = Integer.parseInt(groupidtextfield.getText());
-                Logic.groups.add(new Group(groupName,groupId));
+                Logic.lastGroup=new Group(groupName,groupId);
+                Logic.groups.add(Logic.lastGroup);
             }catch(Exception e){
                 System.out.println("Wpisz liczbę");
                 addGroup(event);

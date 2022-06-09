@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Początek grouplist" />
+    <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="fxml pliki">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddGroupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddGroupViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddPersonViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/AddPersonViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/CYFApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/CYFApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Logic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/AddGroupViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/AddGroupViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/AddPersonViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/AddPersonViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/CYFApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/CYFApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/GroupViewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Logic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/logic/Logic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -230,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654740150314</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fxml pliki">
+      <created>1654741042329</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1654741042329</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,7 +285,8 @@
     <MESSAGE value="Addpersony i takie tam" />
     <MESSAGE value="Addpgroup i addperson" />
     <MESSAGE value="Początek grouplist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Początek grouplist" />
+    <MESSAGE value="fxml pliki" />
+    <option name="LAST_COMMIT_MESSAGE" value="fxml pliki" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

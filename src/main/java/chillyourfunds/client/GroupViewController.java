@@ -1,5 +1,7 @@
 package chillyourfunds.client;
 
+import chillyourfunds.logic.Group;
+import chillyourfunds.logic.Logic;
 import chillyourfunds.logic.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,10 +36,9 @@ public class GroupViewController {
         sceneController.switchToAddPersonView(e);
     }
     public void simplify(){
-
+        Logic.groups.get(Logic.groups.size()-1).simplifyGroupExpenses(Logic.groups.get(Logic.groups.size()-1));
     }
     public void returnDebt(){
-
     }
 
 }

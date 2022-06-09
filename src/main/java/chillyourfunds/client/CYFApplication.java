@@ -17,7 +17,6 @@ public class CYFApplication extends javafx.application.Application {
 
 
     public Stage primaryStage=new Stage();
-    List<Group> groups=new ArrayList<>();
     @Override
     public void start(Stage primaryStage) throws Exception {
 
