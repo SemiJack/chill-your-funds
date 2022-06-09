@@ -35,7 +35,7 @@
                      <children>
                         <AnchorPane prefHeight="481.0" prefWidth="173.0">
                            <children>
-                              <Button fx:id="addExpenseButton" layoutX="23.0" layoutY="85.0" mnemonicParsing="false" onAction="#addExpenseView" prefHeight="42.0" prefWidth="116.0" text="Dodaj wydatek" />
+                              <Button fx:id="addExpenseButton" layoutX="23.0" layoutY="85.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="42.0" prefWidth="116.0" text="Dodaj wydatek" />
                               <Button fx:id="returnDebtButton" layoutX="28.0" layoutY="180.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="106.0" text="Zwróć dług" />
                               <Button fx:id="addPersonButton" layoutX="23.0" layoutY="373.0" mnemonicParsing="false" onAction="#addPerson" prefHeight="46.0" prefWidth="116.0" text="Dodaj osobę" />
                               <Text layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ChillYourFounds">

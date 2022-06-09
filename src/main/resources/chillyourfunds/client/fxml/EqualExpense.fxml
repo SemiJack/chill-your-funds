@@ -4,8 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chillyourfunds.client.fxml.EqualExpenseViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chillyourfunds.client.EqualExpenseViewController">
    <children>
       <TextField layoutX="380.0" layoutY="48.0" promptText="amount" />
       <TextField layoutX="380.0" layoutY="97.0" promptText="payer" />
