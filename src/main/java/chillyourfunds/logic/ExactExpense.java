@@ -3,7 +3,13 @@ package chillyourfunds.logic;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+/**
+ * Klasa realizuje podział kosztów w ramach danego wydatku według dokładnych kwot. Dziedziczy po klasie Expense.
+ * Jej parametrami są wartość poniesionego kosztu, grupa, wewnątrz której wydatek jest realizowany,
+ * a także osoba, która ponosi dany koszt. Klasa ta przypisuje każdemu uwzględnionemu członkowi
+ * grupy wartość kosztu, jaki powinien zwrócić osobie płacącej. Operuje ona na Hash Mapie,
+ * za pomocą której przypisywane są wartości podzielonych kwot do dłużników.
+ */
 public class ExactExpense extends Expense{
     public ExactExpense(int amount, Group group, Person payer) {
         super(amount, group, payer);

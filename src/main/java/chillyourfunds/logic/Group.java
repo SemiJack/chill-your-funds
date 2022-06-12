@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+/**
+ * Klasa Group jest reprezentacją grupy, wewnątrz której realizowane są wydatki.
+ * Parametrami grupy są nazwa grupy, identyfikator grupy, lista osób, które są członkami grupy
+ * i lista wydatków grupy, na podstawie których wyliczane są kwoty do zwrotu.
+ */
 
 public class Group implements Serializable{
 
@@ -36,6 +41,10 @@ public class Group implements Serializable{
         this.groupName = groupName;
         this.groupId = groupId;
     }
+    /**
+     * Metoda addPerson dodaje osobę do danej grupy
+     * @param person obiekt osoby, która jest dodawana do grupy
+     */
 
     public void addPerson(Person person) {
         if(!people.contains(person)){
@@ -43,6 +52,11 @@ public class Group implements Serializable{
             person.addGroupIdToParticipate(groupId);
         }
     }
+    /**
+     * Metoda removePerson usuwa osobę z grupy w wypadku gdy jej bilans wyjdzie na 0.
+     * @param person obiekt osoby, która jest usuwana
+     * @return zwraca wartość boolean dla stanu czy osoba zastaje usunięta, czy nie
+     */
 
     public boolean removePerson(Person person) {
         if(person.getBalance(this)== 0){
@@ -51,6 +65,11 @@ public class Group implements Serializable{
             return true;
         }else return false;
     }
+    /**
+     * Metoda getPersonById pozwala wyszukać osobę po numerze id.
+     * @param id identyfikator przypisany osobie
+     * @return zwraca obiekt osoby, której id zostało wprowadzone
+     */
 
     public Person getPersonById(int id) {
         Person p = null;
@@ -61,6 +80,11 @@ public class Group implements Serializable{
         }
         return p;
     }
+    /**
+     * Metoda getPersonById pozwala wyszukać osobę po numerze id.
+     * @param name imię osoby
+     * @return zwraca obiekt osoby, której id zostało wprowadzone
+     */
 
     public  Person getPersonByName(String name) {
         Person p = null;
@@ -71,6 +95,13 @@ public class Group implements Serializable{
         }
         return p;
     }
+    /**
+     * Metoda simplifyGroupExpenses inicjuje operację, która upraszcza proces zwrotu pieniędzy.
+     * Operuje ona(metoda Findpath) na balanach osob, za kazdym razem zestawiajac ze sb osobe ktora najbardziej
+     * ujemny balans z osoba o najwiekszym balansem, w ten sposob czesc oodb ze srednim balansem moze
+     * byc pominieta, co znaczaco upraszcza oddawanie pieniedzy
+     * @param group obiekt grupy, w której upraszczamy zwroty
+     */
 
     public String simplifyGroupExpenses(Group group) {
         for(int i = 0; i < people.size(); i++) {
@@ -80,6 +111,11 @@ public class Group implements Serializable{
         }
         return findPath(groupToSimplify(group),group);
     }
+    /**
+     * Metoda groupToSimplify bierze grupę, której zwroty ma uprościć i zwraca mapę wydatków tej grupy.
+     * @param group obiekt grupy, której wydatki mamy uprościć
+     * @return mapa balansow czlonkow grupy
+     */
 
     private Map groupToSimplify(Group group) {
         Map<String,Double> mapOfBalancesInGroup = new HashMap<>();
@@ -125,8 +161,14 @@ public class Group implements Serializable{
             return essa;
         }
 
-
-        public static Object getKeyFromValue(Map hm, Double value) {
+    /**
+     * Metoda getKeyFromValue na podstawie hash mapy i otrzymanej wartości
+     * zwraca obiekt klucza dla szukanej wartości.
+     * @param hm mapa wydatków
+     * @param value szukana wartość
+     * @return obiekt klucza
+     */
+    public static Object getKeyFromValue(Map hm, Double value) {
             for (Object o : hm.keySet()) {
                 if (hm.get(o).equals(value)) {
                     return o;
@@ -134,8 +176,15 @@ public class Group implements Serializable{
             }
             return null;
         }
+    /**
+     * Metoda round zaokrągla podaną wartość
+     * @param value podana wartość
+     * @param places miejsce, do którego zaokrąglana jest funkcja
+     * @return
+     */
 
-        public static double round(double value, int places) {
+
+    public static double round(double value, int places) {
             if (places < 0)
                 throw new IllegalArgumentException();
 
