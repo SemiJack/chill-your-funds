@@ -67,6 +67,24 @@
       ],
       "expenses": []
     },
+    "-956341019": {
+      "groupName": "testowaGrupa",
+      "groupId": -956341019,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            1411849192,
+            -956341019
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
+    },
     "1815255166": {
       "groupName": "testowaGrupa",
       "groupId": 1815255166,
@@ -104,6 +122,35 @@
         }
       ],
       "expenses": []
+    },
+    "1411849192": {
+      "groupName": "testowaGrupa",
+      "groupId": 1411849192,
+      "people": [
+        {
+          "id": 92668782,
+          "name": "admin",
+          "isAdmin": false,
+          "participateGroupsId": [
+            1411849192,
+            -956341019
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        },
+        {
+          "id": 3254270,
+          "name": "jack",
+          "isAdmin": false,
+          "participateGroupsId": [
+            -522451674,
+            1411849192
+          ],
+          "mapOfExpensesFromGroup": {},
+          "mapOfBalances": {}
+        }
+      ],
+      "expenses": []
     }
   },
   "userData": {
@@ -132,7 +179,10 @@
         "id": 92668782,
         "name": "admin",
         "isAdmin": false,
-        "participateGroupsId": [],
+        "participateGroupsId": [
+          1411849192,
+          -956341019
+        ],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}
       }
@@ -148,7 +198,8 @@
         "name": "jack",
         "isAdmin": false,
         "participateGroupsId": [
-          -522451674
+          -522451674,
+          1411849192
         ],
         "mapOfExpensesFromGroup": {},
         "mapOfBalances": {}

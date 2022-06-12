@@ -21,32 +21,43 @@ public class CYFService implements Runnable {
     private ObjectInputStream objectIn;
 
     /**
-     * Konstruktor klasy CYFService
-     * @param clientSocket
-     * @param server
+     * Konstruktor klasy CYFService.
+     * @param clientSocket Obiekt klasy Socket, który obsługuje połączenie z użykownikiem.
+     * @param server Okiekt klasy CYFServer, który odpowiada za działanie servera.
      */
     public CYFService(Socket clientSocket, CYFServer server) {
         this.server = server;
         this.clientSocket = clientSocket;
     }
 
+    /**
+     * Inicjalizacja obiektów odpowiedzialnych za przesyłanie pomiędzy użytkownikiem a serwerem.
+     * @throws IOException
+     */
     void init() throws IOException {
         objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
         objectIn = new ObjectInputStream(clientSocket.getInputStream());
     }
 
+    /**
+     * Zamknięcie kanałów przesyłu danych.
+     */
     void close() {
         try {
             objectIn.close();
             objectOut.close();
             clientSocket.close();
         } catch (IOException e) {
-            System.err.println("Error closing client (" + id + "), " + e);
+            System.err.println("Blad podczas zamykania polaczenia z kilentem (" + id + "), " + e);
         } finally {
             clientSocket = null;
         }
     }
 
+    /**
+     * Ta metoda wykonuje główne zadanie klasy CYFService, mianowicie odbiera od uzytkownika żądania i realizuje odpowiednie działania niezbędne do działania
+     * usługi Chillyourfunds - dzielenia wspólnych wydatków.
+     */
     public void run() {
         while (true) {
             Messenger message = receive();
@@ -56,11 +67,9 @@ public class CYFService implements Runnable {
                     String[] credentials = (String[]) message.data;
                     _userAccount = server._database.getUserByCredentials(credentials[0], credentials[1]);
                     if (_userAccount == null) {
-                        //send(CYFProtocol.COMMENT, "Wrong login or password!");
                         send(CYFProtocol.LOGINDENY);
                     } else {
                         send(CYFProtocol.LOGGEDIN, _userAccount.memberOfGroups);
-                        //sendSnapshot();
                     }
                     break;
                 case REGISTER:
@@ -68,7 +77,7 @@ public class CYFService implements Runnable {
                     if (server._database.addUser(newcredentials[0], newcredentials[1], newcredentials[2], newcredentials[3])) {
                         send(CYFProtocol.REGISTERED);
                     } else {
-                        send(CYFProtocol.COMMENT, "User with this username already exists. Choose other username.");
+                        send(CYFProtocol.COMMENT, "Uzytkownik o podanej nazwie juz istnieje. Wybierz inna nazwe.");
                     }
                     break;
                 case CREATEGROUP:
@@ -77,7 +86,7 @@ public class CYFService implements Runnable {
                         System.out.println(_currGroup.getPeople());
                         send(CYFProtocol.GROUPCREATED, _currGroup);
                     } else {
-                        send(CYFProtocol.COMMENT, "Error while creating group!");
+                        send(CYFProtocol.COMMENT, "Wystapil blad podczas tworzenia grupy!");
                     }
                     break;
                 case CHOOSEGROUP:
@@ -85,19 +94,22 @@ public class CYFService implements Runnable {
                     if (_currGroup != null) {
                         send(CYFProtocol.GROUPCHOOSED, _currGroup);
                     } else {
-                        send(CYFProtocol.COMMENT, "This group doesn't exist!");
+                        send(CYFProtocol.COMMENT, "Grupa o takiej nazwie nie istnieje!");
                     }
-                    //sendSnapshot();
                     break;
-                case ADDEXPENSE:     // TODO
+                case ADDEXPENSE:
                     Object[] params = (Object[]) message.data;
                     String[] debtors = (String[]) params[2];
-                    Expense newExpense = new EqualExpense((int) params[1], _currGroup, _userAccount.memberOfGroups);
-                    for (String debtorUsername : debtors) {
-                        newExpense.addDebtor(server._database.getPersonByUsername(debtorUsername).getId());
-                    }
+                    Expense newExpense;
+//                    for (String debtorUsername : debtors) {
+//                        newExpense.addDebtor(server._database.getPersonByUsername(debtorUsername).getId());
+//                    }
                     if (params[0].equals(CYFProtocol.EQUALSPLIT)) {
-
+                        newExpense =  new EqualExpense((int) params[1], _currGroup, _userAccount.memberOfGroups);
+                        for(String debtor: debtors){
+                            newExpense.addDebtor(server._database.getPersonByUsername(debtor).getId());
+                        }
+                        newExpense.createExpense(newExpense);
                     } else if (params[0].equals(CYFProtocol.PERCENTSPLIT)) {
 
                     } else if (params[0].equals(CYFProtocol.EXACTSPLIT)) {
@@ -106,25 +118,17 @@ public class CYFService implements Runnable {
                         //send(CYFProtocol.COMMENT, "Bad type of expense!");
                     }
                     //send(CYFProtocol.COMMENT, "Created expense");
-                    //sendSnapshot();
                     break;
                 case ADDPERSON:
                     String usernameToAdd = (String) message.data;
-                    System.out.println("Adding Username: " + usernameToAdd);
                     Person personToAdd = server._database.getPersonByUsername(usernameToAdd);
                     if (personToAdd != null) {
-                        System.out.println("People In Group Before: " + _currGroup.getPeople());
-                        System.out.println("Username/Person Exists, Adding Person To Current Group");
                         _currGroup.addPerson(personToAdd);
-                        System.out.println("Added Person To Group");
-                        System.out.println("People In Group After: " + _currGroup.getPeople());
                         Group newGroup = _currGroup;
                         send(CYFProtocol.PERSONADDED, newGroup);
                     } else {
-                        System.out.println("Username/Person Does Not Exist");
-                        send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
+                        send(CYFProtocol.COMMENT, "Uzytkownik o podanej nazwie nie istnieje!");
                     }
-                    //sendSnapshot();
                     break;
                 case PERSON:
                     send(CYFProtocol.PERSON, _userAccount.memberOfGroups);
@@ -135,9 +139,8 @@ public class CYFService implements Runnable {
                     if (personToRemove != null && _currGroup.removePerson(personToRemove)) {
                         send(CYFProtocol.PERSONREMOVED);
                     } else {
-                        send(CYFProtocol.COMMENT, "User with this username doesn't exist!");
+                        send(CYFProtocol.COMMENT, "Uzytkownik o podanej nazwie nie istnieje!");
                     }
-                    //sendSnapshot();
                     break;
                 case SIMPlify:
                     break;
@@ -149,13 +152,13 @@ public class CYFService implements Runnable {
                     }
                     break;
                 case LOGOUT:
-                    send(CYFProtocol.LOGGEDOUT); // no break!
+                    send(CYFProtocol.LOGGEDOUT);
                 case STOPPED:
-                    server.removeClientService(this); // no break!
+                    server.removeClientService(this);
                 case NULLCOMMAND:
                     return;
                 default:
-                    System.out.println("Error");
+                    System.out.println("Blad");
             }
             try {
                 refreshConnection();
@@ -165,20 +168,8 @@ public class CYFService implements Runnable {
         }
     }
 
-    void sendSnapshot() {
-        if (_userAccount != null) {
-            send(CYFProtocol.SNAPSHOT, new Object[]{_currGroup, _userAccount.memberOfGroups});
-        } else {
-            System.out.println("sdas");
-        }
-    }
-
     void refreshConnection() throws IOException {
         objectOut.reset();
-        //objectOut = null;
-        //objectIn = null;
-        //objectOut = new ObjectOutputStream(clientSocket.getOutputStream());
-        //objectIn = new ObjectInputStream(clientSocket.getInputStream());
     }
 
 
@@ -188,10 +179,9 @@ public class CYFService implements Runnable {
                 objectOut.writeUnshared(new Messenger(command, data));
                 objectOut.flush();
             }
-            //objectOut.writeObject(new Messenger(command, data));
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Cannot send data to client!");
+            System.err.println("Nie mozna wyslac danych do klienta!");
         }
     }
 
@@ -203,7 +193,7 @@ public class CYFService implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Cannot send data to client!");
+            System.err.println("Nie mozna wyslac danych do klienta!");
         }
     }
 
@@ -211,7 +201,7 @@ public class CYFService implements Runnable {
         try {
             return (Messenger) objectIn.readUnshared();
         } catch (IOException | ClassNotFoundException ioe) {
-            System.err.println("Error reading client (" + id + "), " + ioe);
+            System.err.println("Blad podczas odbierania danych od klienta (" + id + "), " + ioe);
             return new Messenger(CYFProtocol.NULLCOMMAND);
         }
     }

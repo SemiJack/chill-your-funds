@@ -40,10 +40,10 @@ public class CYFServer extends Frame implements Runnable {
         try {
             _serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            System.err.println("Error starting IBServer.");
+            System.err.println("Blad podczas uruchamiania CYFServer.");
             return;
         }
-        Button b = new Button("stop and exit");
+        Button b = new Button("zatrzymaj i wyjdź");
         b.addActionListener((actionEvent) -> {
             _isRunning = false;
             try {
@@ -65,7 +65,7 @@ public class CYFServer extends Frame implements Runnable {
                 createAndStartClientService(clientSocket);
             } catch (IOException e) {
                 if(_isRunning){
-                    System.err.println("Error accepting connection. Client will not be served...");
+                    System.err.println("Wystapil blad podczas akceptowania polaczenia. Klient nie moze byc obsluzony...");
                 }
                 _isRunning = false;
             }
@@ -93,7 +93,7 @@ public class CYFServer extends Frame implements Runnable {
         Gson gson = gbuilder.create();
         try (FileWriter pw = new FileWriter(filepath)) {
             gson.toJson(_database, pw);
-            System.out.println("Database saved");
+            System.out.println("Baza danych zapisana");
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -110,7 +110,7 @@ public class CYFServer extends Frame implements Runnable {
             return gson.fromJson(fr, new CYFData() {
             }.getClass().getGenericSuperclass());
         } catch (FileNotFoundException e) {
-            System.out.println("Database file doesnt exist. Create new one ");
+            System.out.println("Plik z baza danych nie istnieje. Utworzono nowy...");
             return new CYFData();
         }
 
@@ -126,7 +126,7 @@ public class CYFServer extends Frame implements Runnable {
         clientService.init();
         new Thread(clientService).start();
         _clients.add(clientService);
-        System.out.println("Client added. Number of clients: " + _clients.size());
+        System.out.println("Klient dodany. Aktualna ilosc klientow: " + _clients.size());
     }
 
     /**
@@ -136,7 +136,7 @@ public class CYFServer extends Frame implements Runnable {
     synchronized void removeClientService(CYFService clientService) {
         _clients.remove(clientService);
         clientService.close();
-        System.out.println("Client removed. Number of clients: " + _clients.size());
+        System.out.println("Klient usuniety. Pozostalo : " + _clients.size());
     }
 
     /**

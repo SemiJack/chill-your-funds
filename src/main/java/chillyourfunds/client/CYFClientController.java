@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
- * author: Jacek Pelczar
+ * @author Jacek Pelczar
  */
 public class CYFClientController implements Runnable {
     private final Socket _socket;
@@ -19,8 +19,6 @@ public class CYFClientController implements Runnable {
     public Group _currGroup;
     private  ObjectInputStream _objectIn;
     private  ObjectOutputStream _objectOut;
-
-
 
     public CYFClientController(String host, String port) throws Exception {
         try {
@@ -51,16 +49,16 @@ public class CYFClientController implements Runnable {
     @Override
     public void run() {
         while (true) {
-//            try {
-////                if (!handleCommand()) {
-////                    _objectOut.close();
-////                    _objectIn.close();
-////                    _socket.close();
-////                    break;
-////                }
-//
-//            } catch (IOException | ClassNotFoundException ignore) {
-//            }
+            try {
+                if (!handleCommand()) {
+                    _objectOut.close();
+                    _objectIn.close();
+                    _socket.close();
+                    break;
+                }
+
+            } catch (IOException | ClassNotFoundException ignore) {
+            }
         }
     }
 
@@ -155,10 +153,6 @@ public class CYFClientController implements Runnable {
 
     void refreshConnection() throws IOException {
         _objectOut.reset();
-        //_objectOut = null;
-        //_objectIn = null;
-        //_objectOut = new ObjectOutputStream(_socket.getOutputStream());
-        //_objectIn = new ObjectInputStream(_socket.getInputStream());
     }
 
 
@@ -184,11 +178,6 @@ public class CYFClientController implements Runnable {
                 _objectOut.flush();
                 handleCommand();
             }
-//            if (_objectOut != null) {
-//                _objectOut.writeObject(new Messenger(CYFProtocol.UPDATE));
-//                _objectOut.flush();
-//                handleCommand();
-//            }
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Cannot send data to server!");
