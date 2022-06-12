@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6190278a-34fb-4dbd-950a-f1341e3fa8f8" name="Changes" comment="Wszystkie operacje działają v2!">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_06_2022,_21_05_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_06_2022__21_05__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_2022,_12_20_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_2022,_13_04_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_2022__12_20__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_06_2022__13_04__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_2022,_20_53_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_2022__20_53__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/GroupListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/client/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/payADebtView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chillyourfunds/client/fxml/payADebtView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/chillyourfunds/client/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/chillyourfunds/client/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/GroupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/GroupTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/chillyourfunds/logic/Person.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +54,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2A581upa3pwDqvec8x1vMViCOOp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -54,6 +71,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -73,7 +91,7 @@
       <recent name="chillyourfunds.logic" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CYFApplication">
+  <component name="RunManager" selected="JUnit.GroupTest">
     <configuration name="AppOld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.AppOld" />
       <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
@@ -92,20 +110,6 @@
       <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.CYFApplication" />
       <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
       <option name="VM_PARAMETERS" value="--module-path=&quot;/Library/Java/Extensions/javafx-sdk-18.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="chillyourfunds.client.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CYFApplication2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chillyourfunds.client.CYFApplication2" />
-      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
-      <option name="VM_PARAMETERS" value="--module-path=&quot;/Library/Java/Extensions/javafx-sdk-18.0.1/lib&quot; --add-modules=javafx.controls,javafx.fxml " />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="chillyourfunds.client.*" />
@@ -142,20 +146,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GroupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apro2_22l_pro_cz_rozliczenie_wspolnych_wydatkow" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chillyourfunds.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="chillyourfunds.logic" />
+      <option name="MAIN_CLASS_NAME" value="chillyourfunds.logic.GroupTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.AppOld" />
       <item itemvalue="Application.CYFServer" />
       <item itemvalue="Application.CYFApplication" />
-      <item itemvalue="Application.CYFApplication2" />
       <item itemvalue="Application.LogicTest" />
+      <item itemvalue="JUnit.GroupTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GroupTest" />
         <item itemvalue="Application.CYFApplication" />
         <item itemvalue="Application.LogicTest" />
         <item itemvalue="Application.CYFServer" />
         <item itemvalue="Application.AppOld" />
-        <item itemvalue="Application.CYFApplication2" />
       </list>
     </recent_temporary>
   </component>
@@ -293,7 +312,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Naprawa logica zeby dzialal" />

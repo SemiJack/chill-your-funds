@@ -12,7 +12,7 @@ public class Person implements Serializable {
 
     private boolean isAdmin; // TODO trzeba to przerobić, żeby admin odnosił się do jednej gruopy a nie to wszystkich
 
-    ArrayList<Integer> participateGroupsId = new ArrayList<>(); // groups' id in which person participates
+//    ArrayList<Integer> participateGroupsId = new ArrayList<>(); // groups' id in which person participates
     private Map<Group,Map<Person,Integer>> mapOfExpensesFromGroup = new HashMap<>();
     private Map<Group,Integer> mapOfBalances = new HashMap<>();
 
@@ -25,17 +25,17 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public void addGroupIdToParticipate(int id) {
-        participateGroupsId.add(id);
-    }
+//    public void addGroupIdToParticipate(int id) {
+//        participateGroupsId.add(id);
+//    }
 
-    public void removeGroupIdToParticipate(int id) {
-        participateGroupsId.remove(id);
-    }
+//    public void removeGroupIdToParticipate(int id) {
+//        participateGroupsId.remove(id);
+//    }
 
-    public ArrayList<Integer> getParticipateGroupsId() {
-        return participateGroupsId;
-    }
+//    public ArrayList<Integer> getParticipateGroupsId() {
+//        return participateGroupsId;
+//    }
 
 
     public Map<Group, Map<Person, Integer>> getMapOfExpensesFromGroup() {

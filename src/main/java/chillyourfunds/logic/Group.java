@@ -40,14 +40,12 @@ public class Group implements Serializable{
     public void addPerson(Person person) {
         if(!people.contains(person)){
             people.add(person);
-            person.addGroupIdToParticipate(groupId);
         }
     }
 
     public boolean removePerson(Person person) {
         if(person.getBalance(this)== 0){
             people.remove(person);
-            person.removeGroupIdToParticipate(groupId);
             return true;
         }else return false;
     }
