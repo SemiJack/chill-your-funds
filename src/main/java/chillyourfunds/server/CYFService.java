@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * author: Jacek Pelczar
+ * @author Jacek Pelczar
  */
 public class CYFService implements Runnable {
 
@@ -20,7 +20,11 @@ public class CYFService implements Runnable {
     private ObjectOutputStream objectOut;
     private ObjectInputStream objectIn;
 
-
+    /**
+     * Konstruktor klasy CYFService
+     * @param clientSocket
+     * @param server
+     */
     public CYFService(Socket clientSocket, CYFServer server) {
         this.server = server;
         this.clientSocket = clientSocket;
@@ -195,23 +199,11 @@ public class CYFService implements Runnable {
         try {
             if (objectOut != null) {
                 objectOut.writeUnshared(new Messenger(command));
-                //objectOut.writeObject(new Messenger(command));
                 objectOut.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Cannot send data to client!");
-        }
-    }
-
-    void broadcast(CYFProtocol command) {
-        try {
-            if (objectOut != null) {
-                objectOut.writeUnshared(new Messenger(command));
-                //objectOut.writeObject(new Messenger(command));
-                objectOut.flush();
-            }
-        } catch (IOException ignored) {
         }
     }
 

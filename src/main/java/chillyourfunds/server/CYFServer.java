@@ -12,18 +12,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Ta klasa realizuje zadanie servera. Jest odpowiedzialna za akceptację nawiązania połączenia z użytkownikami i utrzymywanie go.
+ * Może obsługiwać wiele użytkowników na raz.
+ */
 public class CYFServer extends Frame implements Runnable {
     private ServerSocket _serverSocket;
 
     protected CYFData _database;
 
-    private  final List<CYFService> _clients = Collections.synchronizedList(new ArrayList<CYFService>());
+    private  final List<CYFService> _clients = Collections.synchronizedList(new ArrayList<>());
 
     private final Properties _props;
 
 
     private boolean _isRunning = true;
 
+    /**
+     * Konstruktor klasy CYFServer.
+     * @param p Obiekt klasy properties z konfiguracją servera.
+     * @param title String będący nazwą wyświetlanego okna aplikacji serwera.
+     */
     public CYFServer(Properties p, String title) {
         super(title);
         _props = p;
@@ -72,14 +81,17 @@ public class CYFServer extends Frame implements Runnable {
         System.exit(0);
     }
 
-
-    public void saveDatabase(String filename) {
+    /**
+     * Metoda zapisująca stan obiektu klasy CYFDatabase, czyli "bazy danych" w której zapisywane są dane niezbędne do działania serwera.
+     * @param filepath Ścieżka do pliku ".json", w którym ma znaleźć się zapisany stan "bazy danych".
+     */
+    public void saveDatabase(String filepath) {
 
         GsonBuilder gbuilder = new GsonBuilder();
         gbuilder.setPrettyPrinting();
-        gbuilder.disableHtmlEscaping(); // for disable auto replacing special characters
+        gbuilder.disableHtmlEscaping(); // wyłączenie automatycznej zamiany znaków specjalnych
         Gson gson = gbuilder.create();
-        try (FileWriter pw = new FileWriter(filename)) {
+        try (FileWriter pw = new FileWriter(filepath)) {
             gson.toJson(_database, pw);
             System.out.println("Database saved");
         } catch (IOException ioe) {
@@ -87,6 +99,10 @@ public class CYFServer extends Frame implements Runnable {
         }
     }
 
+    /**
+     * Metoda wczytuje stan obiektu klasy CYFDatabase, czyli "bazy danych" w której zapisywane są dane niezbędne do działania serwera.
+     * @param filepath Ścieżka do pliku ".json", w którym znajduje się zapisany stan "bazy danych".
+     */
     public CYFData loadDatabase(String filepath) {
         try {
             Gson gson = new Gson();
@@ -100,6 +116,11 @@ public class CYFServer extends Frame implements Runnable {
 
     }
 
+    /**
+     * Ta metoda tworzy obiekt klasy CYFService, który obsługuje żądania jednego użytkownika.
+     * @param clientSocket Obiekt klasy Socket, który ma połączenie z użytkownikiem.
+     * @throws IOException
+     */
     synchronized void createAndStartClientService(Socket clientSocket) throws IOException {
         CYFService clientService = new CYFService(clientSocket, this);
         clientService.init();
@@ -108,41 +129,30 @@ public class CYFServer extends Frame implements Runnable {
         System.out.println("Client added. Number of clients: " + _clients.size());
     }
 
+    /**
+     * Ta metoda zamyka połączenie z użytkownikiem.
+     * @param clientService Obiekt klasy Socket, który ma połączenie z użytkownikiem.
+     */
     synchronized void removeClientService(CYFService clientService) {
         _clients.remove(clientService);
         clientService.close();
         System.out.println("Client removed. Number of clients: " + _clients.size());
     }
 
+    /**
+     * Wysyła do wszystkich połączonych użytkowników odpowiednią wiadomość.
+     * @param proto Wiadomość zgodna z protokołem CYFProtocol, która ma zostać wysłana.
+     */
     synchronized void send(CYFProtocol proto) {
         for (CYFService s : _clients) { // roześlij do wszystkich klientów
-            s.broadcast(proto);
+            s.send(proto);
         }
     }
-
-
-//    synchronized void send(String msg, CYFService skip) {
-//        for (CYFService s : clients) { // roześlij do wszystkich klientów
-//            if (s != skip) { // oprócz jednego, którego trzeba pominąć...
-//                s.send(msg);
-//            }
-//        }
-//    }
-
 
     private int $lastID = -1;
 
     synchronized int nextID() {
         return ++$lastID;
-    }
-
-
-    int boardWidth() {
-        return Integer.parseInt(_props.getProperty("width"));
-    }
-
-    int boardHeight() {
-        return Integer.parseInt(_props.getProperty("height"));
     }
 
     public static void main(String[] args) {
@@ -159,7 +169,7 @@ public class CYFServer extends Frame implements Runnable {
             props.store(new FileOutputStream(pName), null);
         } catch (Exception ignore) {
         }
-        CYFServer server = new CYFServer(props, "Internet Board Server");
+        CYFServer server = new CYFServer(props, "Server");
         server.run();
         server.cleanup();
     }
