@@ -1,5 +1,9 @@
 package chillyourfunds.server;
 
+/**
+ * Protokół używany w celu komunikacji serwer-klient\
+ * @author Jacek Pelczar
+ */
 public enum CYFProtocol {
 
     LOGIN,
@@ -8,6 +12,7 @@ public enum CYFProtocol {
     GROUPCREATED,
     CHOOSEGROUP,
     GROUPCHOOSED,
+    EXPENSEADDED,
     ADDEXPENSE,
     ADDPERSON,
     REMOVEPERSON,

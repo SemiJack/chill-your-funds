@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
+ * Klasa odpowiedzialna za komunikację z serwerem.
  * @author Jacek Pelczar
  */
 public class CYFClientController implements Runnable {
@@ -24,20 +25,20 @@ public class CYFClientController implements Runnable {
         try {
             _socket = new Socket(host, Integer.parseInt(port));
         } catch (UnknownHostException e) {
-            JOptionPane.showMessageDialog(null, "Unknown host.");
-            throw new Exception("Unknown host.");
+            JOptionPane.showMessageDialog(null, "Nieznany host.");
+            throw new Exception("Nieznany host.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "IO exception while connecting to the server.");
-            throw new Exception("IO exception while connecting to the server.");
+            JOptionPane.showMessageDialog(null, "IO exception podczas łącznia z serwerem.");
+            throw new Exception("IO exception podczas łącznia z serwerem.");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Port value must be a number.");
-            throw new Exception("Port value must be a number.");
+            JOptionPane.showMessageDialog(null, "Wartosc portu musi byc numerem!");
+            throw new Exception("Wartosc portu musi byc numerem!");
         }
         try {
             _objectOut = new ObjectOutputStream(_socket.getOutputStream());
             _objectIn = new ObjectInputStream(_socket.getInputStream());
         } catch (IOException ex) {
-            throw new Exception("Can't get input/output connection stream.");
+            throw new Exception("Nie mozna uzyskac strumienia wejscia/wyjscia ");
         }
         new Thread(this).start();
     }
@@ -49,16 +50,6 @@ public class CYFClientController implements Runnable {
     @Override
     public void run() {
         while (true) {
-            try {
-                if (!handleCommand()) {
-                    _objectOut.close();
-                    _objectIn.close();
-                    _socket.close();
-                    break;
-                }
-
-            } catch (IOException | ClassNotFoundException ignore) {
-            }
         }
     }
 
@@ -70,38 +61,42 @@ public class CYFClientController implements Runnable {
         switch (command) {
             case LOGGEDIN:
                 _me = (Person) message.data;
-                System.out.println("Log in successful");
+                System.out.println("Logowanie pomyslne");
                 break;
             case REGISTERED:
-                System.out.println("Register successful");
+                System.out.println("Rejestracja pomyslna");
                 break;
             case GROUPCHOOSED:
                 _currGroup = (Group) message.data;
-                System.out.println("Chosen group: " + _currGroup.getGroupName());
+                System.out.println("Wybrana grupa: " + _currGroup.getGroupName());
                 break;
             case GROUPCREATED:
                 _currGroup = (Group) message.data;
-                System.out.println("Created new group");
+                System.out.println("Stworzono nowa grupe");
                 break;
             case PERSONADDED:
                 _currGroup = (Group) message.data;
-                System.out.println("Added new person to group");
+                System.out.println("Dodano nowa osobe do grupy");
                 break;
+            case EXPENSEADDED:
+                Object[] dataarr = (Object[]) message.data;
+                _currGroup = (Group) dataarr[0];
+                _me = (Person) dataarr[1];
+                System.out.println("Dodano nowy wydatek");
             case PERSON:
                 _me = (Person) message.data;
-                System.out.println("Updated person");
+                System.out.println("Zaktualizowano uzytkownika");
                 break;
             case COMMENT:
                 System.out.println((String) message.data);
                 break;
             case SNAPSHOT:
                 System.out.println(message.data);
-                Object[] dataarr = (Object[]) message.data;
-
-                _currGroup = (Group) dataarr[0];
+                Object[] dataarr2 = (Object[]) message.data;
+                _currGroup = (Group) dataarr2[0];
                 System.out.println(_currGroup);
-                _me = (Person) dataarr[1];
-                System.out.println("Up to date");
+                _me = (Person) dataarr2[1];
+                System.out.println("Synchronizacja zakonczona");
                 break;
             case STOP:
                 send(CYFProtocol.STOPPED);
@@ -118,21 +113,17 @@ public class CYFClientController implements Runnable {
 
     void login(String username, String password) {
         send(CYFProtocol.LOGIN, new String[]{username, password});
-        System.out.println("send login req");
     }
 
     void register(String login, String password, String firstname, String lastname) {
         send(CYFProtocol.REGISTER, new String[]{login, password, firstname, lastname});
-        System.out.println("send register req");
     }
 
     void createGroup(String groupName) {
         send(CYFProtocol.CREATEGROUP, groupName);
-        System.out.println("send create group req");
     }
     void getPerson(String username) {
         send(CYFProtocol.PERSON, username);
-
     }
 
     void chooseGroup(int groupId) {
@@ -165,7 +156,7 @@ public class CYFClientController implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Cannot send data to server!");
+            System.err.println("Nie mozna wyslac danych do serwera!");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -180,7 +171,7 @@ public class CYFClientController implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Cannot send data to server!");
+            System.err.println("Nie mozna wyslac danych do serwera!");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

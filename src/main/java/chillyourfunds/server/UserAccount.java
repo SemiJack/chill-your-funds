@@ -5,12 +5,18 @@ import chillyourfunds.logic.Person;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Klasa, która reprezentuje konto użytkownika w usłudze ChillYourFunds
+ */
 public class UserAccount implements Serializable {
 
-    private final int uuid; // unique user id
+    private final int uuid; // unikalny identyfikator użytkownika
 
     private final String username;
-
+    /*
+    Integer, który jest wynikiem hashowania username i password,
+    tworzony jest przy rejestracji. Na serwerze nie jest przechowywane hasło
+    */
     private final int credentials;
 
     private final String firstName;

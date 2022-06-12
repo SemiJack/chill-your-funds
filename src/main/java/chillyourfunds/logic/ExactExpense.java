@@ -1,5 +1,6 @@
 package chillyourfunds.logic;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ import java.util.Scanner;
  * grupy wartość kosztu, jaki powinien zwrócić osobie płacącej. Operuje ona na Hash Mapie,
  * za pomocą której przypisywane są wartości podzielonych kwot do dłużników.
  */
-public class ExactExpense extends Expense{
+public class ExactExpense extends Expense implements Serializable {
     public ExactExpense(int amount, Group group, Person payer) {
         super(amount, group, payer);
     }

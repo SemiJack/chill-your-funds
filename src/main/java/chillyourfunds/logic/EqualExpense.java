@@ -1,5 +1,6 @@
 package chillyourfunds.logic;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * a także osoba, która ponosi dany koszt. Klasa ta przypisuje każdemu uwzględnionemu członkowi
  * grupy wartość kosztu, jaki powinien zwrócić osobie płacącej.
  */
-public class EqualExpense extends Expense{
+public class EqualExpense extends Expense implements Serializable {
     public EqualExpense(int amount, Group group, Person payer) {
         super(amount, group, payer);
     }

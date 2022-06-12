@@ -1,5 +1,7 @@
 package chillyourfunds.logic;
 
+import java.io.Serializable;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ import java.util.Scanner;
  * Hash Mapie, za pomocą której przypisywane są wartości podzielonych kwot do dłużników.
  */
 
-public class PercentExpense extends Expense {
+public class PercentExpense extends Expense implements Serializable {
     public PercentExpense(int amount, Group group, Person payer) {
         super(amount, group, payer);
     }

@@ -8,7 +8,8 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * author: Jacek Pelczar
+ * Ta klasa realizuje zadanie przechowywania danych jako "baza danych".
+ * @author Jacek Pelczar
  */
 public class CYFData {
     private final HashMap<Integer, Group> groupData;
@@ -22,6 +23,12 @@ public class CYFData {
 
     }
 
+    /**
+     * Dodaje nową grupę do bazy danych
+     * @param groupName Nazwa grupy
+     * @param creator Twórca grupy
+     * @return Utworzona grupa
+     */
     public Group addGroup(String groupName, UserAccount creator) {
         Integer id = new Random().nextInt();
         if (groupData.containsKey(id)) {
@@ -36,6 +43,14 @@ public class CYFData {
         return groupData.get(id);
     }
 
+    /**
+     * Tworzy konto użytkownika (User Account)
+     * @param username nazwa użytkownika
+     * @param password hasło
+     * @param firstname Imię
+     * @param lastname Nazwisko
+     * @return czy operacj się udała
+     */
     public boolean addUser(String username, String password, String firstname, String lastname) {
         int credentialsHash = Objects.hash(username, password);
         if (!userData.containsKey(username)) {
@@ -45,33 +60,27 @@ public class CYFData {
             return false;
         }
     }
+
+    /**
+     * Zwraca obioekt klasy Person dla użytkownika o podanej nazwie
+     * @param username nazwa użytkownika
+     * @return
+     */
     public Person getPersonByUsername(String username){
         return userData.get(username).memberOfGroups;
     }
 
+    /**
+     * Zwraca obiekt User Account jeżeli podano poprawne dane logowania
+     * @param username nazwa użytkownika
+     * @param password hasło
+     * @return
+     */
     public UserAccount getUserByCredentials(String username, String password) {
         UserAccount temp = userData.get(username);
         if (temp != null && temp.checkCredentials(Objects.hash(username, password))) {
             return temp;
         } else return null;
     }
-
-
-//
-//    public static void main(String[] args) {
-//        Group gr = new Group("dddsd");
-//        HashMap<Integer, LinkedList<Expense>> database = new HashMap<>();
-//        Person payer = new Person(32323, "sasas@gmail.com","jacek");
-//        Person payer2 = new Person(32523, "sasas@gmyl.com","kolega");
-//        LinkedList<Expense> koo = new LinkedList<>();
-//        koo.add(new Expense(233,gr,payer2));
-//        database.put(12,koo);
-//
-//        database.get(12).add(new Expense(3453,gr,payer));
-//
-//        System.out.println();
-//
-//        System.out.println(database.get(12));
-//    }
 
 }

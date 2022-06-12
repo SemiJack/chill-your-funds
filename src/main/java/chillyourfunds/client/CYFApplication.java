@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class CYFApplication extends javafx.application.Application {
     protected CYFClientController client;
@@ -18,13 +17,10 @@ public class CYFApplication extends javafx.application.Application {
         String port = "40000";
         try {
             this.client = new CYFClientController(host, port);
-            //new Thread(this::talkWithServer).start();
             talkWithServer();
         } catch (Exception e) {
-            //Platform.exit();
             e.printStackTrace();
         }
-//        talkWithServer();
     }
 
     private void talkWithServer() {
@@ -53,7 +49,7 @@ public class CYFApplication extends javafx.application.Application {
 
         System.out.println("Tworzenie nowego wydatku. Typ EqualExpense. Podziel na osoby: admin, jacke i jack");
         client.addExpense(CYFProtocol.EQUALSPLIT,360,new String[]{"admin", "jack", "jacke"});
-
+        System.out.println(client._currGroup.getExpenses());
     }
 
     void destroy() {

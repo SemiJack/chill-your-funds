@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Ta klasa realizuje zadanie servera. Jest odpowiedzialna za akceptację nawiązania połączenia z użytkownikami i utrzymywanie go.
- * Może obsługiwać wiele użytkowników na raz.
+ * Ta klasa realizuje zadanie serwera. Jest odpowiedzialna za akceptację nawiązania połączenia z użytkownikami i utrzymywanie go.
+ * Może obsługiwać wiele użytkowników naraz.
  */
 public class CYFServer extends Frame implements Runnable {
     private ServerSocket _serverSocket;

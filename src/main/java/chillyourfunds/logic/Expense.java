@@ -1,5 +1,6 @@
 package chillyourfunds.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * czy dług został uregulowany, a także listę dłużników. Implementuje ona metody takie jak:
  * addDebtor, createExpense, isPayerADebtor i toString. Po tej klasie dziedziczą klasy EqualExpense i ExactExpense.
  */
-public class Expense {
+public class Expense implements Serializable {
     int amount;
     Group group;
     Person payer;

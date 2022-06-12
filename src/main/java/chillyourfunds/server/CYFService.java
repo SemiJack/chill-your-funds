@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
+ * Klasa obsługująca pojedynczego użytkownika od strony servera.
  * @author Jacek Pelczar
  */
 public class CYFService implements Runnable {
@@ -101,9 +102,6 @@ public class CYFService implements Runnable {
                     Object[] params = (Object[]) message.data;
                     String[] debtors = (String[]) params[2];
                     Expense newExpense;
-//                    for (String debtorUsername : debtors) {
-//                        newExpense.addDebtor(server._database.getPersonByUsername(debtorUsername).getId());
-//                    }
                     if (params[0].equals(CYFProtocol.EQUALSPLIT)) {
                         newExpense =  new EqualExpense((int) params[1], _currGroup, _userAccount.memberOfGroups);
                         for(String debtor: debtors){
@@ -115,9 +113,9 @@ public class CYFService implements Runnable {
                     } else if (params[0].equals(CYFProtocol.EXACTSPLIT)) {
 
                     } else {
-                        //send(CYFProtocol.COMMENT, "Bad type of expense!");
+                        send(CYFProtocol.COMMENT, "Zly typ wydatku!");
                     }
-                    //send(CYFProtocol.COMMENT, "Created expense");
+                    send(CYFProtocol.EXPENSEADDED,new Object[]{_currGroup, _userAccount.memberOfGroups});
                     break;
                 case ADDPERSON:
                     String usernameToAdd = (String) message.data;
