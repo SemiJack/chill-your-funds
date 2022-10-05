@@ -17,4 +17,4 @@ Aplikacja miała zawierać następujące komponenty:
 - komunikacje z klientem aplikacji
 - przechowywanie danych
 
-Program zawiera te komponenty, z tym że nie współpracują one wszystkie ze sobą. Backend współpracuje z GUI, który pozwala na realizacje prawie wszystkich operacji, na które pozwala logiczna część programu. Niestety nie udało się nam zmieścić w deadlinie i dołączyć do tego wszystkiego serwera, więc możliwe jest jedynie sprawdazenie jego działania w osobnej gałęzi.
+Program zawiera te komponenty, z tym że nie współpracują one wszystkie ze sobą. Backend współpracuje z GUI, który pozwala na realizacje prawie wszystkich operacji, na które pozwala logiczna część programu. Niestety nie udało się nam zmieścić w deadlinie i dołączyć do tego wszystkiego serwera, więc możliwe jest jedynie sprawdazenie jego działania w osobnej gałęzi. Być może kiedyś spróbuję dokończyć projekt tak, żeby gui oraz backend stanowiły jedność i z aplikacji dało się korzystać w przyjazny sposób.
